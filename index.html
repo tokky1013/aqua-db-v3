@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+    <!-- BootstrapのCSS読み込み -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Aqua DB</title>
+</head>
+<body>
+    <div id="nav-area">
+        <nav>
+            <div class="inner">
+                <h3>メニュー</h3>
+                <ul>
+                    <li><label>曲一覧</label></li>
+                    <li><label>音域データ一覧</label></li>
+                    <li><label>トークンの設定</label></li>
+                </ul>
+                <h3>リンク</h3>
+                <ul>
+                    <li><a href="https://vocal-range.com/" target="_blank">J-POP 音域の沼</a></li>
+                    <li><a href="https://w.atwiki.jp/saikouon_dokoda/" target="_blank">音域データ! @ ウィキ</a></li>
+                    <li><a href="https://tokky1013.github.io/aqua-db/" target="_blank">あくあDB ver.2</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div id="mask"></div>
+        <div class="toggle-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <header class="d-flex align-items-center px-3">
+        <h1>Aqua DB</h1>
+        <div class="flex-fill"></div>
+        <label class="mr-3 mb-0" onclick="showAddPopup();"><img src="./img/add.svg"></label>
+        <div class="mr-5"></div>
+    </header>
+    <main>
+        <div class="page" data-page-num="0">
+            <div id="list"></div>
+            <div id="version"></div>
+            <label  id="filter-btn" onclick=""><img src="./img/filter.svg"></label>
+        </div>
+        <div class="page" data-page-num="1">
+            <h1>page1</h1>
+        </div>
+        <div class="page" data-page-num="2">
+            <h1>page2</h1>
+        </div>
+        
+    </main>
+    
+    <!-- jQuery読み込み -->
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrapのjs読み込み -->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./js/funcs.js"></script>
+    <script type="text/javascript" src="./js/api.js"></script>
+    <script type="text/javascript" src="./js/models.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+</body>
+</html>
