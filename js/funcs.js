@@ -1,36 +1,38 @@
 // ---------------------データ関連---------------------
 let songs = {};
-let data = {};
+let histories = {};
 
 function getSong(uuid) {
     return songs[uuid];
 }
 
-function getData() {
+function getHistories(funcFinally=null) {
     get(
-        {sheet: "data"},
-        resData => {
-            let dataObj;
-            data = {};
-            resData.forEach(elem => {
-                dataObj = new Data(elem);
-                data[dataObj.uuid] = dataObj;
+        {sheet: 'history'},
+        (resData) => {
+            let historyObj;
+            histories = {};
+            resData.forEach((elem) => {
+                historyObj = new History(elem);
+                histories[historyObj.uuid] = historyObj;
             });
-        }
+        },
+        funcFinally
     );
 }
 
-function getSongs() {
+function getSongs(funcFinally=null) {
     get(
-        {sheet: "songs"},
-        resData => {
+        {sheet: 'songs'},
+        (resData) => {
             let song;
             songs = {};
-            resData.forEach(elem => {
+            resData.forEach((elem) => {
                 song = new Song(elem);
                 songs[song.uuid] = song;
             });
-        }
+        },
+        funcFinally
     );
 }
 
@@ -41,27 +43,28 @@ function showAddPopup() {
 
 // ---------------------メニュー関連---------------------
 function closeMenu() {
-    $("#nav-area").removeClass("open");
-    $(".toggle-btn").removeClass("open");
+    $('#nav-area').removeClass('open');
+    $('.toggle-btn').removeClass('open');
 }
 
 // ---------------------ページ関連---------------------
 function showPage(n) {
-    let pageElems = $(".page");
+    let pageElems = $('.page');
     pageElems.each(function(i, elem) {
         const pageElem = $(elem);
-        if(pageElem.data("page-num") == n) {
-            pageElem.css("display", "block");
+        if(pageElem.data('page-num') == n) {
+            pageElem.css('display', 'block');
         }else {
-            pageElem.css("display", "none");
+            pageElem.css('display', 'none');
         }
     });
+    closeMenu();
 }
 
 // ---------------------データの表示---------------------
 function showSongs(songArr) {
     let html = '';
-    songArr.forEach(song => {
+    songArr.forEach((song) => {
         html += `
             <label onclick="displaySongDetail('${song.uuid}')">
                 <h4>${song.title}</h4>
@@ -86,7 +89,10 @@ function showSongs(songArr) {
         `
     });
 
-    document.getElementById("list").innerHTML = html;
+    $('#song-list').html(html);
+}
+
+function showHistories(historyArr) {
 }
 
 function displaySongDetail(uuid) {

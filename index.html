@@ -16,8 +16,8 @@
             <div class="inner">
                 <h3>メニュー</h3>
                 <ul>
-                    <li><label>曲一覧</label></li>
-                    <li><label>音域データ一覧</label></li>
+                    <li><label onclick="showPage(0);">曲一覧</label></li>
+                    <li><label onclick="showPage(1);">音域データ一覧</label></li>
                     <li><label>トークンの設定</label></li>
                 </ul>
                 <h3>リンク</h3>
@@ -43,15 +43,16 @@
     </header>
     <main>
         <div class="page" data-page-num="0">
-            <div id="list"></div>
-            <div id="version"></div>
+            <div id="song-list" class="list"></div>
+            <div class="version"></div>
             <label  id="filter-btn" onclick=""><img src="./img/filter.svg"></label>
         </div>
         <div class="page" data-page-num="1">
-            <h1>page1</h1>
+            <div id="history-list" class="list"></div>
+            <div class="version"></div>
         </div>
         <div class="page" data-page-num="2">
-            <h1>page2</h1>
+            <h1></h1>
         </div>
         
     </main>

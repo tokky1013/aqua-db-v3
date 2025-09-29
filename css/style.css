@@ -29,29 +29,29 @@ main {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
-#list label {
+.list label {
     padding: 10px 20px;
     width: 100%;
 }
-#list label:nth-child(odd) {
+.list label:nth-child(odd) {
     background-color: white;
 }
-#list label:nth-child(even) {
+.list label:nth-child(even) {
     background-color: #e0e0e0;
 }
-#list label p {
+.list label p {
     margin: 5px 0 5px 10px;
     color: #505050;
 }
-#list label table {
+.list label table {
     margin-left: 10px;
 }
-#list label table tr th {
+.list label table tr th {
     width: 70px;
     border-bottom: 1px solid gray;
     text-align: center;
 }
-#list label table tr td {
+.list label table tr td {
     text-align: center;
 }
 
@@ -68,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
     right: 20px;
     z-index: 1;
 }
-#version {
+.version {
     height: 100px;
     display: flex;
     justify-content: center;

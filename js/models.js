@@ -4,12 +4,12 @@ class ApiClass {
         this.createdAt = new Date().getTime();
     }
 
-    post(mode="add", f=function(data){}) {
+    post(mode='add', f=null) {
         let params = this.toDict();
         params.sheet = this.sheet();
         params.mode = mode;
 
-        post(params, data => f(data))
+        post(params, (data) => {if(f !== null) f(data);})
     }
 
     getCreatedAt() {
@@ -23,16 +23,16 @@ class ApiClass {
 
     // データを連想配列に変換する
     toDict() {
-        throw new Error("Abstract method!");
+        throw new Error('Abstract method!');
     }
 
     // スプレッドシート上のシート名を返す
     sheet() {
-        throw new Error("Abstract method!");
+        throw new Error('Abstract method!');
     }
 }
 
-class Data extends ApiClass {
+class History extends ApiClass {
     constructor(dict=null) {
         super();
 
@@ -41,9 +41,9 @@ class Data extends ApiClass {
         }else {
             this.song = null;
             this.key = 0;
-            this.score = "";
-            this.machineType = "";
-            this.comment = "";
+            this.score = '';
+            this.machineType = '';
+            this.comment = '';
             this.hasSung = false;
         }
     }
@@ -92,7 +92,7 @@ class Data extends ApiClass {
 
     // スプレッドシート上のシート名を返す
     sheet() {
-        return "data";
+        return 'history';
     }
 }
 
@@ -106,79 +106,79 @@ class Song extends ApiClass {
         if(dict) {
             this.fromDict(dict);
         }else {
-            this.title = "";
-            this.artist = "";
+            this.title = '';
+            this.artist = '';
             this.chestMinNote = {
                 value: null,
-                status: "unknown"
+                status: 'unknown'
             };
             this.chestMaxNote = {
                 value: null,
-                status: "unknown"
+                status: 'unknown'
             };
             this.headMinNote = {
                 value: null,
-                status: "unknown"
+                status: 'unknown'
             };
             this.headMaxNote = {
                 value: null,
-                status: "unknown"
+                status: 'unknown'
             };
             this.overallMaxNote = {
                 value: null,
-                status: "unknown"
+                status: 'unknown'
             };
         }
     }
     getChestMinNote(key=0) {
-        if(this.chestMinNote.status == "known") {
+        if(this.chestMinNote.status == 'known') {
             return this.toneFromInt(this.chestMinNote.value + key);
-        } else if(this.chestMinNote.status == "notExist") {
-            return "-";
+        } else if(this.chestMinNote.status == 'notExist') {
+            return '-';
         } else {
-            return "不明";
+            return '不明';
         }
     }
     getChestMaxNote(key=0) {
-        if(this.chestMaxNote.status == "known") {
+        if(this.chestMaxNote.status == 'known') {
             return this.toneFromInt(this.chestMaxNote.value + key);
-        } else if(this.chestMaxNote.status == "notExist") {
-            return "-";
+        } else if(this.chestMaxNote.status == 'notExist') {
+            return '-';
         } else {
-            return "不明";
+            return '不明';
         }
     }
     getHeadMinNote(key=0) {
-        if(this.headMinNote.status == "known") {
+        if(this.headMinNote.status == 'known') {
             return this.toneFromInt(this.headMinNote.value + key);
-        } else if(this.headMinNote.status == "notExist") {
-            return "-";
+        } else if(this.headMinNote.status == 'notExist') {
+            return '-';
         } else {
-            return "不明";
+            return '不明';
         }
     }
     getHeadMaxNote(key=0) {
-        if(this.headMaxNote.status == "known") {
+        if(this.headMaxNote.status == 'known') {
             return this.toneFromInt(this.headMaxNote.value + key);
-        } else if(this.headMaxNote.status == "notExist") {
-            return "-";
+        } else if(this.headMaxNote.status == 'notExist') {
+            return '-';
         } else {
-            return "不明";
+            return '不明';
         }
     }
     getOverallMaxNote(key=0) {
-        if(this.overallMaxNote.status == "known") {
+        if(this.overallMaxNote.status == 'known') {
             return this.toneFromInt(this.overallMaxNote.value + key);
-        } else if(this.overallMaxNote.status == "notExist") {
-            return "-";
+        } else if(this.overallMaxNote.status == 'notExist') {
+            return '-';
         } else {
-            return "不明";
+            return '不明';
         }
     }
     
     toneFromInt(num) {
-        const tones = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
-        const octave = ["low", "mid1", "mid2", "hi", "hihi", "hihihi"];
+        const tones = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
+        const octave = ['low', 'mid1', 'mid2', 'hi', 'hihi', 'hihihi'];
 
         return octave[Math.floor(num / 12) + 3] + tones[(num + 48) % 12];
     }
@@ -232,6 +232,6 @@ class Song extends ApiClass {
 
     // スプレッドシート上のシート名を返す
     sheet() {
-        return "songs";
+        return 'songs';
     }
 }
