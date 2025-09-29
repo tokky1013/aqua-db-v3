@@ -2,11 +2,13 @@
     --header-height: 64px;
     --main-background-color-0: #404040;
     --main-background-color-1: #202020;
-    --main-background-color-2: #2f2f2f;
+    --main-background-color-2: #303030;
 
     --main-color-0: #e0e0e0;
     --main-color-1: #a5a5a5;
     --main-color-2: #d6d6d6;
+
+    --svg-filter-color-0: brightness(0) saturate(100%) invert(100%) sepia(4%) saturate(53%) hue-rotate(236deg) brightness(117%) contrast(76%);
 }
 
 body {
@@ -31,6 +33,10 @@ header h1 {
     color: var(--main-color-0);
     font-weight: 100;
 }
+
+.add-btn {
+    filter: var(--svg-filter-color-0);
+}
 main {
     padding-top: var(--header-height);
 }
@@ -53,9 +59,19 @@ h1, h2, h3, h4, h5, h6 {
 .list label:nth-child(even) {
     background-color: var(--main-background-color-2);
 }
-.list label p {
+.list label > div {
+    margin: 5px 0 0 10px;
+    color: var(--main-color-1);
+    display: flex;
+    gap: 20px;
+    align-items: end;
+}
+/* .list label h6 {
     margin: 5px 0 5px 10px;
     color: var(--main-color-1);
+} */
+.list label div span {
+    font-size: smaller;
 }
 .list label table {
     margin-left: 10px;
@@ -220,4 +236,9 @@ nav .inner ul li a:hover {
     z-index: 99;
     opacity: 0.8;
     cursor: pointer;
+}
+
+/* その他 */
+.flex-1 {
+    flex: 1;
 }
