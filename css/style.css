@@ -26,9 +26,11 @@ header {
     top: 0;
     transition: 0.2s;
 }
+
 header.hidden {
     top: calc(-1 * var(--header-height));
 }
+
 header h1 {
     color: var(--main-color-0);
     font-weight: 100;
@@ -37,50 +39,86 @@ header h1 {
 .add-btn {
     filter: var(--svg-filter-color-0);
 }
+
 main {
     padding-top: var(--header-height);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0;
 }
 
 .main-content {
     min-height: calc(100svh - var(--header-height) - 100px);
 }
+
 /* リスト */
 .list label {
     padding: 10px 20px;
     width: 100%;
 }
+
 .list label:nth-child(odd) {
     background-color: var(--main-background-color-1);
 }
+
 .list label:nth-child(even) {
     background-color: var(--main-background-color-2);
 }
-.list label > div {
+
+.list label>div:not(.title-container) {
     margin: 5px 0 0 10px;
     color: var(--main-color-1);
     display: flex;
     gap: 20px;
     align-items: end;
 }
-/* .list label h6 {
-    margin: 5px 0 5px 10px;
-    color: var(--main-color-1);
-} */
-.list label div span {
-    font-size: smaller;
+
+.list label h4 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
+.list label .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list label .title-container.sung::after {
+    content: '';
+    display: inline-block;
+    padding-right: 20px;
+    width: 25px;
+    height: 12px;
+    border-left: 4px solid #25AF01;
+    border-bottom: 4px solid #25AF01;
+    transform: rotate(-45deg);
+}
+
+.list label .artist-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
 .list label table {
     margin-left: 10px;
 }
+
 .list label table tr th {
     width: 70px;
     border-bottom: 1px solid gray;
     text-align: center;
 }
+
 .list label table tr td {
     text-align: center;
 }
@@ -92,7 +130,8 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     color: var(--main-color-1);
 }
-.list:empty + .empty-message {
+
+.list:empty+.empty-message {
     display: flex;
 }
 
@@ -109,6 +148,7 @@ h1, h2, h3, h4, h5, h6 {
     right: 20px;
     z-index: 1;
 }
+
 .version {
     height: 100px;
     display: flex;
@@ -133,27 +173,33 @@ nav {
     width: 270px;
     opacity: 0;
 }
+
 .open nav {
     left: 0;
     opacity: 1;
 }
+
 nav .inner {
     padding: 25px;
 }
-nav .inner h3{
+
+nav .inner h3 {
     margin: 0;
     text-align: center;
     padding-top: 40px;
 }
+
 nav .inner ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 nav .inner ul li {
     margin: 0;
     border-bottom: 1px solid var(--main-color-0);
 }
+
 nav .inner ul li label,
 nav .inner ul li a {
     font-size: 18px;
@@ -162,11 +208,13 @@ nav .inner ul li a {
     width: 100%;
     margin: 10px 0 0;
 }
+
 nav .inner ul li a {
     text-decoration: none;
     color: var(--main-color-0);
     display: block;
 }
+
 nav .inner ul li label:hover,
 nav .inner ul li a:hover {
     background-color: #606060;
@@ -183,9 +231,11 @@ nav .inner ul li a:hover {
     cursor: pointer;
     transition: 0.2s;
 }
+
 .toggle-btn.hidden {
     top: calc(-1 * var(--header-height));
 }
+
 .toggle-btn span {
     position: relative;
     /* position: absolute; */
@@ -197,6 +247,7 @@ nav .inner ul li a:hover {
     transition: all 0.5s;
     border-radius: 4px;
 }
+
 .toggle-btn.open span {
     /* position: absolute; */
 }
@@ -204,18 +255,23 @@ nav .inner ul li a:hover {
 .toggle-btn span:nth-child(1) {
     top: 4px;
 }
+
 .toggle-btn span:nth-child(2) {
     top: 10px;
 }
+
 .toggle-btn span:nth-child(3) {
     top: 16px;
 }
+
 .toggle-btn.open span:nth-child(1) {
     transform: translateY(8px) rotate(-315deg);
 }
+
 .toggle-btn.open span:nth-child(2) {
     opacity: 0;
 }
+
 .toggle-btn.open span:nth-child(3) {
     transform: translateY(-8px) rotate(315deg);
 }
@@ -234,8 +290,31 @@ nav .inner ul li a:hover {
     left: 0;
     position: fixed;
     z-index: 99;
-    opacity: 0.8;
+    opacity: 0.75;
     cursor: pointer;
+}
+
+/* モーダル */
+#modal-container {
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: #000000c0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 120;
+    cursor: pointer;
+}
+
+.modal-content {
+    background-color: var(--main-background-color-1);
+    width: 200px;
+    height: 200px;
 }
 
 /* その他 */

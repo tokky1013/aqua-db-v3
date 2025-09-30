@@ -42,6 +42,10 @@ $(window).on('scroll', () => {
         $('.toggle-btn').removeClass('hidden');
     }
 });
+// ----------モーダル----------
+$('.modal').on('click touchstart', (e) => {
+    e.stopPropagation();
+});
 
 // ----------初期化----------
 $(function () {

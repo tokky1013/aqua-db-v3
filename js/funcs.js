@@ -37,7 +37,7 @@ function getSongs(funcFinally=null) {
 }
 
 // 曲、データの追加画面の表示
-function showAddPopup() {
+function showAddModal() {
 
 }
 
@@ -68,7 +68,7 @@ function showSongs(songArr) {
         html += `
             <label onclick="displaySongDetail('${song.uuid}')">
                 <h4>${song.title}</h4>
-                <div><div>${song.artist}</div> <div><span>追加日</span> : ${song.getCreatedAt()}</div></div>
+                <div><div class="artist-name">${song.artist}</div> <div>${song.getCreatedAt()}</div></div>
                 <table>
                     <tr>
                         <th>地低</th>
@@ -106,8 +106,8 @@ function showHistories(historyArr) {
 
         html += `
             <label onclick="displayHistoryDetail('${history.uuid}')">
-                <h4>${history.song.title}</h4>
-                <div><div>${key}</div><div>${history.song.artist}</div><div>${history.getCreatedAt()}</div></div>
+                <div class="title-container${history.hasSung ? ' sung' : ''}"><h4>${history.song.title}</h4></div>
+                <div><div class="artist-name">${history.song.artist}</div><div>${key}</div><div>${history.getCreatedAt()}</div></div>
                 <table>
                     <tr>
                         <th>地低</th>
@@ -131,6 +131,23 @@ function showHistories(historyArr) {
     $('#history-list').html(html);
 }
 
+// ---------------------モーダル---------------------
+function openModal(n) {
+    $('#modal-container').css('display', 'flex');
+
+    let modalElems = $('.modal-content');
+    modalElems.each(function(i, elem) {
+        const modalElem = $(elem);
+        if(modalElem.data('modal-num') == n) {
+            modalElem.css('display', 'block');
+        }else {
+            modalElem.css('display', 'none');
+        }
+    });
+}
+function closeModal() {
+    $('#modal-container').css('display', 'none');
+}
 function displaySongDetail(uuid) {
     alert(uuid);
 }

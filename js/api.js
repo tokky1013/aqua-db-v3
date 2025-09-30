@@ -1,4 +1,4 @@
-const url = 'https://script.google.com/macros/s/AKfycbx0LAp3DEkMih4NgrJBXhcN4ECuc3s0KiI2X_soKSiKoolVWyT0pUEfumWgSW1QDUkm/exec';
+const url = 'https://script.google.com/macros/s/AKfycbxhrqDQoZu7caQrWRtVk0DmQ6gxCHLnlWpX-fk202hdU-9z6X34exBSSGjXcnc8d7nY/exec';
 let SECRET_TOKEN = 'd47f6f90-db00-4208-a56b-0c3640837f33';
 
 function get(params, funcOk = null, funcFinally=null) {

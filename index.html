@@ -38,7 +38,7 @@
     <header class="d-flex align-items-center px-3">
         <h1>Aqua DB</h1>
         <div class="flex-fill"></div>
-        <label class="mr-3 mb-0" onclick="showAddPopup();"><img src="./img/add.svg" class="add-btn"></label>
+        <label class="mr-3 mb-0" onclick="showAddModal();"><img src="./img/add.svg" class="add-btn"></label>
         <div class="mr-5"></div>
     </header>
     <main>
@@ -65,6 +65,12 @@
             <h1></h1>
         </div>
         
+        <div id="modal-container" onclick="closeModal();">
+            <div class="modal-content" data-modal-num="0">モーダル0</div>
+            <div class="modal-content" data-modal-num="1">モーダル1</div>
+            <div class="modal-content" data-modal-num="2">モーダル2</div>
+            <div class="modal-content" data-modal-num="3">モーダル3</div>
+        </div>
     </main>
     
     <!-- jQuery読み込み -->
