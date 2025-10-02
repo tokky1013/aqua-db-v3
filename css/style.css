@@ -81,7 +81,7 @@ h6 {
 }
 
 .main-content {
-    min-height: calc(100svh - var(--header-height) - 100px);
+    min-height: calc(100lvh - var(--header-height) - 100px);
 }
 
 /* リスト */
@@ -322,22 +322,22 @@ nav .inner ul li a:hover {
 /* --------Slide Over-------- */
 #slide-over-container {
     overflow: hidden;
-    width: 100svw;
+    width: 100lvw;
     height: 0;
 
     position: fixed;
-    top: 100svh;
+    top: 100lvh;
     left: 0;
     z-index: 10;
 }
 
 #slide-over-container.open {
-    height: 100svh;
+    height: 100lvh;
     top: 0;
 }
 
 .slide-over {
-    width: calc(100svw - 20px);
+    width: calc(100lvw - 20px);
     height: var(--slide-over-height);
 
     position: absolute;
@@ -425,10 +425,10 @@ nav .inner ul li a:hover {
 .full-screen-modal {
     position: fixed;
     top: 0;
-    left: 100svw;
+    left: 100lvw;
     z-index: 120;
-    width: 100svw;
-    height: 100svh;
+    width: 100lvw;
+    height: 100lvh;
     transition: 0.2s;
     background-color: var(--main-background-color-1);
 }
@@ -437,13 +437,13 @@ nav .inner ul li a:hover {
     left: 0;
 
     @starting-style {
-        left: 100svw;
+        left: 100lvw;
     }
 }
 
 /* ヘッダー */
 .full-screen-modal-header {
-    width: 100svw;
+    width: 100lvw;
     height: var(--header-height);
     background-color: var(--main-background-color-0);
 
