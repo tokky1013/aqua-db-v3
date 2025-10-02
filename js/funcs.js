@@ -36,37 +36,12 @@ function getSongs(funcFinally=null) {
     );
 }
 
-// 曲、データの追加画面の表示
-function showAddModal() {
-
-}
-
-// ---------------------メニュー関連---------------------
-function closeMenu() {
-    $('#nav-area').removeClass('open');
-    $('.toggle-btn').removeClass('open');
-}
-
-// ---------------------ページ関連---------------------
-function showPage(n) {
-    let pageElems = $('.page');
-    pageElems.each(function(i, elem) {
-        const pageElem = $(elem);
-        if(pageElem.data('page-num') == n) {
-            pageElem.css('display', 'block');
-        }else {
-            pageElem.css('display', 'none');
-        }
-    });
-    closeMenu();
-}
-
 // ---------------------データの表示---------------------
 function showSongs(songArr) {
     let html = '';
     songArr.forEach((song) => {
         html += `
-            <label onclick="displaySongDetail('${song.uuid}')">
+            <label class="clickable" onclick="displaySongDetail('${song.uuid}')">
                 <h4>${song.title}</h4>
                 <div><div class="artist-name">${song.artist}</div> <div>${song.getCreatedAt()}</div></div>
                 <table>
@@ -105,7 +80,7 @@ function showHistories(historyArr) {
         }
 
         html += `
-            <label onclick="displayHistoryDetail('${history.uuid}')">
+            <label class="clickable" onclick="displayHistoryDetail('${history.uuid}')">
                 <div class="title-container${history.hasSung ? ' sung' : ''}"><h4>${history.song.title}</h4></div>
                 <div><div class="artist-name">${history.song.artist}</div><div>${key}</div><div>${history.getCreatedAt()}</div></div>
                 <table>
@@ -131,26 +106,15 @@ function showHistories(historyArr) {
     $('#history-list').html(html);
 }
 
-// ---------------------モーダル---------------------
-function openModal(n) {
-    $('#modal-container').css('display', 'flex');
 
-    let modalElems = $('.modal-content');
-    modalElems.each(function(i, elem) {
-        const modalElem = $(elem);
-        if(modalElem.data('modal-num') == n) {
-            modalElem.css('display', 'block');
-        }else {
-            modalElem.css('display', 'none');
-        }
-    });
-}
-function closeModal() {
-    $('#modal-container').css('display', 'none');
-}
+// ---------------------Full-Screen Modal---------------------
 function displaySongDetail(uuid) {
     alert(uuid);
 }
 function displayHistoryDetail(uuid) {
     alert(uuid);
+}
+
+function openAddSongPage() {
+    openFullScreenModal('曲を追加', '');
 }

@@ -16,29 +16,32 @@
             <div class="inner">
                 <h3>メニュー</h3>
                 <ul>
-                    <li><label onclick="showPage(0);">曲一覧</label></li>
-                    <li><label onclick="showPage(1);">音域データ一覧</label></li>
-                    <li><label>トークンの設定</label></li>
+                    <li><label class="clickable" onclick="showPage(0);">曲一覧</label></li>
+                    <li><label class="clickable" onclick="showPage(1);">音域データ一覧</label></li>
+                    <li><label class="clickable">トークンの設定</label></li>
                 </ul>
                 <h3>リンク</h3>
                 <ul>
-                    <li><a href="https://vocal-range.com/" target="_blank">J-POP 音域の沼</a></li>
-                    <li><a href="https://w.atwiki.jp/saikouon_dokoda/" target="_blank">音域データ! @ ウィキ</a></li>
-                    <li><a href="https://tokky1013.github.io/aqua-db/" target="_blank">あくあDB ver.2</a></li>
+                    <li><a class="clickable" href="https://vocal-range.com/" target="_blank">J-POP 音域の沼</a></li>
+                    <li><a class="clickable" href="https://w.atwiki.jp/saikouon_dokoda/" target="_blank">音域データ! @ ウィキ</a></li>
+                    <li><a class="clickable" href="https://tokky1013.github.io/aqua-db/" target="_blank">あくあDB ver.2</a></li>
                 </ul>
             </div>
         </nav>
         <div id="mask"></div>
-        <div class="toggle-btn">
+        <label class="toggle-btn clickable">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </label>
     </div>
     <header class="d-flex align-items-center px-3">
         <h1>Aqua DB</h1>
         <div class="flex-fill"></div>
-        <label class="mr-3 mb-0" onclick="showAddModal();"><img src="./img/add.svg" class="add-btn"></label>
+        <label class="mr-4 mb-0 clickable" id="add-song-btn" onclick="openAddSongPage();">
+            <span></span>
+            <span></span>
+        </label>
         <div class="mr-5"></div>
     </header>
     <main>
@@ -50,7 +53,7 @@
                 </div>
             </div>
             <div class="version"></div>
-            <label  id="filter-btn" onclick=""><img src="./img/filter.svg"></label>
+            <label  class="filter-btn clickable" onclick="openSlideOver(0);"><img src="./img/filter.svg"></label>
         </div>
         <div class="page" data-page-num="1">
             <div class="main-content">
@@ -60,23 +63,44 @@
                 </div>
             </div>
             <div class="version"></div>
+            <label  class="filter-btn clickable" onclick="openSlideOver(1);"><img src="./img/filter.svg"></label>
         </div>
-        <div class="page" data-page-num="2">
-            <h1></h1>
-        </div>
-        
-        <div id="modal-container" onclick="closeModal();">
-            <div class="modal-content" data-modal-num="0">モーダル0</div>
-            <div class="modal-content" data-modal-num="1">モーダル1</div>
-            <div class="modal-content" data-modal-num="2">モーダル2</div>
-            <div class="modal-content" data-modal-num="3">モーダル3</div>
+        <div id="slide-over-container" class="open">
+            <div class="slide-over open" data-slide-over-num="0">
+                <div class="slide-over-header">
+                    <label class="close-slide-over-btn" onclick="closeSlideOver();"></label>
+                    <h4>絞り込み・並び替え</h4>
+                    <div class="spacer"></div>
+                </div>
+                <div class="slide-over-main">
+
+                </div>
+                <div class="slide-over-footer">
+                    <button class="reset-btn clickable">リセット</button>
+                    <button class="apply-btn clickable">適用</button>
+                </div>
+            </div>
+            <div class="slide-over" data-slide-over-num="1">
+
+            </div>
         </div>
     </main>
+    <div id="full-screen-modal-container">
+        <!-- <div class="full-screen-modal open">
+            <div class="full-screen-modal-header">
+                <label class="full-screen-modal-back-btn"></label>
+                <h3>Title</h3>
+                <label class="full-screen-modal-close-btn" onclick="closeAllFullScreenModal();"></label>
+            </div>
+            <div class="full-screen-modal-main"></div>
+        </div> -->
+    </div>
     
     <!-- jQuery読み込み -->
     <script src="./js/jquery-3.7.1.min.js"></script>
     <!-- Bootstrapのjs読み込み -->
     <script src="./js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./js/page.js"></script>
     <script type="text/javascript" src="./js/funcs.js"></script>
     <script type="text/javascript" src="./js/api.js"></script>
     <script type="text/javascript" src="./js/models.js"></script>

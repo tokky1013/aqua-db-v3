@@ -1,6 +1,8 @@
 :root {
     --header-height: 64px;
-    --main-background-color-0: #404040;
+    --slide-over-height: 500px;
+
+    --main-background-color-0: #606060;
     --main-background-color-1: #202020;
     --main-background-color-2: #303030;
 
@@ -8,7 +10,9 @@
     --main-color-1: #a5a5a5;
     --main-color-2: #d6d6d6;
 
-    --svg-filter-color-0: brightness(0) saturate(100%) invert(100%) sepia(4%) saturate(53%) hue-rotate(236deg) brightness(117%) contrast(76%);
+    --btn-color: #050505;
+
+    /* --svg-filter-color-0: brightness(0) saturate(100%) invert(100%) sepia(4%) saturate(53%) hue-rotate(236deg) brightness(117%) contrast(76%); */
 }
 
 body {
@@ -17,6 +21,7 @@ body {
     background-color: var(--main-background-color-1);
 }
 
+/* ----header---- */
 header {
     background-color: var(--main-background-color-0);
     height: var(--header-height);
@@ -36,12 +41,34 @@ header h1 {
     font-weight: 100;
 }
 
-.add-btn {
-    filter: var(--svg-filter-color-0);
+#add-song-btn {
+    height: 31px;
+    width: 31px;
+    cursor: pointer;
 }
 
+#add-song-btn span {
+    position: relative;
+    display: block;
+    left: 0;
+    width: 31px;
+    height: 3px;
+    background-color: var(--main-color-0);
+}
+
+#add-song-btn span:nth-child(1) {
+    top: 14px;
+}
+
+#add-song-btn span:nth-child(2) {
+    top: 11px;
+    transform: rotate(90deg);
+}
+
+/* ----main---- */
 main {
     padding-top: var(--header-height);
+    overflow-x: hidden;
 }
 
 h1,
@@ -60,7 +87,11 @@ h6 {
 /* リスト */
 .list label {
     padding: 10px 20px;
+    margin: 0;
     width: 100%;
+}
+.list label:hover {
+    transform: scale(1) !important;
 }
 
 .list label:nth-child(odd) {
@@ -135,7 +166,7 @@ h6 {
     display: flex;
 }
 
-#filter-btn {
+.filter-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -150,7 +181,7 @@ h6 {
 }
 
 .version {
-    height: 100px;
+    height: 120px;
     display: flex;
     justify-content: center;
     align-items: end;
@@ -226,10 +257,10 @@ nav .inner ul li a:hover {
     top: 17px;
     right: 30px;
     width: 30px;
-    height: 30px;
+    height: 31px;
     z-index: 100;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.2s !important;
 }
 
 .toggle-btn.hidden {
@@ -238,18 +269,12 @@ nav .inner ul li a:hover {
 
 .toggle-btn span {
     position: relative;
-    /* position: absolute; */
     display: block;
     left: 0;
     width: 30px;
-    height: 2px;
+    height: 3px;
     background-color: var(--main-color-0);
     transition: all 0.5s;
-    border-radius: 4px;
-}
-
-.toggle-btn.open span {
-    /* position: absolute; */
 }
 
 .toggle-btn span:nth-child(1) {
@@ -257,15 +282,15 @@ nav .inner ul li a:hover {
 }
 
 .toggle-btn span:nth-child(2) {
-    top: 10px;
+    top: 11px;
 }
 
 .toggle-btn span:nth-child(3) {
-    top: 16px;
+    top: 18px;
 }
 
 .toggle-btn.open span:nth-child(1) {
-    transform: translateY(8px) rotate(-315deg);
+    transform: translateY(10px) rotate(-315deg);
 }
 
 .toggle-btn.open span:nth-child(2) {
@@ -273,7 +298,7 @@ nav .inner ul li a:hover {
 }
 
 .toggle-btn.open span:nth-child(3) {
-    transform: translateY(-8px) rotate(315deg);
+    transform: translateY(-10px) rotate(315deg);
 }
 
 #mask {
@@ -294,30 +319,197 @@ nav .inner ul li a:hover {
     cursor: pointer;
 }
 
-/* モーダル */
-#modal-container {
-    display: none;
+/* --------Slide Over-------- */
+#slide-over-container {
+    overflow: hidden;
+    width: 100svw;
+    height: 0;
 
+    position: fixed;
+    top: 100svh;
+    left: 0;
+    z-index: 10;
+}
+
+#slide-over-container.open {
+    height: 100svh;
+    top: 0;
+}
+
+.slide-over {
+    width: calc(100svw - 20px);
+    height: var(--slide-over-height);
+
+    position: absolute;
+    left: 10px;
+    bottom: calc(-1 * var(--slide-over-height));
+
+    background-color: var(--main-background-color-0);
+    border-radius: 20px 20px 0 0;
+
+    transition: 0.2s;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.slide-over.open {
+    bottom: 0;
+}
+
+.slide-over-header {
+    width: 100%;
+    height: var(--header-height);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    color: var(--main-color-0);
+}
+
+.close-slide-over-btn {
+    margin: 0;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    display: flex;
     justify-content: center;
     align-items: center;
-
-    background-color: #000000c0;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    z-index: 120;
     cursor: pointer;
 }
 
-.modal-content {
+.close-slide-over-btn::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-left: 4px solid var(--main-color-0);
+    border-bottom: 4px solid var(--main-color-0);
+    transform: rotate(-45deg);
+}
+
+.slide-over-header .spacer {
+    width: 34px
+}
+
+.slide-over-main {
+    width: 100%;
+    flex: 1;
+}
+
+.slide-over-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: var(--main-color-1); */
+}
+
+/* ボタン */
+.slide-over-footer button {
+    width: 130px;
+    height: 35px;
+
+    border-radius: 5px;
+    border: none;
+    font-weight: 100;
+    color: var(--main-color-2);
+}
+.slide-over-footer .reset-btn {
+    background-color: var(--main-background-color-2);
+}
+.slide-over-footer .apply-btn {
+    background-color: var(--btn-color);
+}
+
+/* --------Full-Screen Modal-------- */
+.full-screen-modal {
+    position: fixed;
+    top: 0;
+    left: 100svw;
+    z-index: 120;
+    width: 100svw;
+    height: 100svh;
+    transition: 0.2s;
     background-color: var(--main-background-color-1);
-    width: 200px;
-    height: 200px;
+}
+
+.full-screen-modal.open {
+    left: 0;
+
+    @starting-style {
+        left: 100svw;
+    }
+}
+
+/* ヘッダー */
+.full-screen-modal-header {
+    width: 100svw;
+    height: var(--header-height);
+    background-color: var(--main-background-color-0);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+/* 前に戻るボタン */
+.full-screen-modal-back-btn {
+    margin: 0;
+    padding-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.full-screen-modal-back-btn::before {
+    content: '';
+    width: 25px;
+    height: 25px;
+    border-left: 4px solid var(--main-color-0);
+    border-bottom: 4px solid var(--main-color-0);
+    transform: rotate(45deg);
+}
+
+/* 全部閉じるボタン */
+.full-screen-modal-close-btn {
+    width: 64px;
+    margin: 0;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.full-screen-modal-close-btn::before,
+.full-screen-modal-close-btn::after {
+    content: '';
+    width: 30px;
+    height: 4px;
+    position: relative;
+    left: 10px;
+
+    background-color: var(--main-color-0);
+}
+
+.full-screen-modal-close-btn::before {
+    transform: rotate(45deg);
+    top: 2px;
+}
+
+.full-screen-modal-close-btn::after {
+    transform: rotate(-45deg);
+    top: -2px;
 }
 
 /* その他 */
-.flex-1 {
-    flex: 1;
+.clickable {
+    transition: 0.5s;
+    cursor: pointer;
+}
+.clickable:hover {
+    filter: brightness(120%);
+    transform: scale(1.05);
 }
