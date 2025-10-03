@@ -9,7 +9,7 @@ class ApiClass {
         params.sheet = this.sheet();
         params.mode = mode;
 
-        post(params, (data) => {if(f !== null) f(data);})
+        post(params, (data) => {if(f !== null) f(data);});
     }
 
     getCreatedAt() {
@@ -45,6 +45,7 @@ class History extends ApiClass {
             this.machineType = '';
             this.comment = '';
             this.hasSung = false;
+            this.isFavourite = false;
         }
     }
 
@@ -74,6 +75,7 @@ class History extends ApiClass {
         this.machineType = dict.machineType;
         this.comment = dict.comment;
         this.hasSung = dict.hasSung;
+        this.isFavourite = dict.isFavourite;
     }
 
     // データを連想配列に変換する
@@ -87,7 +89,18 @@ class History extends ApiClass {
             machineType : this.machineType,
             comment : this.comment,
             hasSung : this.hasSung,
+            isFavourite : this.isFavourite,
         };
+    }
+
+    registerHasSung(hasSung, f=null) {
+        this.hasSung = hasSung;
+        this.post('register-has-sung', f);
+    }
+
+    registerIsFavorite(isFavourite, f=null) {
+        this.isFavourite = isFavourite;
+        this.post('register-is-favorite', f);
     }
 
     // スプレッドシート上のシート名を返す

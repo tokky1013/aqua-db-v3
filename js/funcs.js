@@ -106,6 +106,27 @@ function showHistories(historyArr) {
     $('#history-list').html(html);
 }
 
+function filterArr(arr, conditionFuncs) {
+    let newArr = structuredClone(arr);
+    for (const func of conditionFuncs) {
+        newArr = newArr.filter(func);
+    }
+    return newArr;
+}
+
+function sortArr(arr, orderFunc) {
+    let newArr = structuredClone(arr);
+    newArr.sort(orderFunc);
+    
+    return newArr;
+}
+
+function filterAndSortSongs(conditions=null) {
+    
+}
+function filterAndSortHistories(conditions=null) {
+    
+}
 
 // ---------------------Full-Screen Modal---------------------
 function displaySongDetail(uuid) {
