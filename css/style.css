@@ -12,6 +12,8 @@
 
     --btn-color: #050505;
 
+    --favorite-filter: invert(59%) sepia(83%) saturate(1509%) hue-rotate(24deg) brightness(117%) contrast(113%);
+
     /* --svg-filter-color-0: brightness(0) saturate(100%) invert(100%) sepia(4%) saturate(53%) hue-rotate(236deg) brightness(117%) contrast(76%); */
 }
 
@@ -114,23 +116,29 @@ h6 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    flex: 1;
 }
 
 .list label .title-container {
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
     align-items: center;
+}
+
+.list label .title-container .favorite {
+    filter: var(--favorite-filter);
+    width: 33px;
+    height: 33px;
 }
 
 .list label .title-container.sung::after {
     content: '';
     display: inline-block;
-    padding-right: 20px;
     width: 25px;
     height: 12px;
     border-left: 4px solid #25AF01;
     border-bottom: 4px solid #25AF01;
-    transform: rotate(-45deg);
+    transform: translateY(-4px) rotate(-45deg);
 }
 
 .list label .artist-name {
@@ -345,6 +353,7 @@ nav .inner ul li a:hover {
     bottom: calc(-1 * var(--slide-over-height));
 
     background-color: var(--main-background-color-0);
+    color: var(--main-color-0);
     border-radius: 20px 20px 0 0;
 
     transition: 0.2s;
@@ -365,7 +374,6 @@ nav .inner ul li a:hover {
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
-    color: var(--main-color-0);
 }
 
 .close-slide-over-btn {
@@ -392,8 +400,31 @@ nav .inner ul li a:hover {
 }
 
 .slide-over-main {
-    width: 100%;
+    width: calc(100% - 20px);
     flex: 1;
+    overflow-y: scroll;
+    margin: 10px;
+}
+
+.slide-over-main h5 {
+    margin-bottom: 5px;
+}
+
+.input-box {
+    margin-left: 10px;
+}
+
+.voice-range-box {
+    margin-bottom: 25px;
+}
+
+.voice-range {
+    margin-left: 10px;
+    color: var(--main-color-2);
+}
+
+.voice-range-slider {
+    margin: 10px 30px;
 }
 
 .slide-over-footer {

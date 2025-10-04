@@ -37,6 +37,7 @@ function getSongs(funcFinally=null) {
 }
 
 // ---------------------データの表示---------------------
+let prevConditions = null;
 function showSongs(songArr) {
     let html = '';
     songArr.forEach((song) => {
@@ -81,7 +82,7 @@ function showHistories(historyArr) {
 
         html += `
             <label class="clickable" onclick="displayHistoryDetail('${history.uuid}')">
-                <div class="title-container${history.hasSung ? ' sung' : ''}"><h4>${history.song.title}</h4></div>
+                <div class="title-container${history.hasSung ? ' sung' : ''}"><h4>${history.song.title}</h4><img src="./img/star.svg" class="favorite ${history.isFavourite ? '' : ' d-none'}"></div>
                 <div><div class="artist-name">${history.song.artist}</div><div>${key}</div><div>${history.getCreatedAt()}</div></div>
                 <table>
                     <tr>
@@ -106,9 +107,9 @@ function showHistories(historyArr) {
     $('#history-list').html(html);
 }
 
-function filterArr(arr, conditionFuncs) {
+function filterArr(arr, filteringConditionFuncs) {
     let newArr = structuredClone(arr);
-    for (const func of conditionFuncs) {
+    for (const func of filteringConditionFuncs) {
         newArr = newArr.filter(func);
     }
     return newArr;
@@ -122,7 +123,24 @@ function sortArr(arr, orderFunc) {
 }
 
 function filterAndSortSongs(conditions=null) {
-    
+    let filteringConditionFuncs;
+    let orderFunc;
+    if(conditions === null) {
+
+    } else {
+        filteringConditionFuncs = conditions.filteringConditionFuncs;
+        orderFunc = conditions.orderFunc;
+    }
+    prevConditions = {
+        'filteringConditionFuncs': filteringConditionFuncs,
+        'orderFunc': orderFunc,
+    };
+
+    let displayedSongs = Object.values(songs);
+    displayedSongs = filterArr(displayedSongs, filteringConditionFuncs);
+    displayedSongs = sortArr(displayedSongs, orderFunc);
+
+    showSongs(displayedSongs);
 }
 function filterAndSortHistories(conditions=null) {
     

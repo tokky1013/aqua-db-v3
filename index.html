@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,11 @@
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
     <!-- BootstrapのCSS読み込み -->
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/nouislider.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <title>Aqua DB</title>
 </head>
+
 <body>
     <div id="nav-area">
         <nav>
@@ -23,8 +26,10 @@
                 <h3>リンク</h3>
                 <ul>
                     <li><a class="clickable" href="https://vocal-range.com/" target="_blank">J-POP 音域の沼</a></li>
-                    <li><a class="clickable" href="https://w.atwiki.jp/saikouon_dokoda/" target="_blank">音域データ! @ ウィキ</a></li>
-                    <li><a class="clickable" href="https://tokky1013.github.io/aqua-db/" target="_blank">あくあDB ver.2</a></li>
+                    <li><a class="clickable" href="https://w.atwiki.jp/saikouon_dokoda/" target="_blank">音域データ! @
+                            ウィキ</a></li>
+                    <li><a class="clickable" href="https://tokky1013.github.io/aqua-db/" target="_blank">あくあDB ver.2</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -53,7 +58,7 @@
                 </div>
             </div>
             <div class="version"></div>
-            <label  class="filter-btn clickable" onclick="openSlideOver(0);"><img src="./img/filter.svg"></label>
+            <label class="filter-btn clickable" onclick="openSlideOver(0);"><img src="./img/filter.svg"></label>
         </div>
         <div class="page" data-page-num="1">
             <div class="main-content">
@@ -63,10 +68,60 @@
                 </div>
             </div>
             <div class="version"></div>
-            <label  class="filter-btn clickable" onclick="openSlideOver(1);"><img src="./img/filter.svg"></label>
+            <label class="filter-btn clickable" onclick="openSlideOver(1);"><img src="./img/filter.svg"></label>
         </div>
         <div id="slide-over-container">
             <div class="slide-over" data-slide-over-num="0">
+                <div class="slide-over-header">
+                    <label class="close-slide-over-btn" onclick="closeSlideOver();"></label>
+                    <h4>絞り込み・並び替え</h4>
+                    <div class="spacer"></div>
+                </div>
+                <div class="slide-over-main">
+                    <h5>絞り込み</h5>
+                    <div class="input-box">
+                        <h6>タイトル</h6>
+                    </div>
+                    <hr>
+                    <div class="input-box">
+                        <h6>アーティスト</h6>
+                    </div>
+                    <hr>
+                    <div class="input-box voice-range-box">
+                        <h6>地声最低音</h6>
+                        <span class="voice-range"></span>
+                        <div class="voice-range-slider"></div>
+                    </div>
+                    <div class="input-box voice-range-box">
+                        <h6>地声最高音</h6>
+                        <span class="voice-range"></span>
+                        <div class="voice-range-slider"></div>
+                    </div>
+                    <div class="input-box voice-range-box">
+                        <h6>裏声最低音</h6>
+                        <span class="voice-range"></span>
+                        <div class="voice-range-slider"></div>
+                    </div>
+                    <div class="input-box voice-range-box">
+                        <h6>裏声最高音</h6>
+                        <span class="voice-range"></span>
+                        <div class="voice-range-slider"></div>
+                    </div>
+                    <div class="input-box voice-range-box">
+                        <h6>最高音</h6>
+                        <span class="voice-range"></span>
+                        <div class="voice-range-slider"></div>
+                    </div>
+                    <hr>
+                    <h5>並び替え</h5>
+                    <div class="input-box"></div>
+                </div>
+                <div class="slide-over-footer">
+                    <button class="reset-btn clickable">リセット</button>
+                    <button class="apply-btn clickable">適用</button>
+                </div>
+            </div>
+            <div class="slide-over" data-slide-over-num="1">
                 <div class="slide-over-header">
                     <label class="close-slide-over-btn" onclick="closeSlideOver();"></label>
                     <h4>絞り込み・並び替え</h4>
@@ -80,9 +135,6 @@
                     <button class="apply-btn clickable">適用</button>
                 </div>
             </div>
-            <div class="slide-over" data-slide-over-num="1">
-
-            </div>
         </div>
     </main>
     <div id="full-screen-modal-container">
@@ -95,15 +147,17 @@
             <div class="full-screen-modal-main"></div>
         </div> -->
     </div>
-    
+
     <!-- jQuery読み込み -->
-    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-3.7.1.min.js"></script>
     <!-- Bootstrapのjs読み込み -->
-    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./js/nouislider.min.js"></script>
     <script type="text/javascript" src="./js/page.js"></script>
     <script type="text/javascript" src="./js/funcs.js"></script>
     <script type="text/javascript" src="./js/api.js"></script>
     <script type="text/javascript" src="./js/models.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
 </body>
+
 </html>
