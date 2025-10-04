@@ -81,10 +81,16 @@ function closeAllFullScreenModal() {
 $(function () {
     // ---------------------Slide Over---------------------
     $('#slide-over-container').on('click touchend', closeSlideOver);
-    $('.slide-over').on('click touchend', (e) => {
+    $('.slide-over').on('click touchmove scroll touchend', (e) => {
         e.stopPropagation();
     });
 
+    // document.getElementById('slide-over-container').addEventListener('wheel', (e) => {
+    //     e.preventDefault();
+    // }, { passive: false });
+    document.getElementById('slide-over-container').addEventListener('touchmove', (e) => {
+        e.preventDefault();
+    }, { passive: false });
     // ---------------------Burger Menu---------------------
     // 開閉のイベントをセット
     $('.toggle-btn').on('click', () => {
