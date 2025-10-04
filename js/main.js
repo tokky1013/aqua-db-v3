@@ -17,8 +17,8 @@ $(function () {
     });
 
     // 絞り込みのスライダー
-    const minLimit = -25;
-    const maxLimit = 12;
+    const minLimit = -10;
+    const maxLimit = 8;
     const tolerance = 0; // 端を判定する許容誤差
 
     $(".voice-range-box").each(function () {

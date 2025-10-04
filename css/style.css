@@ -11,6 +11,7 @@
     --main-color-2: #d6d6d6;
 
     --btn-color: #050505;
+    --slider-color: #007bff;
 
     --favorite-filter: invert(59%) sepia(83%) saturate(1509%) hue-rotate(24deg) brightness(117%) contrast(113%);
 
@@ -426,6 +427,35 @@ nav .inner ul li a:hover {
 .voice-range-slider {
     margin: 10px 30px;
 }
+
+/* スライダーの見た目を変える */
+.noUi-target {
+  height: 8px; /* スライダー全体の高さ */
+}
+
+.noUi-connect {
+  background: var(--slider-color); /* スライダーの色（任意） */
+}
+
+.noUi-handle {
+  width: 30px !important;
+  height: 30px !important;
+  top: -11px !important; /* スライダー中央に合わせるために位置調整 */
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--slider-color);
+}
+.noUi-handle::before {
+    left: 10px;
+}
+.noUi-handle:after {
+    left: 14px;
+}
+
+.noUi-horizontal .noUi-handle {
+    right: -15px;
+}
+
 
 .slide-over-footer {
     padding: 10px;
