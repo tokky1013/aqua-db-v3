@@ -81,10 +81,12 @@
                     <h5>絞り込み</h5>
                     <div class="input-box">
                         <h6>タイトル</h6>
+                        <input type="text">
                     </div>
                     <hr>
                     <div class="input-box">
                         <h6>アーティスト</h6>
+                        <input type="text">
                     </div>
                     <hr>
                     <div class="input-box voice-range-box">
@@ -114,7 +116,18 @@
                     </div>
                     <hr>
                     <h5>並び替え</h5>
-                    <div class="input-box"></div>
+                    <div class="input-box">
+                        <select name="">
+                            <option value="createdAt">追加日</option>
+                            <option value="title">タイトル</option>
+                            <option value="artist">アーティスト名</option>
+                            <option value="chestMinNote">地声最低音</option>
+                            <option value="chestMaxNote">地声最高音</option>
+                            <option value="headMinNote">裏声最低音</option>
+                            <option value="headMaxNote">裏声最高音</option>
+                            <option value="overallMaxNote">最高音</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="slide-over-footer">
                     <button class="reset-btn clickable">リセット</button>

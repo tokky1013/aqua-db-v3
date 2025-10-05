@@ -456,6 +456,20 @@ nav .inner ul li a:hover {
     right: -15px;
 }
 
+.slide-over-main .input-box input,
+.slide-over-main .input-box select {
+    border: 1px solid var(--main-color-0);
+    height: 30px;
+    border-radius: 3px;
+    background-color: transparent;
+    color: var(--main-color-0);
+    font-size: 0.9rem;
+}
+
+.slide-over-main .input-box input {
+    margin: 10px;
+    width: 250px;
+}
 
 .slide-over-footer {
     padding: 10px;
