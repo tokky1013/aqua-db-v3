@@ -6,9 +6,9 @@ function getSong(uuid) {
     return songs[uuid];
 }
 
-function getHistories(funcFinally=null) {
+function getHistories(funcFinally = null) {
     get(
-        {sheet: 'history'},
+        { sheet: 'history' },
         (resData) => {
             let historyObj;
             histories = {};
@@ -21,9 +21,9 @@ function getHistories(funcFinally=null) {
     );
 }
 
-function getSongs(funcFinally=null) {
+function getSongs(funcFinally = null) {
     get(
-        {sheet: 'songs'},
+        { sheet: 'songs' },
         (resData) => {
             let song;
             songs = {};
@@ -37,7 +37,8 @@ function getSongs(funcFinally=null) {
 }
 
 // ---------------------データの表示---------------------
-let prevConditions = null;
+let prevSongConditions = null;
+let prevHistoryConditions = null;
 function showSongs(songArr) {
     let html = '';
     songArr.forEach((song) => {
@@ -72,9 +73,9 @@ function showHistories(historyArr) {
     let html = '';
     historyArr.forEach((history) => {
         let key = history.key;
-        if(key > 0) {
+        if (key > 0) {
             key = 'キー +' + key;
-        } else if(key === 0) {
+        } else if (key === 0) {
             key = '原曲キー';
         } else {
             key = 'キー ' + key;
@@ -108,7 +109,7 @@ function showHistories(historyArr) {
 }
 
 function filterArr(arr, filteringConditionFuncs) {
-    let newArr = structuredClone(arr);
+    let newArr = arr.map(elem => elem.clone());
     for (const func of filteringConditionFuncs) {
         newArr = newArr.filter(func);
     }
@@ -116,22 +117,17 @@ function filterArr(arr, filteringConditionFuncs) {
 }
 
 function sortArr(arr, orderFunc) {
-    let newArr = structuredClone(arr);
+    let newArr = arr.map(elem => elem.clone());
     newArr.sort(orderFunc);
-    
+
     return newArr;
 }
 
-function filterAndSortSongs(conditions=null) {
-    let filteringConditionFuncs;
-    let orderFunc;
-    if(conditions === null) {
+function filterAndSortSongs(conditions) {
+    let filteringConditionFuncs = conditions.filteringConditionFuncs;
+    let orderFunc = conditions.orderFunc;
 
-    } else {
-        filteringConditionFuncs = conditions.filteringConditionFuncs;
-        orderFunc = conditions.orderFunc;
-    }
-    prevConditions = {
+    prevSongConditions = {
         'filteringConditionFuncs': filteringConditionFuncs,
         'orderFunc': orderFunc,
     };
@@ -142,8 +138,21 @@ function filterAndSortSongs(conditions=null) {
 
     showSongs(displayedSongs);
 }
-function filterAndSortHistories(conditions=null) {
-    
+function filterAndSortHistories(conditions = null) {
+
+}
+
+function resetFilterAndSortSongsForm() {
+    const $form = $('#song-filtering-and-sorting-form');
+
+    $form.find('[name="title"]').val('');
+    $form.find('[name="artist"]').val('');
+    $form.find('[name="chestMinNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
+    $form.find('[name="chestMaxNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
+    $form.find('[name="headMinNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
+    $form.find('[name="headMaxNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
+    $form.find('[name="overallMaxNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
+    $form.find('[name="order"]').val('createdAt');
 }
 
 // ---------------------Full-Screen Modal---------------------

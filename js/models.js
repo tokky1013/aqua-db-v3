@@ -70,7 +70,7 @@ class History extends ApiClass {
         this.uuid = dict.uuid;
         this.createdAt = dict.createdAt;
         this.song = getSong(dict.songId);
-        this.key = dict.key;
+        this.key = dict.key-0;
         this.score = dict.score;
         this.machineType = dict.machineType;
         this.comment = dict.comment;
@@ -106,6 +106,10 @@ class History extends ApiClass {
     // スプレッドシート上のシート名を返す
     sheet() {
         return 'history';
+    }
+
+    clone() {
+        return new History(this.toDict());
     }
 }
 
@@ -202,23 +206,23 @@ class Song extends ApiClass {
         this.title = dict.title;
         this.artist = dict.artist;
         this.chestMinNote = {
-            value : dict.chestMinNoteValue,
+            value : dict.chestMinNoteValue-0,
             status : dict.chestMinNoteStatus
         };
         this.chestMaxNote = {
-            value : dict.chestMaxNoteValue,
+            value : dict.chestMaxNoteValue-0,
             status : dict.chestMaxNoteStatus
         };
         this.headMinNote = {
-            value : dict.headMinNoteValue,
+            value : dict.headMinNoteValue-0,
             status : dict.headMinNoteStatus
         };
         this.headMaxNote = {
-            value : dict.headMaxNoteValue,
+            value : dict.headMaxNoteValue-0,
             status : dict.headMaxNoteStatus
         };
         this.overallMaxNote = {
-            value : dict.overallMaxNoteValue,
+            value : dict.overallMaxNoteValue-0,
             status : dict.overallMaxNoteStatus
         };
     }
@@ -246,5 +250,9 @@ class Song extends ApiClass {
     // スプレッドシート上のシート名を返す
     sheet() {
         return 'songs';
+    }
+
+    clone() {
+        return new Song(this.toDict());
     }
 }

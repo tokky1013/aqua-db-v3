@@ -56,18 +56,137 @@ $(function () {
 
     // formのsubmit関連
     // 歌の検索
-    // $('#song-filtering-and-sorting-form').submit(() => {
-    //     console.log($(this).find('[name="title"]').val());
-    //     console.log($(this).find('[name="artist"]').val());
-    //     console.log($(this).find('[name="chest-min-note"]').get(0).noUiSlider.get().map(Number));
-    //     console.log($(this).find('[name="chest-max-note"]').get(0).noUiSlider.get().map(Number));
-    //     console.log($(this).find('[name="head-min-note"]').get(0).noUiSlider.get().map(Number));
-    //     console.log($(this).find('[name="head-max-note"]').get(0).noUiSlider.get().map(Number));
-    //     console.log($(this).find('[name="overall-max-note"]').get(0).noUiSlider.get().map(Number));
-    //     console.log($(this).find('[name="order"]').val());
+    $('#song-filtering-and-sorting-form').submit(() => {
+        const $form = $(this);
 
-    //     return false;
-    // });
+        const title = $form.find('[name="title"]').val();
+        const artist = $form.find('[name="artist"]').val();
+        const chestMinNote = $form.find('[name="chestMinNote"]').get(0).noUiSlider.get().map(Number);
+        const chestMaxNote = $form.find('[name="chestMaxNote"]').get(0).noUiSlider.get().map(Number);
+        const headMinNote = $form.find('[name="headMinNote"]').get(0).noUiSlider.get().map(Number);
+        const headMaxNote = $form.find('[name="headMaxNote"]').get(0).noUiSlider.get().map(Number);
+        const overallMaxNote = $form.find('[name="overallMaxNote"]').get(0).noUiSlider.get().map(Number);
+        const order = $form.find('[name="order"]').val();
+
+        let filteringConditionFuncs = [];
+        let orderFunc;
+
+        // タイトル
+        if(title) {
+            filteringConditionFuncs.push((song) => {
+                return song.title.toLowerCase().includes(title.toLowerCase());
+            });
+        }
+
+        // アーティスト
+        if(artist) {
+            filteringConditionFuncs.push((song) => {
+                return song.artist.toLowerCase().includes(artist.toLowerCase());
+            });
+        }
+        
+        // 地声最低音
+        if(chestMinNote[0] > minLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.chestMinNote.status !== 'known') return false;
+                return song.chestMinNote.value >= chestMinNote[0];
+            });
+        }
+        if(chestMinNote[1] < maxLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.chestMinNote.status !== 'known') return false;
+                return song.chestMinNote.value <= chestMinNote[1];
+            });
+        }
+
+        // 地声最高音
+        if(chestMaxNote[0] > minLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.chestMaxNote.status !== 'known') return false;
+                return song.chestMaxNote.value >= chestMaxNote[0];
+            });
+        }
+        if(chestMaxNote[1] < maxLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.chestMaxNote.status !== 'known') return false;
+                return song.chestMaxNote.value <= chestMaxNote[1];
+            });
+        }
+
+        // 裏声最低音
+        if(headMinNote[0] > minLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.headMinNote.status !== 'known') return false;
+                return song.headMinNote.value >= headMinNote[0];
+            });
+        }
+        if(headMinNote[1] < maxLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.headMinNote.status !== 'known') return false;
+                return song.headMinNote.value <= headMinNote[1];
+            });
+        }
+
+        // 裏声最高音
+        if(headMaxNote[0] > minLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.headMaxNote.status !== 'known') return false;
+                return song.headMaxNote.value >= headMaxNote[0];
+            });
+        }
+        if(headMaxNote[1] < maxLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.headMaxNote.status !== 'known') return false;
+                return song.headMaxNote.value <= headMaxNote[1];
+            });
+        }
+
+        // 最高音
+        if(overallMaxNote[0] > minLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.overallMaxNote.status !== 'known') return false;
+                return song.overallMaxNote.value >= overallMaxNote[0];
+            });
+        }
+        if(overallMaxNote[1] < maxLimit) {
+            filteringConditionFuncs.push((song) => {
+                if(song.overallMaxNote.status !== 'known') return false;
+                return song.overallMaxNote.value <= overallMaxNote[1];
+            });
+        }
+
+        if(order === 'createdAt') {
+            orderFunc = (songA, songB) => {
+                return songB.createdAt - songA.createdAt;
+            };
+        } else if (order === 'title') {
+            orderFunc = (songA, songB) => {
+                if (songB.title > songA.title) return -1;
+                if (songB.title === songA.title) return 0;
+                if (songB.title < songA.title) return 1;
+            };
+        } else if (order === 'artist') {
+            orderFunc = (songA, songB) => {
+                if (songB.artist > songA.artist) return -1;
+                if (songB.artist === songA.artist) return 0;
+                if (songB.artist < songA.artist) return 1;
+            };
+        }else if(order === 'chestMinNote') {
+            orderFunc = (songA, songB) => {
+                if(songA.overallMaxNote.status !== 'known' && songB.overallMaxNote.status !== 'known') return 0;
+                if(songA.overallMaxNote.status !== 'known') return 1;
+                if(songB.overallMaxNote.status !== 'known') return -1;
+                return songB.overallMaxNote.value - songA.overallMaxNote.value;
+            };
+        }
+
+        filterAndSortSongs({
+            'filteringConditionFuncs': filteringConditionFuncs,
+            'orderFunc': orderFunc,
+        });
+
+        return false;
+    });
 
     // 音域データの検索
 });
