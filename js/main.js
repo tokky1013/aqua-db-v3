@@ -1,4 +1,8 @@
 const version = 'Ver. 1.0.0';
+
+const minLimit = -10;
+const maxLimit = 8;
+const tolerance = 0; // 端を判定する許容誤差
 // ----------初期化----------
 $(function () {
     showPage(0);
@@ -17,10 +21,6 @@ $(function () {
     });
 
     // 絞り込みのスライダー
-    const minLimit = -10;
-    const maxLimit = 8;
-    const tolerance = 0; // 端を判定する許容誤差
-
     $(".voice-range-box").each(function () {
         const $box = $(this);
         const $slider = $box.find(".voice-range-slider").get(0);
@@ -53,4 +53,21 @@ $(function () {
             $rangeText.text(`${showMin} ～ ${showMax}`);
         });
     });
+
+    // formのsubmit関連
+    // 歌の検索
+    // $('#song-filtering-and-sorting-form').submit(() => {
+    //     console.log($(this).find('[name="title"]').val());
+    //     console.log($(this).find('[name="artist"]').val());
+    //     console.log($(this).find('[name="chest-min-note"]').get(0).noUiSlider.get().map(Number));
+    //     console.log($(this).find('[name="chest-max-note"]').get(0).noUiSlider.get().map(Number));
+    //     console.log($(this).find('[name="head-min-note"]').get(0).noUiSlider.get().map(Number));
+    //     console.log($(this).find('[name="head-max-note"]').get(0).noUiSlider.get().map(Number));
+    //     console.log($(this).find('[name="overall-max-note"]').get(0).noUiSlider.get().map(Number));
+    //     console.log($(this).find('[name="order"]').val());
+
+    //     return false;
+    // });
+
+    // 音域データの検索
 });

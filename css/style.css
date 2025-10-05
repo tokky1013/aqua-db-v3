@@ -359,12 +359,15 @@ nav .inner ul li a:hover {
 
     transition: 0.2s;
 
-    display: flex;
-    flex-direction: column;
 }
 
 .slide-over.open {
     bottom: 0;
+}
+.slide-over>form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .slide-over-header {
@@ -466,7 +469,7 @@ nav .inner ul li a:hover {
 }
 
 .slide-over-main .input-box input {
-    margin: 10px;
+    margin: 10px 10px 0;
     width: 250px;
 }
 

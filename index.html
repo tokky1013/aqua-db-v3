@@ -72,67 +72,69 @@
         </div>
         <div id="slide-over-container">
             <div class="slide-over" data-slide-over-num="0">
-                <div class="slide-over-header">
-                    <label class="close-slide-over-btn" onclick="closeSlideOver();"></label>
-                    <h4>絞り込み・並び替え</h4>
-                    <div class="spacer"></div>
-                </div>
-                <div class="slide-over-main">
-                    <h5>絞り込み</h5>
-                    <div class="input-box">
-                        <h6>タイトル</h6>
-                        <input type="text">
+                <form id="song-filtering-and-sorting-form">
+                    <div class="slide-over-header">
+                        <label class="close-slide-over-btn" onclick="closeSlideOver();"></label>
+                        <h4>絞り込み・並び替え</h4>
+                        <div class="spacer"></div>
                     </div>
-                    <hr>
-                    <div class="input-box">
-                        <h6>アーティスト</h6>
-                        <input type="text">
+                    <div class="slide-over-main">
+                        <h5>絞り込み</h5>
+                        <div class="input-box">
+                            <h6>タイトル</h6>
+                            <input type="text" name="title">
+                        </div>
+                        <hr>
+                        <div class="input-box">
+                            <h6>アーティスト</h6>
+                            <input type="text" name="artist">
+                        </div>
+                        <hr>
+                        <div class="input-box voice-range-box">
+                            <h6>地声最低音</h6>
+                            <span class="voice-range"></span>
+                            <div class="voice-range-slider" name="chest-min-note"></div>
+                        </div>
+                        <div class="input-box voice-range-box">
+                            <h6>地声最高音</h6>
+                            <span class="voice-range"></span>
+                            <div class="voice-range-slider" name="chest-max-note"></div>
+                        </div>
+                        <div class="input-box voice-range-box">
+                            <h6>裏声最低音</h6>
+                            <span class="voice-range"></span>
+                            <div class="voice-range-slider" name="head-min-note"></div>
+                        </div>
+                        <div class="input-box voice-range-box">
+                            <h6>裏声最高音</h6>
+                            <span class="voice-range"></span>
+                            <div class="voice-range-slider" name="head-max-note"></div>
+                        </div>
+                        <div class="input-box voice-range-box">
+                            <h6>最高音</h6>
+                            <span class="voice-range"></span>
+                            <div class="voice-range-slider" name="overall-max-note"></div>
+                        </div>
+                        <hr>
+                        <h5>並び替え</h5>
+                        <div class="input-box">
+                            <select name="order">
+                                <option value="createdAt">追加日</option>
+                                <option value="title">タイトル</option>
+                                <option value="artist">アーティスト名</option>
+                                <option value="chestMinNote">地声最低音</option>
+                                <option value="chestMaxNote">地声最高音</option>
+                                <option value="headMinNote">裏声最低音</option>
+                                <option value="headMaxNote">裏声最高音</option>
+                                <option value="overallMaxNote">最高音</option>
+                            </select>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="input-box voice-range-box">
-                        <h6>地声最低音</h6>
-                        <span class="voice-range"></span>
-                        <div class="voice-range-slider"></div>
+                    <div class="slide-over-footer">
+                        <button class="reset-btn clickable">リセット</button>
+                        <button class="apply-btn clickable">適用</button>
                     </div>
-                    <div class="input-box voice-range-box">
-                        <h6>地声最高音</h6>
-                        <span class="voice-range"></span>
-                        <div class="voice-range-slider"></div>
-                    </div>
-                    <div class="input-box voice-range-box">
-                        <h6>裏声最低音</h6>
-                        <span class="voice-range"></span>
-                        <div class="voice-range-slider"></div>
-                    </div>
-                    <div class="input-box voice-range-box">
-                        <h6>裏声最高音</h6>
-                        <span class="voice-range"></span>
-                        <div class="voice-range-slider"></div>
-                    </div>
-                    <div class="input-box voice-range-box">
-                        <h6>最高音</h6>
-                        <span class="voice-range"></span>
-                        <div class="voice-range-slider"></div>
-                    </div>
-                    <hr>
-                    <h5>並び替え</h5>
-                    <div class="input-box">
-                        <select name="">
-                            <option value="createdAt">追加日</option>
-                            <option value="title">タイトル</option>
-                            <option value="artist">アーティスト名</option>
-                            <option value="chestMinNote">地声最低音</option>
-                            <option value="chestMaxNote">地声最高音</option>
-                            <option value="headMinNote">裏声最低音</option>
-                            <option value="headMaxNote">裏声最高音</option>
-                            <option value="overallMaxNote">最高音</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="slide-over-footer">
-                    <button class="reset-btn clickable">リセット</button>
-                    <button class="apply-btn clickable">適用</button>
-                </div>
+                </form>
             </div>
             <div class="slide-over" data-slide-over-num="1">
                 <div class="slide-over-header">
@@ -145,7 +147,7 @@
                 </div>
                 <div class="slide-over-footer">
                     <button class="reset-btn clickable">リセット</button>
-                    <button class="apply-btn clickable">適用</button>
+                    <input type="submit" class="apply-btn clickable" value="適用">
                 </div>
             </div>
         </div>
