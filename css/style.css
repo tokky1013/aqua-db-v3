@@ -93,6 +93,7 @@ h6 {
     margin: 0;
     width: 100%;
 }
+
 .list label:hover {
     transform: scale(1) !important;
 }
@@ -364,6 +365,7 @@ nav .inner ul li a:hover {
 .slide-over.open {
     bottom: 0;
 }
+
 .slide-over>form {
     height: 100%;
     display: flex;
@@ -418,39 +420,76 @@ nav .inner ul li a:hover {
     margin-left: 10px;
 }
 
-.voice-range-box {
+/* 二択とか選ぶやつ */
+.input-box-options > div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.input-box-options > div input[type="checkbox"] {
+    position: fixed;
+    left: -100dvw;
+}
+
+.input-box-options > div label {
+    margin: 0;
+    padding: 5px 15px;
+    width: 150px;
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 3px;
+    background-color: var(--main-background-color-2);
+}
+
+.input-box-options > div input[type="checkbox"]:checked + label {
+    background-color: var(--main-color-2);
+    color: var(--main-background-color-2);
+}
+
+.voice-range-box,
+.key-range-box {
     margin-bottom: 25px;
 }
 
-.voice-range {
+.voice-range,
+.key-range {
     margin-left: 10px;
     color: var(--main-color-2);
+
 }
 
-.voice-range-slider {
+.voice-range-slider,
+.key-range-slider {
     margin: 10px 30px;
 }
 
 /* スライダーの見た目を変える */
 .noUi-target {
-  height: 8px; /* スライダー全体の高さ */
+    height: 8px;
+    /* スライダー全体の高さ */
 }
 
 .noUi-connect {
-  background: var(--slider-color); /* スライダーの色（任意） */
+    background: var(--slider-color);
+    /* スライダーの色（任意） */
 }
 
 .noUi-handle {
-  width: 30px !important;
-  height: 30px !important;
-  top: -11px !important; /* スライダー中央に合わせるために位置調整 */
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid var(--slider-color);
+    width: 30px !important;
+    height: 30px !important;
+    top: -11px !important;
+    /* スライダー中央に合わせるために位置調整 */
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--slider-color);
 }
+
 .noUi-handle::before {
     left: 10px;
 }
+
 .noUi-handle:after {
     left: 14px;
 }
@@ -491,9 +530,11 @@ nav .inner ul li a:hover {
     font-weight: 100;
     color: var(--main-color-2);
 }
+
 .slide-over-footer .reset-btn {
     background-color: var(--main-background-color-2);
 }
+
 .slide-over-footer .apply-btn {
     background-color: var(--btn-color);
 }
@@ -586,6 +627,7 @@ nav .inner ul li a:hover {
     transition: 0.5s;
     cursor: pointer;
 }
+
 .clickable:hover {
     filter: brightness(120%);
     transform: scale(1.05);

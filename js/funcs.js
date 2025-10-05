@@ -138,8 +138,20 @@ function filterAndSortSongs(conditions) {
 
     showSongs(displayedSongs);
 }
-function filterAndSortHistories(conditions = null) {
+function filterAndSortHistories(conditions) {
+    let filteringConditionFuncs = conditions.filteringConditionFuncs;
+    let orderFunc = conditions.orderFunc;
 
+    prevHistoryConditions = {
+        'filteringConditionFuncs': filteringConditionFuncs,
+        'orderFunc': orderFunc,
+    };
+
+    let displayedHistories = Object.values(histories);
+    displayedHistories = filterArr(displayedHistories, filteringConditionFuncs);
+    displayedHistories = sortArr(displayedHistories, orderFunc);
+
+    showHistories(displayedHistories);
 }
 
 function resetFilterAndSortSongsForm() {
@@ -147,12 +159,30 @@ function resetFilterAndSortSongsForm() {
 
     $form.find('[name="title"]').val('');
     $form.find('[name="artist"]').val('');
-    $form.find('[name="chestMinNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
-    $form.find('[name="chestMaxNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
-    $form.find('[name="headMinNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
-    $form.find('[name="headMaxNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
-    $form.find('[name="overallMaxNote"]').get(0).noUiSlider.set([minLimit, maxLimit]);
+    $form.find('[name="chestMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+    $form.find('[name="chestMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+    $form.find('[name="headMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+    $form.find('[name="headMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+    $form.find('[name="overallMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
     $form.find('[name="order"]').val('createdAt');
+}
+
+function resetFilterAndSortHistoriesForm() {
+        const $form = $('#history-filtering-and-sorting-form');
+
+        $form.find('[name="title"]').val('');
+        $form.find('[name="artist"]').val('');
+        $form.find('[name="sung"]').prop('checked', false);
+        $form.find('[name="notSung"]').prop('checked', false);
+        $form.find('[name="favorite"]').prop('checked', false);
+        $form.find('[name="notFavorite"]').prop('checked', false);
+        $form.find('[name="key"]').get(0).noUiSlider.set([minKeyRangeLimit, maxKeyRangeLimit]);
+        $form.find('[name="chestMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+        $form.find('[name="chestMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+        $form.find('[name="headMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+        $form.find('[name="headMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+        $form.find('[name="overallMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+        $form.find('[name="order"]').val('createdAt');
 }
 
 // ---------------------Full-Screen Modal---------------------
