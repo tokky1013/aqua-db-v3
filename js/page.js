@@ -84,13 +84,6 @@ $(function () {
     $('.slide-over').on('click touchend', (e) => {
         e.stopPropagation();
     });
-
-    // document.getElementById('slide-over-container').addEventListener('wheel', (e) => {
-    //     e.preventDefault();
-    // }, { passive: false });
-    // document.getElementById('slide-over-container').addEventListener('touchmove', (e) => {
-    //     e.preventDefault();
-    // }, { passive: false });
     // ---------------------Burger Menu---------------------
     // 開閉のイベントをセット
     $('.toggle-btn').on('click', () => {
@@ -114,20 +107,39 @@ $(function () {
         e.preventDefault();
     }, { passive: false });
 
-    // ----------ヘッダーの表示・非表示の切り替え----------
-    $(window).on('scroll', () => {
-        const selectElement = document.querySelector('header');
-        const selectStyle = getComputedStyle(selectElement);
-        const styleValue = String(selectStyle.getPropertyValue('--header-height')).trim();
-        const headerHeight = styleValue.replace('px', '') - 0;
+    // ヘッダーの表示・非表示の切り替え
+    // $(window).on('scroll', () => {
+    //     const selectElement = document.querySelector('header');
+    //     const selectStyle = getComputedStyle(selectElement);
+    //     const styleValue = String(selectStyle.getPropertyValue('--header-height')).trim();
+    //     const headerHeight = styleValue.replace('px', '') - 0;
 
-        const scrollHeight = $(this).scrollTop();
-        if (scrollHeight > headerHeight) {
-            $('header').addClass('hidden');
-            $('.toggle-btn').addClass('hidden');
-        } else {
-            $('header').removeClass('hidden');
-            $('.toggle-btn').removeClass('hidden');
+    //     const scrollHeight = $(this).scrollTop();
+    //     if (scrollHeight > headerHeight) {
+    //         $('header').addClass('hidden');
+    //         $('.toggle-btn').addClass('hidden');
+    //     } else {
+    //         $('header').removeClass('hidden');
+    //         $('.toggle-btn').removeClass('hidden');
+    //     }
+    // });
+
+    let lastScrollY = $(window).scrollTop();
+    const threshold = 50;
+
+    $(window).on('scroll', function () {
+        const currentScrollY = $(this).scrollTop();
+        const diff = currentScrollY - lastScrollY;
+
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0) {
+                $('header').addClass('hidden');
+                $('.toggle-btn').addClass('hidden');
+            } else {
+                $('header').removeClass('hidden');
+                $('.toggle-btn').removeClass('hidden');
+            }
+            lastScrollY = currentScrollY;
         }
     });
 });

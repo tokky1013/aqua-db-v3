@@ -71,7 +71,7 @@ class History extends ApiClass {
         this.createdAt = dict.createdAt;
         this.song = getSong(dict.songId);
         this.key = dict.key-0;
-        this.score = dict.score;
+        this.score = dict.score ? dict.score-0 : dict.score;
         this.machineType = dict.machineType;
         this.comment = dict.comment;
         this.hasSung = dict.hasSung;
@@ -206,23 +206,23 @@ class Song extends ApiClass {
         this.title = dict.title;
         this.artist = dict.artist;
         this.chestMinNote = {
-            value : dict.chestMinNoteValue-0,
+            value : dict.chestMinNoteStatus === 'known' ? dict.chestMinNoteValue-0 : dict.chestMinNoteValue,
             status : dict.chestMinNoteStatus
         };
         this.chestMaxNote = {
-            value : dict.chestMaxNoteValue-0,
+            value : dict.chestMaxNoteStatus === 'known' ? dict.chestMaxNoteValue-0 : dict.chestMaxNoteValue,
             status : dict.chestMaxNoteStatus
         };
         this.headMinNote = {
-            value : dict.headMinNoteValue-0,
+            value : dict.headMinNoteStatus === 'known' ? dict.headMinNoteValue-0 : dict.headMinNoteValue,
             status : dict.headMinNoteStatus
         };
         this.headMaxNote = {
-            value : dict.headMaxNoteValue-0,
+            value : dict.headMaxNoteStatus === 'known' ? dict.headMaxNoteValue-0 : dict.headMaxNoteValue,
             status : dict.headMaxNoteStatus
         };
         this.overallMaxNote = {
-            value : dict.overallMaxNoteValue-0,
+            value : dict.overallMaxNoteStatus === 'known' ? dict.overallMaxNoteValue-0 : dict.overallMaxNoteValue,
             status : dict.overallMaxNoteStatus
         };
     }

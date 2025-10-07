@@ -117,8 +117,8 @@
                         </div>
                         <hr>
                         <h5>並び替え</h5>
-                        <div class="input-box">
-                            <select name="order">
+                        <div class="input-box sorting-input">
+                            <select name="sortingOrder">
                                 <option value="createdAt">追加日</option>
                                 <option value="title">タイトル</option>
                                 <option value="artist">アーティスト名</option>
@@ -128,10 +128,16 @@
                                 <option value="headMaxNote">裏声最高音</option>
                                 <option value="overallMaxNote">最高音</option>
                             </select>
+
+                            <select name="sortingDirection">
+                                <option value="-1">昇順</option>
+                                <option value="1" selected>降順</option>
+                            </select>
                         </div>
                     </div>
                     <div class="slide-over-footer">
-                        <button class="reset-btn clickable" type="button" onclick="resetFilterAndSortSongsForm();">クリア</button>
+                        <button class="reset-btn clickable" type="button"
+                            onclick="resetFilterAndSortSongsForm();">クリア</button>
                         <button class="apply-btn clickable">適用</button>
                     </div>
                 </form>
@@ -158,20 +164,20 @@
                         <div class="input-box input-box-options">
                             <h6>歌ったことがある曲</h6>
                             <div>
-                            <input type="checkbox" name="sung" id="sung">
-                            <label for="sung">歌ったことがある</label>
-                            <input type="checkbox" name="notSung" id="not-sung">
-                            <label for="not-sung">歌ったことがない</label>
+                                <input type="checkbox" name="sung" id="sung">
+                                <label for="sung">歌ったことがある</label>
+                                <input type="checkbox" name="notSung" id="not-sung">
+                                <label for="not-sung">歌ったことがない</label>
                             </div>
                         </div>
                         <hr>
                         <div class="input-box input-box-options">
                             <h6>お気に入り</h6>
                             <div>
-                            <input type="checkbox" name="favorite" id="favorite">
-                            <label for="favorite">お気に入り</label>
-                            <input type="checkbox" name="notFavorite" id="not-favorite">
-                            <label for="not-favorite">お気に入り以外</label>
+                                <input type="checkbox" name="favourite" id="favourite">
+                                <label for="favourite">お気に入り</label>
+                                <input type="checkbox" name="notFavourite" id="not-favourite">
+                                <label for="not-favourite">お気に入り以外</label>
                             </div>
                         </div>
                         <hr>
@@ -208,8 +214,8 @@
                         </div>
                         <hr>
                         <h5>並び替え</h5>
-                        <div class="input-box">
-                            <select name="order">
+                        <div class="input-box sorting-input">
+                            <select name="sortingOrder">
                                 <option value="createdAt">追加日</option>
                                 <option value="title">タイトル</option>
                                 <option value="artist">アーティスト名</option>
@@ -220,10 +226,16 @@
                                 <option value="overallMaxNote">最高音</option>
                                 <option value="score">最高得点</option>
                             </select>
+
+                            <select name="sortingDirection">
+                                <option value="-1">昇順</option>
+                                <option value="1" selected>降順</option>
+                            </select>
                         </div>
                     </div>
                     <div class="slide-over-footer">
-                        <button class="reset-btn clickable" type="button" onclick="resetFilterAndSortHistoriesForm();">クリア</button>
+                        <button class="reset-btn clickable" type="button"
+                            onclick="resetFilterAndSortHistoriesForm();">クリア</button>
                         <button class="apply-btn clickable">適用</button>
                     </div>
                 </form>
@@ -231,14 +243,41 @@
         </div>
     </main>
     <div id="full-screen-modal-container">
-        <!-- <div class="full-screen-modal open">
+        <div class="full-screen-modal open">
             <div class="full-screen-modal-header">
                 <label class="full-screen-modal-back-btn"></label>
-                <h3>Title</h3>
+                <h3>詳細</h3>
                 <label class="full-screen-modal-close-btn" onclick="closeAllFullScreenModal();"></label>
             </div>
-            <div class="full-screen-modal-main"></div>
-        </div> -->
+            <div class="full-screen-modal-main">
+                <div class="history-detail">
+                    <h4>シーソーゲーム</h4>
+                    <div>
+                        <div class="artist-name">Mr. Children</div>
+                        <div>原曲キー</div>
+                        <div>2025/10/13</div>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>地低</th>
+                            <th>地高</th>
+                            <th>裏低</th>
+                            <th>裏高</th>
+                            <th>最高音</th>
+                        </tr>
+                        <tr>
+                            <td>hiA</td>
+                            <td>hiA</td>
+                            <td>hiA</td>
+                            <td>hiA</td>
+                            <td>hiA</td>
+                        </tr>
+                    </table>
+
+                    <div class="btns"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- jQuery読み込み -->

@@ -6,6 +6,10 @@ function getSong(uuid) {
     return songs[uuid];
 }
 
+function getHistory(uuid) {
+    return histories[uuid];
+}
+
 function getHistories(funcFinally = null) {
     get(
         { sheet: 'history' },
@@ -187,10 +191,12 @@ function resetFilterAndSortHistoriesForm() {
 
 // ---------------------Full-Screen Modal---------------------
 function displaySongDetail(uuid) {
-    alert(uuid);
+    const song = getSong(uuid);
+    openFullScreenModal('詳細', '');
 }
 function displayHistoryDetail(uuid) {
-    alert(uuid);
+    const history = getHistory(uuid);
+    openFullScreenModal('詳細', '');
 }
 
 function openAddSongPage() {

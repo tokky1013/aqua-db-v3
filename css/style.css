@@ -420,6 +420,12 @@ nav .inner ul li a:hover {
     margin-left: 10px;
 }
 
+.sorting-input {
+    display: flex;
+    gap: 40px;
+    padding-left: 25px;
+}
+
 /* 二択とか選ぶやつ */
 .input-box-options > div {
     display: flex;
@@ -571,10 +577,16 @@ nav .inner ul li a:hover {
     padding: 0 10px;
 }
 
+.full-screen-modal-header h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* 前に戻るボタン */
 .full-screen-modal-back-btn {
     margin: 0;
-    padding-left: 15px;
+    width: 67.2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -620,6 +632,46 @@ nav .inner ul li a:hover {
 .full-screen-modal-close-btn::after {
     transform: rotate(-45deg);
     top: -2px;
+}
+
+/* --------音域データ詳細-------- */
+.history-detail {
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+}
+
+.history-detail>div {
+    margin: 5px 0 0 10px;
+    color: var(--main-color-1);
+    display: flex;
+    gap: 20px;
+    align-items: end;
+}
+
+.history-detail h4 {
+    flex: 1;
+}
+
+.history-detail .artist-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.history-detail table {
+    margin-left: 10px;
+}
+
+.history-detail table tr th {
+    width: 70px;
+    border-bottom: 1px solid gray;
+    text-align: center;
+}
+
+.history-detail table tr td {
+    text-align: center;
 }
 
 /* その他 */
