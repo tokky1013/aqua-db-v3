@@ -88,6 +88,25 @@ h6 {
 }
 
 /* リスト */
+.loading-mes {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding-bottom: 5px;
+    color: var(--main-color-1);
+    &::before {
+        content: "";
+        width: 1.1rem;
+        height: 1.1rem;
+        border-radius: 50%;
+        border: 0.15em solid #ccc;
+        border-top-color: #333;
+        animation: spinner 1.5s linear infinite;
+    }
+}
+
 .list label {
     padding: 10px 20px;
     margin: 0;
@@ -427,19 +446,19 @@ nav .inner ul li a:hover {
 }
 
 /* 二択とか選ぶやつ */
-.input-box-options > div {
+.input-box-options>div {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 10px;
 }
 
-.input-box-options > div input[type="checkbox"] {
+.input-box-options>div input[type="checkbox"] {
     position: fixed;
     left: -100dvw;
 }
 
-.input-box-options > div label {
+.input-box-options>div label {
     margin: 0;
     padding: 5px 15px;
     width: 150px;
@@ -449,7 +468,7 @@ nav .inner ul li a:hover {
     background-color: var(--main-background-color-2);
 }
 
-.input-box-options > div input[type="checkbox"]:checked + label {
+.input-box-options>div input[type="checkbox"]:checked+label {
     background-color: var(--main-color-2);
     color: var(--main-background-color-2);
 }
@@ -672,6 +691,45 @@ nav .inner ul li a:hover {
 
 .history-detail table tr td {
     text-align: center;
+}
+
+/* ローディングスピナー */
+.loading,
+.loading::before,
+.loading::after {
+    box-sizing: border-box;
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 300;
+    background-color: #ffffff40;
+    height: 100dvh;
+    width: 100dvw;
+    cursor: progress;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5em;
+        height: 5em;
+        margin-top: -2.5em;
+        margin-left: -2.5em;
+        border-radius: 50%;
+        border: 0.25em solid #ccc;
+        border-top-color: #333;
+        animation: spinner 1.5s linear infinite;
+    }
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* その他 */

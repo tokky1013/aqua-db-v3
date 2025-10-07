@@ -1,7 +1,9 @@
 const url = 'https://script.google.com/macros/s/AKfycbziLDxxXo_UOOktpVDEQe2Q2by_xd9p8LdcO0-zVa3UHH_Vsug8wn5lNSLuzow4bVxY/exec';
 let SECRET_TOKEN = 'd47f6f90-db00-4208-a56b-0c3640837f33';
 
-function get(params, funcOk = null, funcFinally=null) {
+// 最初にしか実行しない設計なので、ローディングスピナーを表示する処理は書かない
+// デフォルトのhtmlを消すことでローディング中のメッセージも消す
+function get(params, funcOk = null, funcFinally = null) {
     const query = new URLSearchParams({
         token: SECRET_TOKEN,
         sheet: params.sheet,
@@ -11,7 +13,7 @@ function get(params, funcOk = null, funcFinally=null) {
         .then((res) => res.json())
         .then((data) => {
             if (data.ok) {
-                if(funcOk !== null) funcOk(data.data);
+                if (funcOk !== null) funcOk(data.data);
             } else if (data.httpStatus === 403) {
                 alert(data.error.message);
             } else {
@@ -22,11 +24,14 @@ function get(params, funcOk = null, funcFinally=null) {
             console.error(err);
         })
         .finally(() => {
-            if(funcFinally !== null) funcFinally();
+            if (funcFinally !== null) funcFinally();
         });
 }
 
-function post(params, funcOk = null, funcFinally=null) {
+function post(params, funcOk = null, funcFinally = null) {
+    // ローディングスピナーを表示
+    showLoadingSpiner();
+
     const form = new FormData();
     form.append('token', SECRET_TOKEN);
     for (const key in params) {
@@ -40,7 +45,7 @@ function post(params, funcOk = null, funcFinally=null) {
         .then((res) => res.json())
         .then((data) => {
             if (data.ok) {
-                if(funcOk !== null) funcOk(data.data);
+                if (funcOk !== null) funcOk(data.data);
             } else if (data.httpStatus === 403) {
                 alert(data.error.message);
             } else {
@@ -51,7 +56,9 @@ function post(params, funcOk = null, funcFinally=null) {
             console.error(err);
         })
         .finally(() => {
-            if(funcFinally !== null) funcFinally();
+            if (funcFinally !== null) funcFinally();
+            // ローディングスピナーを隠す
+            hideLoadingSpiner();
         });
 }
 

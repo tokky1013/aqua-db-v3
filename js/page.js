@@ -77,6 +77,14 @@ function closeAllFullScreenModal() {
     }, 200);
 }
 
+// ---------------------Loading Spiner---------------------
+function showLoadingSpiner() {
+    $('.loading').removeClass('d-none');
+}
+function hideLoadingSpiner() {
+    $('.loading').addClass('d-none');
+}
+
 // ---------------------イベントの設定---------------------
 $(function () {
     // ---------------------Slide Over---------------------

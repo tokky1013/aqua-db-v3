@@ -52,7 +52,9 @@
     <main>
         <div class="page" data-page-num="0">
             <div class="main-content">
-                <div id="song-list" class="list"></div>
+                <div id="song-list" class="list">
+                    <div class="loading-mes">曲のデータを読み込んでいます</div>
+                </div>
                 <div class="empty-message">
                     曲のデータがありません
                 </div>
@@ -62,9 +64,11 @@
         </div>
         <div class="page" data-page-num="1">
             <div class="main-content">
-                <div id="history-list" class="list"></div>
+                <div id="history-list" class="list">
+                    <div class="loading-mes">音域データを読み込んでいます</div>
+                </div>
                 <div class="empty-message">
-                    データがありません
+                    音域データがありません
                 </div>
             </div>
             <div class="version"></div>
@@ -279,6 +283,7 @@
             </div>
         </div>
     </div>
+    <div class="loading d-none"></div>
 
     <!-- jQuery読み込み -->
     <script type="text/javascript" src="./js/jquery-3.7.1.min.js"></script>
