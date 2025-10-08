@@ -3,7 +3,8 @@ let SECRET_TOKEN = 'd47f6f90-db00-4208-a56b-0c3640837f33';
 
 // 最初にしか実行しない設計なので、ローディングスピナーを表示する処理は書かない
 // デフォルトのhtmlを消すことでローディング中のメッセージも消す
-function get(params, funcOk = null, funcFinally = null) {
+// getのみエラー時の関数を受け取る
+function get(params, funcOk = null, errorFunc=null, funcFinally = null) {
     const query = new URLSearchParams({
         token: SECRET_TOKEN,
         sheet: params.sheet,
@@ -17,10 +18,12 @@ function get(params, funcOk = null, funcFinally = null) {
             } else if (data.httpStatus === 403) {
                 alert(data.error.message);
             } else {
-                console.error(data.error.code, data.error.message)
+                if (errorFunc !== null) errorFunc();
+                console.error(data.error.code, data.error.message);
             }
         })
         .catch((err) => {
+            if (errorFunc !== null) errorFunc();
             console.error(err);
         })
         .finally(() => {

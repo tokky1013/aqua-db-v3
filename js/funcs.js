@@ -20,7 +20,14 @@ function getHistories(funcFinally = null) {
                 historyObj = new History(elem);
                 histories[historyObj.uuid] = historyObj;
             });
+            filterAndSortHistories({
+                'filteringConditionFuncs': [],
+                'orderFunc': (historyA, historyB) => {
+                    return historyB.createdAt - historyA.createdAt;
+                },
+            });
         },
+        () => { $('#history-list').html('<div class="error-mes">エラーが発生しました</div>'); },
         funcFinally
     );
 }
@@ -35,7 +42,14 @@ function getSongs(funcFinally = null) {
                 song = new Song(elem);
                 songs[song.uuid] = song;
             });
+            filterAndSortSongs({
+                'filteringConditionFuncs': [],
+                'orderFunc': (historyA, historyB) => {
+                    return historyB.createdAt - historyA.createdAt;
+                },
+            });
         },
+        () => { $('#song-list').html('<div class="error-mes">エラーが発生しました</div>'); },
         funcFinally
     );
 }
@@ -47,9 +61,9 @@ function showSongs(songArr) {
     let html = '';
     songArr.forEach((song) => {
         html += `
-            <label class="clickable" onclick="displaySongDetail('${song.uuid}')">
-                <h4>${song.title}</h4>
-                <div><div class="artist-name">${song.artist}</div> <div>${song.getCreatedAt()}</div></div>
+            <label class="clickable ${song.uuid}" onclick="displaySongDetail('${song.uuid}')">
+                <h4 class="${song.uuid}-title">${song.title}</h4>
+                <div><div class="artist-name ${song.uuid}-artist">${song.artist}</div> <div class="${song.uuid}-created-at">${song.getCreatedAt()}</div></div>
                 <table>
                     <tr>
                         <th>地低</th>
@@ -59,11 +73,11 @@ function showSongs(songArr) {
                         <th>最高音</th>
                     </tr>
                     <tr>
-                        <td>${song.getChestMinNote()}</td>
-                        <td>${song.getChestMaxNote()}</td>
-                        <td>${song.getHeadMinNote()}</td>
-                        <td>${song.getHeadMaxNote()}</td>
-                        <td>${song.getOverallMaxNote()}</td>
+                        <td class="${song.uuid}-chest-min-note">${song.getChestMinNote()}</td>
+                        <td class="${song.uuid}-chest-max-note">${song.getChestMaxNote()}</td>
+                        <td class="${song.uuid}-head-min-note">${song.getHeadMinNote()}</td>
+                        <td class="${song.uuid}-head-max-note">${song.getHeadMaxNote()}</td>
+                        <td class="${song.uuid}-overall-max-note">${song.getOverallMaxNote()}</td>
                     </tr>
                 </table>
             </label>
@@ -86,9 +100,16 @@ function showHistories(historyArr) {
         }
 
         html += `
-            <label class="clickable" onclick="displayHistoryDetail('${history.uuid}')">
-                <div class="title-container${history.hasSung ? ' sung' : ''}"><h4>${history.song.title}</h4><img src="./img/star.svg" class="favorite ${history.isFavourite ? '' : ' d-none'}"></div>
-                <div><div class="artist-name">${history.song.artist}</div><div>${key}</div><div>${history.getCreatedAt()}</div></div>
+            <label class="clickable ${history.uuid}" onclick="displayHistoryDetail('${history.uuid}')">
+                <div class="title-container ${history.uuid}-has-sung ${history.hasSung ? ' sung' : ''}">
+                    <h4 class="${history.uuid}-song-title">${history.song.title}</h4>
+                    <img src="./img/star.svg" class="favorite ${history.uuid}-is-favorite ${history.isFavourite ? '' : ' d-none'}">
+                </div>
+                <div>
+                    <div class="artist-name ${history.uuid}-song-artist">${history.song.artist}</div>
+                    <div class="${history.uuid}-key">${key}</div>
+                    <div class="${history.uuid}-created-at">${history.getCreatedAt()}</div>
+                </div>
                 <table>
                     <tr>
                         <th>地低</th>
@@ -98,11 +119,11 @@ function showHistories(historyArr) {
                         <th>最高音</th>
                     </tr>
                     <tr>
-                        <td>${history.getChestMinNote()}</td>
-                        <td>${history.getChestMaxNote()}</td>
-                        <td>${history.getHeadMinNote()}</td>
-                        <td>${history.getHeadMaxNote()}</td>
-                        <td>${history.getOverallMaxNote()}</td>
+                        <td class="${history.uuid}-chest-min-note">${history.getChestMinNote()}</td>
+                        <td class="${history.uuid}-chest-max-note">${history.getChestMaxNote()}</td>
+                        <td class="${history.uuid}-head-min-note">${history.getHeadMinNote()}</td>
+                        <td class="${history.uuid}-head-max-note">${history.getHeadMaxNote()}</td>
+                        <td class="${history.uuid}-overall-max-note">${history.getOverallMaxNote()}</td>
                     </tr>
                 </table>
             </label>
@@ -172,21 +193,21 @@ function resetFilterAndSortSongsForm() {
 }
 
 function resetFilterAndSortHistoriesForm() {
-        const $form = $('#history-filtering-and-sorting-form');
+    const $form = $('#history-filtering-and-sorting-form');
 
-        $form.find('[name="title"]').val('');
-        $form.find('[name="artist"]').val('');
-        $form.find('[name="sung"]').prop('checked', false);
-        $form.find('[name="notSung"]').prop('checked', false);
-        $form.find('[name="favorite"]').prop('checked', false);
-        $form.find('[name="notFavorite"]').prop('checked', false);
-        $form.find('[name="key"]').get(0).noUiSlider.set([minKeyRangeLimit, maxKeyRangeLimit]);
-        $form.find('[name="chestMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
-        $form.find('[name="chestMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
-        $form.find('[name="headMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
-        $form.find('[name="headMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
-        $form.find('[name="overallMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
-        $form.find('[name="order"]').val('createdAt');
+    $form.find('[name="title"]').val('');
+    $form.find('[name="artist"]').val('');
+    $form.find('[name="sung"]').prop('checked', false);
+    $form.find('[name="notSung"]').prop('checked', false);
+    $form.find('[name="favorite"]').prop('checked', false);
+    $form.find('[name="notFavorite"]').prop('checked', false);
+    $form.find('[name="key"]').get(0).noUiSlider.set([minKeyRangeLimit, maxKeyRangeLimit]);
+    $form.find('[name="chestMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+    $form.find('[name="chestMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+    $form.find('[name="headMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+    $form.find('[name="headMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+    $form.find('[name="overallMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
+    $form.find('[name="order"]').val('createdAt');
 }
 
 // ---------------------Full-Screen Modal---------------------
