@@ -7,17 +7,17 @@ const maxKeyRangeLimit = 7;
 const tolerance = 0; // 端を判定する許容誤差
 // ----------初期化----------
 $(function () {
-    // showPage(0);
+    showPage(0);
     // バージョンの表示
     $('.version').text(version);
 
     // 曲のデータを取得
-    // getSongs(() => {
-    //     setTimeout(function () {
-    //         // 履歴のデータを取得
-    //         getHistories();
-    //     }, 100);
-    // });
+    getSongs(() => {
+        setTimeout(function () {
+            // 履歴のデータを取得
+            getHistories();
+        }, 100);
+    });
 
     // 絞り込みのスライダー
     // 音域
