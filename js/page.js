@@ -89,8 +89,8 @@ function hideLoadingSpiner() {
 // ---------------------イベントの設定---------------------
 $(function () {
     // ---------------------Slide Over---------------------
-    $('#slide-over-container').on('click touchend', closeSlideOver);
-    $('.slide-over').on('click touchend', (e) => {
+    $('#slide-over-container').on('click', closeSlideOver);
+    $('.slide-over').on('click', (e) => {
         e.stopPropagation();
     });
     // ---------------------Burger Menu---------------------
