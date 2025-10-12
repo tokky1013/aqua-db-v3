@@ -56,7 +56,7 @@ function openFullScreenModal(title, html) {
     const $newFullScreenModal = $(innerHtml);
     $('#full-screen-modal-container').append($newFullScreenModal);
 
-    $(`#full-screen-modal-${fullScreenModalId} .full-screen-modal-back-btn`).on('click touchend', (e) => {
+    $(`#full-screen-modal-${fullScreenModalId} .full-screen-modal-back-btn`).on('click', (e) => {
         $newFullScreenModal.removeClass('open');
         fullScreenModalId--;
         setTimeout(() => {
