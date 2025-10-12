@@ -247,15 +247,17 @@
         </div>
     </main>
     <div id="full-screen-modal-container">
-        <div class="full-screen-modal open">
+        <!-- <div class="full-screen-modal open">
             <div class="full-screen-modal-header">
                 <label class="full-screen-modal-back-btn"></label>
                 <h3>詳細</h3>
                 <label class="full-screen-modal-close-btn" onclick="closeAllFullScreenModal();"></label>
             </div>
             <div class="full-screen-modal-main">
-                <div class="history-detail">
+                <div id="history-uuid-afar" class="history-detail detail-page">
                     <h4>シーソーゲーム</h4>
+                    <div class="song-detail-button" onclick="displaySongDetail('uuid')">この曲の詳細を表示する</div>
+                    <div class="field-content text-right mc-1">2025/10/13</div>
                     <table>
                         <tr>
                             <th>地低</th>
@@ -274,15 +276,47 @@
                     </table>
 
                     <div>
-                        <div class="artist-name">Mr. Children</div>
-                        <div>原曲キー</div>
-                        <div>2025/10/13</div>
+                        <div class="field-container">
+                            <div class="field-name">アーティスト</div>
+                            <div class="field-content">Mr. Children</div>
+                        </div>
+                        <div class="field-container">
+                            <div class="field-name">キー</div>
+                            <div class="field-content">原曲キー</div>
+                        </div>
+                        <div class="field-container">
+                            <div class="field-name">最高得点</div>
+                            <div class="field-content">85.43(DAM)</div>
+                        </div>
+                        <div class="field-container">
+                            <div>
+                                <div>コメント</div>
+                                <div class="comment">
+                                    「崩れて〜く」を耐えれば+5でいい<br>最初元の高さで「君へのメロディー」のとこからオク下がいい
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="flex-fill"></div>
 
-                    <div class="btns"></div>
+                    <div class="detail-btns">
+                        <label>
+                            <div class="detail-btn on sung clickable"></div>
+                        </label>
+                        <label>
+                            <img class="detail-btn on favorite clickable" src="./img/star.svg">
+                        </label>
+                        <label>
+                            <img class="detail-btn edit clickable" src="./img/edit.svg">
+                        </label>
+                        <label>
+                            <img class="detail-btn delete clickable" src="./img/delete.svg">
+                        </label>
+                    </div>
                 </div>
+                <div class="deleted-mes">このデータは削除されました</div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="loading d-none"></div>
 

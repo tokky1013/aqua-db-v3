@@ -90,24 +90,15 @@ function showSongs(songArr) {
 function showHistories(historyArr) {
     let html = '';
     historyArr.forEach((history) => {
-        let key = history.key;
-        if (key > 0) {
-            key = 'キー +' + key;
-        } else if (key === 0) {
-            key = '原曲キー';
-        } else {
-            key = 'キー ' + key;
-        }
-
         html += `
             <label class="clickable ${history.uuid}" onclick="displayHistoryDetail('${history.uuid}')">
                 <div class="title-container ${history.uuid}-has-sung ${history.hasSung ? ' sung' : ''}">
                     <h4 class="${history.uuid}-song-title">${history.song.title}</h4>
-                    <img src="./img/star.svg" class="favorite ${history.uuid}-is-favorite ${history.isFavourite ? '' : ' d-none'}">
+                    <img src="./img/star.svg" class="is-favorite ${history.uuid}-is-favorite ${history.isFavourite ? 'favorite' : ''}">
                 </div>
                 <div>
                     <div class="artist-name ${history.uuid}-song-artist">${history.song.artist}</div>
-                    <div class="${history.uuid}-key">${key}</div>
+                    <div class="${history.uuid}-key">${history.getKey()}</div>
                     <div class="${history.uuid}-created-at">${history.getCreatedAt()}</div>
                 </div>
                 <table>
@@ -217,7 +208,70 @@ function displaySongDetail(uuid) {
 }
 function displayHistoryDetail(uuid) {
     const history = getHistory(uuid);
-    openFullScreenModal('詳細', '');
+
+    const html = `
+        <div id="${uuid}" class="history-detail detail-page">
+            <h4>シーソーゲーム</h4>
+            <div class="song-detail-button" onclick="displaySongDetail('${history.song.uuid}')">この曲の詳細を表示する</div>
+            <div class="field-content text-right mc-1 ${history.uuid}-created-at">${history.getCreatedAt()}</div>
+            <table>
+                <tr>
+                    <th>地低</th>
+                    <th>地高</th>
+                    <th>裏低</th>
+                    <th>裏高</th>
+                    <th>最高音</th>
+                </tr>
+                <tr>
+                    <td class="${history.uuid}-chest-min-note">${history.getChestMinNote()}</td>
+                    <td class="${history.uuid}-chest-max-note">${history.getChestMaxNote()}</td>
+                    <td class="${history.uuid}-head-min-note">${history.getHeadMinNote()}</td>
+                    <td class="${history.uuid}-head-max-note">${history.getHeadMaxNote()}</td>
+                    <td class="${history.uuid}-overall-max-note">${history.getOverallMaxNote()}</td>
+                </tr>
+            </table>
+
+            <div>
+                <div class="field-container">
+                    <div class="field-name">アーティスト</div>
+                    <div class="field-content ${history.uuid}-song-artist">${history.song.artist}</div>
+                </div>
+                <div class="field-container">
+                    <div class="field-name">キー</div>
+                    <div class="field-content ${history.uuid}-key">${history.getKey()}</div>
+                </div>
+                <div class="field-container">
+                    <div class="field-name">最高得点</div>
+                    <div class="field-content ${history.uuid}-score">${history.getScore()}</div>
+                </div>
+                <div class="field-container">
+                    <div>
+                        <div>コメント</div>
+                        <div class="comment ${history.uuid}-comment">${history.getComment()}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-fill"></div>
+
+            <div class="detail-btns">
+                <label>
+                    <div class="detail-btn has-sung clickable ${history.uuid}-has-sung ${history.hasSung ? ' sung' : ''}"></div>
+                </label>
+                <label>
+                    <img class="detail-btn is-favorite clickable ${history.uuid}-is-favorite ${history.isFavourite ? ' favorite' : ''}" src="./img/star.svg">
+                </label>
+                <label>
+                    <img class="detail-btn edit clickable" src="./img/edit.svg">
+                </label>
+                <label>
+                    <img class="detail-btn delete clickable" src="./img/delete.svg">
+                </label>
+            </div>
+        </div>
+        <div class="deleted-mes">このデータは削除されました</div>
+    `;
+
+    openFullScreenModal('詳細', html);
 }
 
 function openAddSongPage() {

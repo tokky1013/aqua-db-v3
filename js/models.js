@@ -49,6 +49,22 @@ class History extends ApiClass {
         }
     }
 
+    getKey() {
+        if (this.key > 0) {
+            return 'キー +' + this.key;
+        } else if (this.key === 0) {
+            return '原曲キー';
+        } else {
+            return 'キー ' + this.key;
+        }
+    }
+    getScore() {
+        if(!this.score) return '';
+        return `${this.score}(${this.machineType})`
+    }
+    getComment() {
+        return this.comment;
+    }
     getChestMinNote() {
         return this.song.getChestMinNote(this.key);
     } 
