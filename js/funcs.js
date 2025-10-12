@@ -211,7 +211,7 @@ function displayHistoryDetail(uuid) {
 
     const html = `
         <div id="${uuid}" class="history-detail detail-page">
-            <h4>シーソーゲーム</h4>
+            <h4 class="${history.uuid}-song-title">${history.song.title}</h4>
             <div class="song-detail-button" onclick="displaySongDetail('${history.song.uuid}')">この曲の詳細を表示する</div>
             <div class="field-content text-right mc-1 ${history.uuid}-created-at">${history.getCreatedAt()}</div>
             <table>
