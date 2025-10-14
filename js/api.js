@@ -16,15 +16,18 @@ function get(params, funcOk = null, errorFunc=null, funcFinally = null) {
             if (data.ok) {
                 if (funcOk !== null) funcOk(data.data);
             } else if (data.httpStatus === 403) {
+                // トークンが不正な時の処理
                 alert(data.error.message);
             } else {
                 if (errorFunc !== null) errorFunc();
                 console.error(data.error.code, data.error.message);
+                alert('不明なエラーが発生しました。');
             }
         })
         .catch((err) => {
             if (errorFunc !== null) errorFunc();
             console.error(err);
+            alert('不明なエラーが発生しました。');
         })
         .finally(() => {
             if (funcFinally !== null) funcFinally();
@@ -50,13 +53,16 @@ function post(params, funcOk = null, funcFinally = null) {
             if (data.ok) {
                 if (funcOk !== null) funcOk(data.data);
             } else if (data.httpStatus === 403) {
+                // トークンが不正な時の処理
                 alert(data.error.message);
             } else {
-                console.error(data.error.code, data.error.message)
+                console.error(data.error.code, data.error.message);
+                alert('不明なエラーが発生しました。');
             }
         })
         .catch((err) => {
             console.error(err);
+            alert('不明なエラーが発生しました。');
         })
         .finally(() => {
             if (funcFinally !== null) funcFinally();
@@ -71,6 +77,8 @@ function deleteHistory(historyId) {
             sheet: 'history',
             mode: 'delete',
             uuid: historyId
+        }, (data) => {
+            
         });
     }
 }

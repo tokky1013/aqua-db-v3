@@ -205,6 +205,19 @@ h6 {
     text-align: center;
 }
 
+.list label .comment {
+    color: var(--main-color-1);
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+    min-height: 0;
+}
+.list label .comment br {
+    display: none;
+}
+
 .empty-message {
     display: none;
     height: 300px;

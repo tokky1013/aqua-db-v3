@@ -4,12 +4,13 @@ class ApiClass {
         this.createdAt = new Date().getTime();
     }
 
-    post(mode='add', f=null) {
+    // fは成功時に実行される
+    post(mode = 'add', f = null) {
         let params = this.toDict();
         params.sheet = this.sheet();
         params.mode = mode;
 
-        post(params, (data) => {if(f !== null) f(data);});
+        post(params, (data) => { if (f !== null) f(data); });
     }
 
     getCreatedAt() {
@@ -33,12 +34,12 @@ class ApiClass {
 }
 
 class History extends ApiClass {
-    constructor(dict=null) {
+    constructor(dict = null) {
         super();
 
-        if(dict) {
+        if (dict) {
             this.fromDict(dict);
-        }else {
+        } else {
             this.song = null;
             this.key = 0;
             this.score = '';
@@ -59,35 +60,37 @@ class History extends ApiClass {
         }
     }
     getScore() {
-        if(!this.score) return '';
+        if (!this.score) return '';
         return `${this.score}(${this.machineType})`
     }
     getComment() {
-        return this.comment;
+        let comment = sanitaize(this.comment);
+
+        return comment.replace(/\\n/g, '<br>');
     }
     getChestMinNote() {
         return this.song.getChestMinNote(this.key);
-    } 
+    }
     getChestMaxNote() {
         return this.song.getChestMaxNote(this.key);
-    } 
+    }
     getHeadMinNote() {
         return this.song.getHeadMinNote(this.key);
-    } 
+    }
     getHeadMaxNote() {
         return this.song.getHeadMaxNote(this.key);
-    } 
+    }
     getOverallMaxNote() {
         return this.song.getOverallMaxNote(this.key);
-    } 
+    }
 
     // 連想配列から読み込む
     fromDict(dict) {
         this.uuid = dict.uuid;
         this.createdAt = dict.createdAt;
         this.song = getSong(dict.songId);
-        this.key = dict.key-0;
-        this.score = dict.score ? dict.score-0 : dict.score;
+        this.key = dict.key - 0;
+        this.score = dict.score ? dict.score - 0 : dict.score;
         this.machineType = dict.machineType;
         this.comment = dict.comment;
         this.hasSung = dict.hasSung;
@@ -97,26 +100,47 @@ class History extends ApiClass {
     // データを連想配列に変換する
     toDict() {
         return {
-            uuid : this.uuid,
-            createdAt : this.createdAt,
-            songId : this.song ? this.song.uuid : null,
-            key : this.key,
-            score : this.score,
-            machineType : this.machineType,
-            comment : this.comment,
-            hasSung : this.hasSung,
-            isFavourite : this.isFavourite,
+            uuid: this.uuid,
+            createdAt: this.createdAt,
+            songId: this.song ? this.song.uuid : null,
+            key: this.key,
+            score: this.score,
+            machineType: this.machineType,
+            comment: this.comment,
+            hasSung: this.hasSung,
+            isFavourite: this.isFavourite,
         };
     }
 
-    registerHasSung(hasSung, f=null) {
-        this.hasSung = hasSung;
-        this.post('register-has-sung', f);
+    add(f=null) {
+        this.post('add', f);
+    }
+    update(dict, f=null) {
+        const copy = new History(dict);
+        copy.post('update', (data) => {
+            this.fromDict(dict);
+            if(f !== null) f(data);
+        });
     }
 
-    registerIsFavorite(isFavourite, f=null) {
-        this.isFavourite = isFavourite;
-        this.post('register-is-favorite', f);
+    registerHasSung(hasSung, f = null) {
+        let dict = this.toDict();
+        dict.hasSung = hasSung;
+        const copy = new History(dict);
+        copy.post('register-has-sung', (data) => {
+            this.hasSung = hasSung;
+            if(f !== null) f(data);
+        });
+    }
+
+    registerIsFavorite(isFavourite, f = null) {
+        let dict = this.toDict();
+        dict.isFavourite = isFavourite;
+        const copy = new History(dict);
+        copy.post('register-is-favorite', (data) => {
+            this.isFavourite = isFavourite;
+            if(f !== null) f(data);
+        });
     }
 
     // スプレッドシート上のシート名を返す
@@ -133,12 +157,12 @@ class History extends ApiClass {
 // それぞれの最高音・最低音は整数値(value)で管理する
 // 最高音・最低音のstatusはknown(valueが有効)、notExist(存在しない)、unknown(不明)の三種類
 class Song extends ApiClass {
-    constructor(dict=null) {
+    constructor(dict = null) {
         super();
-        
-        if(dict) {
+
+        if (dict) {
             this.fromDict(dict);
-        }else {
+        } else {
             this.title = '';
             this.artist = '';
             this.chestMinNote = {
@@ -163,52 +187,62 @@ class Song extends ApiClass {
             };
         }
     }
-    getChestMinNote(key=0) {
-        if(this.chestMinNote.status == 'known') {
+    getTitle() {
+        let title = sanitaize(this.title);
+
+        return title;
+    }
+    getArtist() {
+        let artist = sanitaize(this.artist);
+
+        return artist;
+    }
+    getChestMinNote(key = 0) {
+        if (this.chestMinNote.status == 'known') {
             return this.toneFromInt(this.chestMinNote.value + key);
-        } else if(this.chestMinNote.status == 'notExist') {
+        } else if (this.chestMinNote.status == 'notExist') {
             return '-';
         } else {
             return '不明';
         }
     }
-    getChestMaxNote(key=0) {
-        if(this.chestMaxNote.status == 'known') {
+    getChestMaxNote(key = 0) {
+        if (this.chestMaxNote.status == 'known') {
             return this.toneFromInt(this.chestMaxNote.value + key);
-        } else if(this.chestMaxNote.status == 'notExist') {
+        } else if (this.chestMaxNote.status == 'notExist') {
             return '-';
         } else {
             return '不明';
         }
     }
-    getHeadMinNote(key=0) {
-        if(this.headMinNote.status == 'known') {
+    getHeadMinNote(key = 0) {
+        if (this.headMinNote.status == 'known') {
             return this.toneFromInt(this.headMinNote.value + key);
-        } else if(this.headMinNote.status == 'notExist') {
+        } else if (this.headMinNote.status == 'notExist') {
             return '-';
         } else {
             return '不明';
         }
     }
-    getHeadMaxNote(key=0) {
-        if(this.headMaxNote.status == 'known') {
+    getHeadMaxNote(key = 0) {
+        if (this.headMaxNote.status == 'known') {
             return this.toneFromInt(this.headMaxNote.value + key);
-        } else if(this.headMaxNote.status == 'notExist') {
+        } else if (this.headMaxNote.status == 'notExist') {
             return '-';
         } else {
             return '不明';
         }
     }
-    getOverallMaxNote(key=0) {
-        if(this.overallMaxNote.status == 'known') {
+    getOverallMaxNote(key = 0) {
+        if (this.overallMaxNote.status == 'known') {
             return this.toneFromInt(this.overallMaxNote.value + key);
-        } else if(this.overallMaxNote.status == 'notExist') {
+        } else if (this.overallMaxNote.status == 'notExist') {
             return '-';
         } else {
             return '不明';
         }
     }
-    
+
     toneFromInt(num) {
         const tones = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
         const octave = ['low', 'mid1', 'mid2', 'hi', 'hihi', 'hihihi'];
@@ -222,45 +256,56 @@ class Song extends ApiClass {
         this.title = dict.title;
         this.artist = dict.artist;
         this.chestMinNote = {
-            value : dict.chestMinNoteStatus === 'known' ? dict.chestMinNoteValue-0 : dict.chestMinNoteValue,
-            status : dict.chestMinNoteStatus
+            value: dict.chestMinNoteStatus === 'known' ? dict.chestMinNoteValue - 0 : dict.chestMinNoteValue,
+            status: dict.chestMinNoteStatus
         };
         this.chestMaxNote = {
-            value : dict.chestMaxNoteStatus === 'known' ? dict.chestMaxNoteValue-0 : dict.chestMaxNoteValue,
-            status : dict.chestMaxNoteStatus
+            value: dict.chestMaxNoteStatus === 'known' ? dict.chestMaxNoteValue - 0 : dict.chestMaxNoteValue,
+            status: dict.chestMaxNoteStatus
         };
         this.headMinNote = {
-            value : dict.headMinNoteStatus === 'known' ? dict.headMinNoteValue-0 : dict.headMinNoteValue,
-            status : dict.headMinNoteStatus
+            value: dict.headMinNoteStatus === 'known' ? dict.headMinNoteValue - 0 : dict.headMinNoteValue,
+            status: dict.headMinNoteStatus
         };
         this.headMaxNote = {
-            value : dict.headMaxNoteStatus === 'known' ? dict.headMaxNoteValue-0 : dict.headMaxNoteValue,
-            status : dict.headMaxNoteStatus
+            value: dict.headMaxNoteStatus === 'known' ? dict.headMaxNoteValue - 0 : dict.headMaxNoteValue,
+            status: dict.headMaxNoteStatus
         };
         this.overallMaxNote = {
-            value : dict.overallMaxNoteStatus === 'known' ? dict.overallMaxNoteValue-0 : dict.overallMaxNoteValue,
-            status : dict.overallMaxNoteStatus
+            value: dict.overallMaxNoteStatus === 'known' ? dict.overallMaxNoteValue - 0 : dict.overallMaxNoteValue,
+            status: dict.overallMaxNoteStatus
         };
     }
 
     // データを連想配列に変換する
     toDict() {
         return {
-            uuid : this.uuid,
-            createdAt : this.createdAt,
-            title : this.title,
-            artist : this.artist,
-            chestMinNoteValue : this.chestMinNote.value,
-            chestMinNoteStatus : this.chestMinNote.status,
-            chestMaxNoteValue : this.chestMaxNote.value,
-            chestMaxNoteStatus : this.chestMaxNote.status,
-            headMinNoteValue : this.headMinNote.value,
-            headMinNoteStatus : this.headMinNote.status,
-            headMaxNoteValue : this.headMaxNote.value,
-            headMaxNoteStatus : this.headMaxNote.status,
-            overallMaxNoteValue : this.overallMaxNote.value,
-            overallMaxNoteStatus : this.overallMaxNote.status,
+            uuid: this.uuid,
+            createdAt: this.createdAt,
+            title: this.title,
+            artist: this.artist,
+            chestMinNoteValue: this.chestMinNote.value,
+            chestMinNoteStatus: this.chestMinNote.status,
+            chestMaxNoteValue: this.chestMaxNote.value,
+            chestMaxNoteStatus: this.chestMaxNote.status,
+            headMinNoteValue: this.headMinNote.value,
+            headMinNoteStatus: this.headMinNote.status,
+            headMaxNoteValue: this.headMaxNote.value,
+            headMaxNoteStatus: this.headMaxNote.status,
+            overallMaxNoteValue: this.overallMaxNote.value,
+            overallMaxNoteStatus: this.overallMaxNote.status,
         };
+    }
+
+    add(f=null) {
+        this.post('add', f);
+    }
+    update(dict, f=null) {
+        const copy = new Song(dict);
+        copy.post('update', (data) => {
+            this.fromDict(dict);
+            if(f !== null) f(data);
+        });
     }
 
     // スプレッドシート上のシート名を返す
@@ -271,4 +316,8 @@ class Song extends ApiClass {
     clone() {
         return new Song(this.toDict());
     }
+}
+
+function sanitaize(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }

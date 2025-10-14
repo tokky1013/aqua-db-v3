@@ -62,8 +62,8 @@ function showSongs(songArr) {
     songArr.forEach((song) => {
         html += `
             <label class="clickable ${song.uuid}" onclick="displaySongDetail('${song.uuid}')">
-                <h4 class="${song.uuid}-title">${song.title}</h4>
-                <div><div class="artist-name ${song.uuid}-artist">${song.artist}</div> <div class="${song.uuid}-created-at">${song.getCreatedAt()}</div></div>
+                <h4 class="${song.uuid}-title">${song.getTitle()}</h4>
+                <div><div class="artist-name ${song.uuid}-artist">${song.getArtist()}</div> <div class="${song.uuid}-created-at">${song.getCreatedAt()}</div></div>
                 <table>
                     <tr>
                         <th>地低</th>
@@ -93,11 +93,11 @@ function showHistories(historyArr) {
         html += `
             <label class="clickable ${history.uuid}" onclick="displayHistoryDetail('${history.uuid}')">
                 <div class="title-container ${history.uuid}-has-sung ${history.hasSung ? ' sung' : ''}">
-                    <h4 class="${history.uuid}-song-title">${history.song.title}</h4>
+                    <h4 class="${history.uuid}-song-title">${history.song.getTitle()}</h4>
                     <img src="./img/star.svg" class="is-favorite ${history.uuid}-is-favorite ${history.isFavourite ? 'favorite' : ''}">
                 </div>
                 <div>
-                    <div class="artist-name ${history.uuid}-song-artist">${history.song.artist}</div>
+                    <div class="artist-name ${history.uuid}-song-artist">${history.song.getArtist()}</div>
                     <div class="${history.uuid}-key">${history.getKey()}</div>
                     <div class="${history.uuid}-created-at">${history.getCreatedAt()}</div>
                 </div>
@@ -117,6 +117,7 @@ function showHistories(historyArr) {
                         <td class="${history.uuid}-overall-max-note">${history.getOverallMaxNote()}</td>
                     </tr>
                 </table>
+                <p class="comment ${history.uuid}-comment"">${history.getComment()}</p>
             </label>
         `
     });
@@ -211,7 +212,7 @@ function displayHistoryDetail(uuid) {
 
     const html = `
         <div id="${uuid}" class="history-detail detail-page">
-            <h4 class="${history.uuid}-song-title">${history.song.title}</h4>
+            <h4 class="${history.uuid}-song-title">${history.song.getTitle()}</h4>
             <div class="song-detail-button" onclick="displaySongDetail('${history.song.uuid}')">この曲の詳細を表示する</div>
             <div class="field-content text-right mc-1 ${history.uuid}-created-at">${history.getCreatedAt()}</div>
             <table>
@@ -234,7 +235,7 @@ function displayHistoryDetail(uuid) {
             <div>
                 <div class="field-container">
                     <div class="field-name">アーティスト</div>
-                    <div class="field-content ${history.uuid}-song-artist">${history.song.artist}</div>
+                    <div class="field-content ${history.uuid}-song-artist">${history.song.getArtist()}</div>
                 </div>
                 <div class="field-container">
                     <div class="field-name">キー</div>
