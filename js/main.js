@@ -263,8 +263,8 @@ $(function () {
         const artist = $form.find('[name="artist"]').val();
         const sung = $form.find('[name="sung"]').prop('checked');
         const notSung = $form.find('[name="notSung"]').prop('checked');
-        const favourite = $form.find('[name="favourite"]').prop('checked');
-        const notFavourite = $form.find('[name="notFavourite"]').prop('checked');
+        const favorite = $form.find('[name="favorite"]').prop('checked');
+        const notFavorite = $form.find('[name="notFavorite"]').prop('checked');
         const key = $form.find('[name="key"]').get(0).noUiSlider.get().map(Number);
         const chestMinNote = $form.find('[name="chestMinNote"]').get(0).noUiSlider.get().map(Number);
         const chestMaxNote = $form.find('[name="chestMaxNote"]').get(0).noUiSlider.get().map(Number);
@@ -304,14 +304,14 @@ $(function () {
         }
 
         // お気に入り
-        if(favourite) {
+        if(favorite) {
             filteringConditionFuncs.push((history) => {
-                return history.isFavourite;
+                return history.isFavorite;
             });
         }
-        if(notFavourite) {
+        if(notFavorite) {
             filteringConditionFuncs.push((history) => {
-                return !history.isFavourite;
+                return !history.isFavorite;
             });
         }
 

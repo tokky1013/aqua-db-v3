@@ -46,7 +46,7 @@ class History extends ApiClass {
             this.machineType = '';
             this.comment = '';
             this.hasSung = false;
-            this.isFavourite = false;
+            this.isFavorite = false;
         }
     }
 
@@ -94,7 +94,7 @@ class History extends ApiClass {
         this.machineType = dict.machineType;
         this.comment = dict.comment;
         this.hasSung = dict.hasSung;
-        this.isFavourite = dict.isFavourite;
+        this.isFavorite = dict.isFavorite;
     }
 
     // データを連想配列に変換する
@@ -108,7 +108,7 @@ class History extends ApiClass {
             machineType: this.machineType,
             comment: this.comment,
             hasSung: this.hasSung,
-            isFavourite: this.isFavourite,
+            isFavorite: this.isFavorite,
         };
     }
 
@@ -133,12 +133,12 @@ class History extends ApiClass {
         });
     }
 
-    registerIsFavorite(isFavourite, f = null) {
+    registerIsFavorite(isFavorite, f = null) {
         let dict = this.toDict();
-        dict.isFavourite = isFavourite;
+        dict.isFavorite = isFavorite;
         const copy = new History(dict);
         copy.post('register-is-favorite', (data) => {
-            this.isFavourite = isFavourite;
+            this.isFavorite = isFavorite;
             if(f !== null) f(data);
         });
     }

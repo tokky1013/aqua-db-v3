@@ -94,7 +94,7 @@ function showHistories(historyArr) {
             <label class="clickable ${history.uuid}" onclick="displayHistoryDetail('${history.uuid}')">
                 <div class="title-container ${history.uuid}-has-sung ${history.hasSung ? ' sung' : ''}">
                     <h4 class="${history.uuid}-song-title">${history.song.getTitle()}</h4>
-                    <img src="./img/star.svg" class="is-favorite ${history.uuid}-is-favorite ${history.isFavourite ? 'favorite' : ''}">
+                    <img src="./img/star.svg" class="is-favorite ${history.uuid}-is-favorite ${history.isFavorite ? 'favorite' : ''}">
                 </div>
                 <div>
                     <div class="artist-name ${history.uuid}-song-artist">${history.song.getArtist()}</div>
@@ -260,12 +260,12 @@ function displayHistoryDetail(uuid) {
                         <div class="detail-btn has-sung clickable ${history.uuid}-has-sung ${history.hasSung ? ' sung' : ''}"></div>
                     </label>
                     <label>
-                        <img class="detail-btn is-favorite clickable ${history.uuid}-is-favorite ${history.isFavourite ? ' favorite' : ''}" src="./img/star.svg">
+                        <img class="detail-btn is-favorite clickable ${history.uuid}-is-favorite ${history.isFavorite ? ' favorite' : ''}" src="./img/star.svg">
                     </label>
                     <label>
                         <img class="detail-btn edit clickable" src="./img/edit.svg">
                     </label>
-                    <label>
+                    <label onclick="deleteHistory(${history.uuid});">
                         <img class="detail-btn delete clickable" src="./img/delete.svg">
                     </label>
                 </div>
@@ -275,6 +275,19 @@ function displayHistoryDetail(uuid) {
     `;
 
     openFullScreenModal('詳細', html);
+
+    $(`.detail-btn.${history.uuid}-has-sung`).on('click', function() {
+        const hasSung = $(this).hasClass('sung');
+        history.registerHasSung(!hasSung, (data) => {
+            updateDisplayedHistory(history.uuid);
+        });
+    });
+    $(`.detail-btn.${history.uuid}-is-favorite`).on('click', function() {
+        const isFavorite = $(this).hasClass('favorite');
+        history.registerIsFavorite(!isFavorite, (data) => {
+            updateDisplayedHistory(history.uuid);
+        });
+    });
 }
 
 function openAddSongPage() {
@@ -294,6 +307,8 @@ function updateDisplayedSong(uuid) {
     $(`.${song.uuid}-head-max-note`).text(song.getHeadMaxNote());
     $(`.${song.uuid}-overall-max-note`).text(song.getOverallMaxNote());
     $(`.${song.uuid}-created-at`).text(song.getCreatedAt());
+
+    // 紐づいた履歴を更新
 }
 
 function updateDisplayedHistory(uuid) {
@@ -311,14 +326,14 @@ function updateDisplayedHistory(uuid) {
     $(`.${history.uuid}-score`).text(history.getScore());
     $(`.${history.uuid}-comment`).text(history.getComment());
     if(history.hasSung) {
-        $(`${history.uuid}-has-sung`).addClass('sung');
+        $(`.${history.uuid}-has-sung`).addClass('sung');
     }else {
-        $(`${history.uuid}-has-sung`).removeClass('sung');
+        $(`.${history.uuid}-has-sung`).removeClass('sung');
     }
-    if(history.isFavourite) {
-        $(`${history.uuid}-is-favorite`).addClass('favorite');
+    if(history.isFavorite) {
+        $(`.${history.uuid}-is-favorite`).addClass('favorite');
     }else {
-        $(`${history.uuid}-is-favorite`).removeClass('favorite');
+        $(`.${history.uuid}-is-favorite`).removeClass('favorite');
     }
 }
 

@@ -1,4 +1,4 @@
-const url = 'https://script.google.com/macros/s/AKfycbziLDxxXo_UOOktpVDEQe2Q2by_xd9p8LdcO0-zVa3UHH_Vsug8wn5lNSLuzow4bVxY/exec';
+const url = 'https://script.google.com/macros/s/AKfycbz0UOCIg7jYUBBMyyYjjR0IqE6RBbCyPX76iwBpr2DDpABnRg--JOwmr71-pASpjmd6/exec';
 let SECRET_TOKEN = 'd47f6f90-db00-4208-a56b-0c3640837f33';
 
 // 最初にしか実行しない設計なので、ローディングスピナーを表示する処理は書かない
@@ -78,7 +78,8 @@ function deleteHistory(historyId) {
             mode: 'delete',
             uuid: historyId
         }, (data) => {
-            
+            delete histories[historyId];
+            deleteDisplayedData(historyId);
         });
     }
 }
