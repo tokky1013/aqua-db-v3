@@ -265,7 +265,7 @@ function displayHistoryDetail(uuid) {
                     <label>
                         <img class="detail-btn edit clickable" src="./img/edit.svg">
                     </label>
-                    <label onclick="deleteHistory(${history.uuid});">
+                    <label onclick="deleteHistory('${history.uuid}');">
                         <img class="detail-btn delete clickable" src="./img/delete.svg">
                     </label>
                 </div>
