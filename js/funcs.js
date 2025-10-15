@@ -211,62 +211,64 @@ function displayHistoryDetail(uuid) {
     const history = getHistory(uuid);
 
     const html = `
-        <div id="${uuid}" class="history-detail detail-page">
-            <h4 class="${history.uuid}-song-title">${history.song.getTitle()}</h4>
-            <div class="song-detail-button" onclick="displaySongDetail('${history.song.uuid}')">この曲の詳細を表示する</div>
-            <div class="field-content text-right mc-1 ${history.uuid}-created-at">${history.getCreatedAt()}</div>
-            <table>
-                <tr>
-                    <th>地低</th>
-                    <th>地高</th>
-                    <th>裏低</th>
-                    <th>裏高</th>
-                    <th>最高音</th>
-                </tr>
-                <tr>
-                    <td class="${history.uuid}-chest-min-note">${history.getChestMinNote()}</td>
-                    <td class="${history.uuid}-chest-max-note">${history.getChestMaxNote()}</td>
-                    <td class="${history.uuid}-head-min-note">${history.getHeadMinNote()}</td>
-                    <td class="${history.uuid}-head-max-note">${history.getHeadMaxNote()}</td>
-                    <td class="${history.uuid}-overall-max-note">${history.getOverallMaxNote()}</td>
-                </tr>
-            </table>
+        <div class="h-100 detail-page">
+            <div class="history-detail ${uuid}">
+                <h4 class="${history.uuid}-song-title">${history.song.getTitle()}</h4>
+                <div class="song-detail-button" onclick="displaySongDetail('${history.song.uuid}')">この曲の詳細を表示する</div>
+                <div class="field-content text-right mc-1 ${history.uuid}-created-at">${history.getCreatedAt()}</div>
+                <table>
+                    <tr>
+                        <th>地低</th>
+                        <th>地高</th>
+                        <th>裏低</th>
+                        <th>裏高</th>
+                        <th>最高音</th>
+                    </tr>
+                    <tr>
+                        <td class="${history.uuid}-chest-min-note">${history.getChestMinNote()}</td>
+                        <td class="${history.uuid}-chest-max-note">${history.getChestMaxNote()}</td>
+                        <td class="${history.uuid}-head-min-note">${history.getHeadMinNote()}</td>
+                        <td class="${history.uuid}-head-max-note">${history.getHeadMaxNote()}</td>
+                        <td class="${history.uuid}-overall-max-note">${history.getOverallMaxNote()}</td>
+                    </tr>
+                </table>
 
-            <div>
-                <div class="field-container">
-                    <div class="field-name">アーティスト</div>
-                    <div class="field-content ${history.uuid}-song-artist">${history.song.getArtist()}</div>
-                </div>
-                <div class="field-container">
-                    <div class="field-name">キー</div>
-                    <div class="field-content ${history.uuid}-key">${history.getKey()}</div>
-                </div>
-                <div class="field-container">
-                    <div class="field-name">最高得点</div>
-                    <div class="field-content ${history.uuid}-score">${history.getScore()}</div>
-                </div>
-                <div class="field-container">
-                    <div>
-                        <div>コメント</div>
-                        <div class="comment ${history.uuid}-comment">${history.getComment()}</div>
+                <div>
+                    <div class="field-container">
+                        <div class="field-name">アーティスト</div>
+                        <div class="field-content ${history.uuid}-song-artist">${history.song.getArtist()}</div>
+                    </div>
+                    <div class="field-container">
+                        <div class="field-name">キー</div>
+                        <div class="field-content ${history.uuid}-key">${history.getKey()}</div>
+                    </div>
+                    <div class="field-container">
+                        <div class="field-name">最高得点</div>
+                        <div class="field-content ${history.uuid}-score">${history.getScore()}</div>
+                    </div>
+                    <div class="field-container">
+                        <div>
+                            <div>コメント</div>
+                            <div class="comment ${history.uuid}-comment">${history.getComment()}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="flex-fill"></div>
+                <div class="flex-fill"></div>
 
-            <div class="detail-btns">
-                <label>
-                    <div class="detail-btn has-sung clickable ${history.uuid}-has-sung ${history.hasSung ? ' sung' : ''}"></div>
-                </label>
-                <label>
-                    <img class="detail-btn is-favorite clickable ${history.uuid}-is-favorite ${history.isFavourite ? ' favorite' : ''}" src="./img/star.svg">
-                </label>
-                <label>
-                    <img class="detail-btn edit clickable" src="./img/edit.svg">
-                </label>
-                <label>
-                    <img class="detail-btn delete clickable" src="./img/delete.svg">
-                </label>
+                <div class="detail-btns">
+                    <label>
+                        <div class="detail-btn has-sung clickable ${history.uuid}-has-sung ${history.hasSung ? ' sung' : ''}"></div>
+                    </label>
+                    <label>
+                        <img class="detail-btn is-favorite clickable ${history.uuid}-is-favorite ${history.isFavourite ? ' favorite' : ''}" src="./img/star.svg">
+                    </label>
+                    <label>
+                        <img class="detail-btn edit clickable" src="./img/edit.svg">
+                    </label>
+                    <label>
+                        <img class="detail-btn delete clickable" src="./img/delete.svg">
+                    </label>
+                </div>
             </div>
         </div>
         <div class="deleted-mes">このデータは削除されました</div>
@@ -277,4 +279,52 @@ function displayHistoryDetail(uuid) {
 
 function openAddSongPage() {
     openFullScreenModal('曲を追加', '');
+}
+
+// ---------------------表示の更新---------------------
+// 未テスト
+function updateDisplayedSong(uuid) {
+    const song = getSong(uuid);
+
+    $(`.${song.uuid}-song-title`).text(song.getTitle());
+    $(`.${song.uuid}-song-artist`).text(song.getArtist());
+    $(`.${song.uuid}-chest-min-note`).text(song.getChestMinNote());
+    $(`.${song.uuid}-chest-max-note`).text(song.getChestMaxNote());
+    $(`.${song.uuid}-head-min-note`).text(song.getHeadMinNote());
+    $(`.${song.uuid}-head-max-note`).text(song.getHeadMaxNote());
+    $(`.${song.uuid}-overall-max-note`).text(song.getOverallMaxNote());
+    $(`.${song.uuid}-created-at`).text(song.getCreatedAt());
+}
+
+function updateDisplayedHistory(uuid) {
+    const history = getHistory(uuid);
+
+    $(`.${history.uuid}-song-title`).text(history.song.getTitle());
+    $(`.${history.uuid}-song-artist`).text(history.song.getArtist());
+    $(`.${history.uuid}-chest-min-note`).text(history.getChestMinNote());
+    $(`.${history.uuid}-chest-max-note`).text(history.getChestMaxNote());
+    $(`.${history.uuid}-head-min-note`).text(history.getHeadMinNote());
+    $(`.${history.uuid}-head-max-note`).text(history.getHeadMaxNote());
+    $(`.${history.uuid}-overall-max-note`).text(history.getOverallMaxNote());
+    $(`.${history.uuid}-created-at`).text(history.getCreatedAt());
+    $(`.${history.uuid}-key`).text(history.getKey());
+    $(`.${history.uuid}-score`).text(history.getScore());
+    $(`.${history.uuid}-comment`).text(history.getComment());
+    if(history.hasSung) {
+        $(`${history.uuid}-has-sung`).addClass('sung');
+    }else {
+        $(`${history.uuid}-has-sung`).removeClass('sung');
+    }
+    if(history.isFavourite) {
+        $(`${history.uuid}-is-favorite`).addClass('favorite');
+    }else {
+        $(`${history.uuid}-is-favorite`).removeClass('favorite');
+    }
+}
+
+function deleteDisplayedData(uuid) {
+    $(`*:has(> .${uuid})`).contents().filter(function() {
+        return this.nodeType === 3 && !/¥S/.test(this.nodeValue);
+    }).remove();
+    $(`.${uuid}`). remove();
 }
