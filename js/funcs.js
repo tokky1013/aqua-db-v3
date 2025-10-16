@@ -278,6 +278,7 @@ function displaySongDetail(uuid) {
                         <div class="field-content ${song.uuid}-song-artist">${song.getArtist()}</div>
                     </div>
                 </div>
+                <h5>音域データ</h5>
                 <div>${relatedHistoriesHtml}</div>
                 <div class="empty-mes">音域データが登録されていません</div>
                 <div class="flex-fill"></div>

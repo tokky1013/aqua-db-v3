@@ -789,6 +789,9 @@ div:empty + .empty-mes {
 }
 
 /* 曲の履歴リスト */
+.song-detail h5 {
+    margin: 10px 0;
+}
 .related-history {
     padding: 10px;
 }
