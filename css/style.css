@@ -823,6 +823,7 @@ div:empty + .empty-mes {
     color: var(--main-color-1);
 }
 .related-history .related-history-comment {
+    margin: 0 5px;
     font-size: 0.9rem;
     overflow: hidden;
     text-overflow: ellipsis;
