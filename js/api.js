@@ -70,27 +70,3 @@ function post(params, funcOk = null, funcFinally = null) {
             hideLoadingSpiner();
         });
 }
-
-function deleteHistory(historyId) {
-    if (confirm('このデータを削除しますか？')) {
-        post(params = {
-            sheet: 'history',
-            mode: 'delete',
-            uuid: historyId
-        }, (data) => {
-            delete histories[historyId];
-            deleteDisplayedData(historyId);
-        });
-    }
-}
-
-function deleteSong(songId) {
-    if (confirm(`この曲を削除しますか？
-この曲に関するデータは完全に削除されます。`)) {
-        post(params = {
-            sheet: 'songs',
-            mode: 'delete',
-            uuid: songId
-        });
-    }
-}

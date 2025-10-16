@@ -40,11 +40,11 @@ function closeMenu() {
 
 // ---------------------Full-Screen Modal---------------------
 let fullScreenModalId = -1;
-function openFullScreenModal(title, html) {
+function openFullScreenModal(title, html, name) {
     fullScreenModalId++;
 
     const innerHtml = `
-        <div class="full-screen-modal open" id="full-screen-modal-${fullScreenModalId}">
+        <div class="full-screen-modal open" id="full-screen-modal-${fullScreenModalId}" data-fsm-name="${name}">
             <div class="full-screen-modal-header">
                 <label class="full-screen-modal-back-btn clickable"></label>
                 <h3>${title}</h3>
@@ -57,16 +57,25 @@ function openFullScreenModal(title, html) {
     $('#full-screen-modal-container').append($newFullScreenModal);
 
     $(`#full-screen-modal-${fullScreenModalId} .full-screen-modal-back-btn`).on('click', (e) => {
-        $newFullScreenModal.removeClass('open');
-        fullScreenModalId--;
-        setTimeout(() => {
-            $newFullScreenModal.remove();
-        }, 200);
+        closeFullScreenModal(fullScreenModalId);
         e.stopPropagation();
     });
 
     closeSlideOver();
     closeMenu();
+}
+
+function closeFullScreenModal(fsmId, fsmName = null) {
+    const $fsm = $(`#full-screen-modal-${fsmId}`);
+    if(fsmName !== null) {
+        if($fsm.data('fsm-name') !== fsmName) return;
+    }
+    if(fullScreenModalId === fsmId) fullScreenModalId--;
+
+    $fsm.removeClass('open');
+    setTimeout(() => {
+        $fsm.remove();
+    }, 200);
 }
 
 function closeAllFullScreenModal() {

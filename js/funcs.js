@@ -54,6 +54,41 @@ function getSongs(funcFinally = null) {
     );
 }
 
+function deleteHistory(historyId) {
+    if (confirm('このデータを削除しますか？')) {
+        post(params = {
+            sheet: 'history',
+            mode: 'delete',
+            uuid: historyId
+        }, (data) => {
+            closeFullScreenModal(fullScreenModalId, `history-detail-${historyId}`);
+            delete histories[historyId];
+            deleteDisplayedData(historyId);
+        });
+    }
+}
+
+function deleteSong(songId) {
+    if (confirm(`この曲を削除しますか？
+この曲に関するデータは完全に削除されます。`)) {
+        post(params = {
+            sheet: 'songs',
+            mode: 'delete',
+            uuid: songId
+        }, (data) => {
+            closeFullScreenModal(fullScreenModalId, `song-detail-${songId}`);
+            delete songs[songId];
+
+            deleteDisplayedData(songId);
+            // 紐づく履歴を消す
+            for (const history of Object.values(histories)) {
+                if (history.song.uuid === songId) {
+                    deleteDisplayedData(history.uuid);
+                }
+            }
+        });
+    }
+}
 // ---------------------データの表示---------------------
 let prevSongConditions = null;
 let prevHistoryConditions = null;
@@ -205,7 +240,63 @@ function resetFilterAndSortHistoriesForm() {
 // ---------------------Full-Screen Modal---------------------
 function displaySongDetail(uuid) {
     const song = getSong(uuid);
-    openFullScreenModal('詳細', '');
+
+    let relatedHistoriesHtml = '';
+
+    let relatedHistories = Object.values(histories)
+        .filter((history) => {return history.song.uuid === uuid;})
+        .sort((historyA, historyB) => {return historyA.key - historyB.key});
+    for (const history of relatedHistories) {
+        relatedHistoriesHtml += getHistoryListHtml(history);
+    }
+
+    const html = `
+        <div class="h-100 detail-page">
+            <div class="song-detail ${uuid}">
+                <h4 class="${song.uuid}-song-title">${song.getTitle()}</h4>
+                <div class="field-content text-right mc-1 ${song.uuid}-created-at">${song.getCreatedAt()}</div>
+                <table>
+                    <tr>
+                        <th>地低</th>
+                        <th>地高</th>
+                        <th>裏低</th>
+                        <th>裏高</th>
+                        <th>最高音</th>
+                    </tr>
+                    <tr>
+                        <td class="${song.uuid}-chest-min-note">${song.getChestMinNote()}</td>
+                        <td class="${song.uuid}-chest-max-note">${song.getChestMaxNote()}</td>
+                        <td class="${song.uuid}-head-min-note">${song.getHeadMinNote()}</td>
+                        <td class="${song.uuid}-head-max-note">${song.getHeadMaxNote()}</td>
+                        <td class="${song.uuid}-overall-max-note">${song.getOverallMaxNote()}</td>
+                    </tr>
+                </table>
+
+                <div>
+                    <div class="field-container">
+                        <div class="field-name">アーティスト</div>
+                        <div class="field-content ${song.uuid}-song-artist">${song.getArtist()}</div>
+                    </div>
+                </div>
+                <div>${relatedHistoriesHtml}</div>
+                <div class="empty-mes">音域データが登録されていません</div>
+                <div class="flex-fill"></div>
+
+                <div class="detail-btns">
+                    <label>
+                        <img class="detail-btn edit clickable" src="./img/edit.svg">
+                        編集
+                    </label>
+                    <label onclick="deleteSong('${song.uuid}');">
+                        <img class="detail-btn delete clickable" src="./img/delete.svg">
+                        削除
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="deleted-mes">このデータは削除されました</div>
+    `;
+    openFullScreenModal('詳細', html, 'song-detail-' + song.uuid);
 }
 function displayHistoryDetail(uuid) {
     const history = getHistory(uuid);
@@ -274,15 +365,15 @@ function displayHistoryDetail(uuid) {
         <div class="deleted-mes">このデータは削除されました</div>
     `;
 
-    openFullScreenModal('詳細', html);
+    openFullScreenModal('詳細', html, 'history-detail-' + history.uuid);
 
-    $(`.detail-btn.${history.uuid}-has-sung`).on('click', function() {
+    $(`.detail-btn.${history.uuid}-has-sung`).on('click', function () {
         const hasSung = $(this).hasClass('sung');
         history.registerHasSung(!hasSung, (data) => {
             updateDisplayedHistory(history.uuid);
         });
     });
-    $(`.detail-btn.${history.uuid}-is-favorite`).on('click', function() {
+    $(`.detail-btn.${history.uuid}-is-favorite`).on('click', function () {
         const isFavorite = $(this).hasClass('favorite');
         history.registerIsFavorite(!isFavorite, (data) => {
             updateDisplayedHistory(history.uuid);
@@ -290,8 +381,38 @@ function displayHistoryDetail(uuid) {
     });
 }
 
+function getHistoryListHtml(history) {
+    return `
+        <div class="related-history ${history.uuid}" onclick="displayHistoryDetail('${history.uuid}')">
+            <div class="key-container">
+                <div class="related-history-key ${history.uuid}-key">${history.getKey()}</div>
+                <div class="flex-fill"></div>
+                <div class="has-sung ${history.uuid}-has-sung ${history.hasSung ? ' sung' : ''}"></div>
+                <img src="./img/star.svg" class="is-favorite ${history.uuid}-is-favorite ${history.isFavorite ? 'favorite' : ''}">
+            </div>
+            <table>
+                <tr>
+                    <th>地低</th>
+                    <th>地高</th>
+                    <th>裏低</th>
+                    <th>裏高</th>
+                    <th>最高音</th>
+                </tr>
+                <tr>
+                    <td class="${history.uuid}-chest-min-note">${history.getChestMinNote()}</td>
+                    <td class="${history.uuid}-chest-max-note">${history.getChestMaxNote()}</td>
+                    <td class="${history.uuid}-head-min-note">${history.getHeadMinNote()}</td>
+                    <td class="${history.uuid}-head-max-note">${history.getHeadMaxNote()}</td>
+                    <td class="${history.uuid}-overall-max-note">${history.getOverallMaxNote()}</td>
+                </tr>
+            </table>
+            <div class="related-history-comment ${history.uuid}-comment">${history.getComment()}</div>
+        </div>
+    `;
+}
+
 function openAddSongPage() {
-    openFullScreenModal('曲を追加', '');
+    openFullScreenModal('曲を追加', '', 'add-song');
 }
 
 // ---------------------表示の更新---------------------
@@ -309,6 +430,11 @@ function updateDisplayedSong(uuid) {
     $(`.${song.uuid}-created-at`).text(song.getCreatedAt());
 
     // 紐づいた履歴を更新
+    for (const history of Object.values(histories)) {
+        if (history.song.uuid === uuid) {
+            updateDisplayedHistory(history.uuid);
+        }
+    }
 }
 
 function updateDisplayedHistory(uuid) {
@@ -325,21 +451,21 @@ function updateDisplayedHistory(uuid) {
     $(`.${history.uuid}-key`).text(history.getKey());
     $(`.${history.uuid}-score`).text(history.getScore());
     $(`.${history.uuid}-comment`).text(history.getComment());
-    if(history.hasSung) {
+    if (history.hasSung) {
         $(`.${history.uuid}-has-sung`).addClass('sung');
-    }else {
+    } else {
         $(`.${history.uuid}-has-sung`).removeClass('sung');
     }
-    if(history.isFavorite) {
+    if (history.isFavorite) {
         $(`.${history.uuid}-is-favorite`).addClass('favorite');
-    }else {
+    } else {
         $(`.${history.uuid}-is-favorite`).removeClass('favorite');
     }
 }
 
 function deleteDisplayedData(uuid) {
-    $(`*:has(> .${uuid})`).contents().filter(function() {
+    $(`*:has(> .${uuid})`).contents().filter(function () {
         return this.nodeType === 3 && !/¥S/.test(this.nodeValue);
     }).remove();
-    $(`.${uuid}`). remove();
+    $(`.${uuid}`).remove();
 }
