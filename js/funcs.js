@@ -83,6 +83,7 @@ function deleteSong(songId) {
             // 紐づく履歴を消す
             for (const history of Object.values(histories)) {
                 if (history.song.uuid === songId) {
+                    delete histories[history.uuid];
                     deleteDisplayedData(history.uuid);
                 }
             }

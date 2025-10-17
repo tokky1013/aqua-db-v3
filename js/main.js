@@ -465,5 +465,10 @@ $(function () {
         return false;
     });
 
+    // inputがフォーカスされた時にテキストを選択
+    $(document).on('focus', 'input[type="text"], input[type="number"]', function() {
+        $(this).select();
+    });
+
     // 音域データの検索
 });
