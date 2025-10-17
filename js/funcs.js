@@ -285,12 +285,12 @@ function displaySongDetail(uuid) {
                 <div class="flex-fill"></div>
 
                 <div class="detail-btns">
-                    <label>
-                        <img class="detail-btn edit clickable" src="./img/edit.svg">
+                    <label onclick="openUpdateSongPage('${song.uuid}');" class="clickable">
+                        <img class="detail-btn edit" src="./img/edit.svg">
                         編集
                     </label>
-                    <label onclick="deleteSong('${song.uuid}');">
-                        <img class="detail-btn delete clickable" src="./img/delete.svg">
+                    <label onclick="deleteSong('${song.uuid}');" class="clickable">
+                        <img class="detail-btn delete" src="./img/delete.svg">
                         削除
                     </label>
                 </div>
@@ -355,7 +355,7 @@ function displayHistoryDetail(uuid) {
                     <label>
                         <img class="detail-btn is-favorite clickable ${history.uuid}-is-favorite ${history.isFavorite ? ' favorite' : ''}" src="./img/star.svg">
                     </label>
-                    <label>
+                    <label onclick="openUpdateHistoryPage('${history.uuid}');">
                         <img class="detail-btn edit clickable" src="./img/edit.svg">
                     </label>
                     <label onclick="deleteHistory('${history.uuid}');">
@@ -413,8 +413,18 @@ function getHistoryListHtml(history) {
     `;
 }
 
+function openUpdateSongPage(uuid) {
+    openFullScreenModal('曲を更新', '', `update-song-${uuid}`);
+}
+function openUpdateHistoryPage(uuid) {
+    openFullScreenModal('音域データを更新', '', `update-history-${uuid}`);
+}
+
 function openAddSongPage() {
     openFullScreenModal('曲を追加', '', 'add-song');
+}
+function openAddHistoryPage() {
+    openFullScreenModal('音域データを追加', '', 'add-history');
 }
 
 // ---------------------表示の更新---------------------

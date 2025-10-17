@@ -13,9 +13,22 @@
     --btn-color: #050505;
     --slider-color: #007bff;
 
+    --check-color: #25AF01;
+    --delete-color: #fc5444;
+
+    --default-btn-filter: invert(72%) sepia(0%) saturate(489%) hue-rotate(207deg) brightness(91%) contrast(92%);
     --favorite-filter: invert(59%) sepia(83%) saturate(1509%) hue-rotate(24deg) brightness(117%) contrast(113%);
+    --delete-filter: invert(42%) sepia(83%) saturate(2677%) hue-rotate(336deg) brightness(109%) contrast(104%);
 
     /* --svg-filter-color-0: brightness(0) saturate(100%) invert(100%) sepia(4%) saturate(53%) hue-rotate(236deg) brightness(117%) contrast(76%); */
+}
+
+.clickable {
+    --base-filter: none;
+
+    filter: var(--base-filter);
+    transition: 0.5s;
+    cursor: pointer;
 }
 
 .mc-0 {
@@ -178,8 +191,8 @@ h6 {
     display: inline-block;
     width: 25px;
     height: 12px;
-    border-left: 4px solid #25AF01;
-    border-bottom: 4px solid #25AF01;
+    border-left: 4px solid var(--check-color);
+    border-bottom: 4px solid var(--check-color);
     transform: translateY(-4px) rotate(-45deg);
 }
 
@@ -324,7 +337,7 @@ nav .inner ul li a:hover {
     height: 31px;
     z-index: 100;
     cursor: pointer;
-    transition: 0.2s !important;
+    transition: 0.2s;
 }
 
 .toggle-btn.hidden {
@@ -805,8 +818,8 @@ div:empty + .empty-mes {
     display: inline-block;
     width: 23px;
     height: 11px;
-    border-left: 4px solid #25AF01;
-    border-bottom: 4px solid #25AF01;
+    border-left: 4px solid var(--check-color);
+    border-bottom: 4px solid var(--check-color);
     transform: translateY(-4px) rotate(-45deg);
 }
 .related-history .key-container .is-favorite.favorite {
@@ -875,21 +888,24 @@ div:empty + .empty-mes {
 }
 
 .detail-btn.has-sung.sung {
-    border-left: 4px solid #25AF01;
-    border-bottom: 4px solid #25AF01;
+    border-left: 4px solid var(--check-color);
+    border-bottom: 4px solid var(--check-color);
 }
 img.detail-btn {
-    filter: invert(72%) sepia(0%) saturate(489%) hue-rotate(207deg) brightness(91%) contrast(92%);
+    --base-filter: var(--default-btn-filter);
+    filter: var(--base-filter);
 }
 img.detail-btn.is-favorite.favorite {
-    filter: var(--favorite-filter);
+    --base-filter: var(--favorite-filter);
+    filter: var(--base-filter);
 }
 img.detail-btn.delete {
-    filter: invert(42%) sepia(83%) saturate(2677%) hue-rotate(336deg) brightness(109%) contrast(104%);
+    --base-filter: var(--delete-filter);
+    filter: var(--base-filter);
 }
 
 .detail-btns label:has(img.detail-btn.delete) {
-    color: #fc5444;
+    color: var(--delete-color);
 }
 
 .deleted-mes {
@@ -948,12 +964,8 @@ img.detail-btn.delete {
 }
 
 /* その他 */
-.clickable {
-    transition: 0.5s;
-    cursor: pointer;
-}
 
 .clickable:hover {
-    filter: brightness(140%);
+    filter: var(--base-filter) brightness(140%);
     transform: scale(1.1);
 }

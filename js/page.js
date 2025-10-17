@@ -47,7 +47,7 @@ function openFullScreenModal(title, html, name) {
         <div class="full-screen-modal open" id="full-screen-modal-${fullScreenModalId}" data-fsm-name="${name}">
             <div class="full-screen-modal-header">
                 <label class="full-screen-modal-back-btn clickable"></label>
-                <h3>${title}</h3>
+                <h4>${title}</h4>
                 <label class="full-screen-modal-close-btn clickable" onclick="closeAllFullScreenModal();"></label>
             </div>
             <div class="full-screen-modal-main">${html}</div>
