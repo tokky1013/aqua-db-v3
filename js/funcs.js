@@ -217,7 +217,8 @@ function resetFilterAndSortSongsForm() {
     $form.find('[name="headMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
     $form.find('[name="headMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
     $form.find('[name="overallMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
-    $form.find('[name="order"]').val('createdAt');
+    $form.find('[name="sortingOrder"]').val('createdAt');
+    $form.find('[name="sortingDirection"]').val('1');
 }
 
 function resetFilterAndSortHistoriesForm() {
@@ -235,7 +236,8 @@ function resetFilterAndSortHistoriesForm() {
     $form.find('[name="headMinNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
     $form.find('[name="headMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
     $form.find('[name="overallMaxNote"]').get(0).noUiSlider.set([minVoiceRangeLimit, maxVoiceRangeLimit]);
-    $form.find('[name="order"]').val('createdAt');
+    $form.find('[name="sortingOrder"]').val('createdAt');
+    $form.find('[name="sortingDirection"]').val('1');
 }
 
 // ---------------------Full-Screen Modal---------------------
