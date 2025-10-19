@@ -246,78 +246,195 @@
             </div>
         </div>
     </main>
+
+    <!-- フルスクリーンモーダル -->
     <div id="full-screen-modal-container">
-        <!-- <div class="full-screen-modal open">
+        <div class="full-screen-modal open">
             <div class="full-screen-modal-header">
                 <label class="full-screen-modal-back-btn"></label>
-                <h3>詳細</h3>
+                <h3>曲を登録</h3>
                 <label class="full-screen-modal-close-btn" onclick="closeAllFullScreenModal();"></label>
             </div>
             <div class="full-screen-modal-main">
-                <div id="history-uuid-afar" class="history-detail detail-page">
-                    <h4>シーソーゲーム</h4>
-                    <div class="song-detail-button" onclick="displaySongDetail('uuid')">この曲の詳細を表示する</div>
-                    <div class="field-content text-right mc-1">2025/10/13</div>
-                    <table>
-                        <tr>
-                            <th>地低</th>
-                            <th>地高</th>
-                            <th>裏低</th>
-                            <th>裏高</th>
-                            <th>最高音</th>
-                        </tr>
-                        <tr>
-                            <td>hiA</td>
-                            <td>hiA</td>
-                            <td>hiA</td>
-                            <td>hiA</td>
-                            <td>hiA</td>
-                        </tr>
-                    </table>
-
-                    <div>
-                        <div class="field-container">
-                            <div class="field-name">アーティスト</div>
-                            <div class="field-content">Mr. Children</div>
-                        </div>
-                        <div class="field-container">
-                            <div class="field-name">キー</div>
-                            <div class="field-content">原曲キー</div>
-                        </div>
-                        <div class="field-container">
-                            <div class="field-name">最高得点</div>
-                            <div class="field-content">85.43(DAM)</div>
-                        </div>
-                        <div class="field-container">
+                <!-- 中身ここから -->
+                <!-- <form class="song-register-form">
+                    <div class="field-input-container">
+                        <div class="field-input-name">タイトル</div>
+                        <div class="field-input"><input type="text" name="title"></div>
+                    </div>
+                    <div class="field-input-container">
+                        <div class="field-input-name">アーティスト名</div>
+                        <div class="field-input"><input type="text" name="artist"></div>
+                    </div>
+                    <div class="field-input-container">
+                        <div class="field-input-name">地声音域</div>
+                        <div class="field-input">
+                            <input type="checkbox" id="input-chest-exists"><label for="input-chest-exists"
+                                class="pl-2">地声なし</label>
                             <div>
-                                <div>コメント</div>
-                                <div class="comment">
-                                    「崩れて〜く」を耐えれば+5でいい<br>最初元の高さで「君へのメロディー」のとこからオク下がいい
+                                <div class="field-input-name">地声最低音</div>
+                                <div class="field-input">
+                                    <select name="input-chest-min-octave" id="input-chest-min-octave" class="mr-2">
+                                        <option value="0">low</option>
+                                        <option value="1">mid1</option>
+                                        <option value="2">mid2</option>
+                                        <option value="3" selected>hi</option>
+                                        <option value="4">hihi</option>
+                                        <option value="5">hihihi</option>
+                                    </select>
+                                    <select name="input-chest-min-tone" id="input-chest-min-tone">
+                                        <option value="0">A</option>
+                                        <option value="1">A#</option>
+                                        <option value="2">B</option>
+                                        <option value="3">C</option>
+                                        <option value="4">C#</option>
+                                        <option value="5">D</option>
+                                        <option value="6">D#</option>
+                                        <option value="7">E</option>
+                                        <option value="8">F</option>
+                                        <option value="9">F#</option>
+                                        <option value="10">G</option>
+                                        <option value="11">G#</option>
+                                    </select><br>
+                                    <input type="checkbox" id="input-chest-min-unknown"><label for="input-chest-min-unknown"
+                                        class="pl-2">不明</label>
+                                </div>
+                                <div class="field-input-name">地声最高音</div>
+                                <div class="field-input">
+                                    <select name="input-chest-max-octave" id="input-chest-max-octave" class="mr-2">
+                                        <option value="0">low</option>
+                                        <option value="1">mid1</option>
+                                        <option value="2">mid2</option>
+                                        <option value="3" selected>hi</option>
+                                        <option value="4">hihi</option>
+                                        <option value="5">hihihi</option>
+                                    </select>
+                                    <select name="input-chest-max-tone" id="input-chest-max-tone">
+                                        <option value="0">A</option>
+                                        <option value="1">A#</option>
+                                        <option value="2">B</option>
+                                        <option value="3">C</option>
+                                        <option value="4">C#</option>
+                                        <option value="5">D</option>
+                                        <option value="6">D#</option>
+                                        <option value="7">E</option>
+                                        <option value="8">F</option>
+                                        <option value="9">F#</option>
+                                        <option value="10">G</option>
+                                        <option value="11">G#</option>
+                                    </select><br>
+                                    <input type="checkbox" id="input-chest-max-unknown"><label for="input-chest-max-unknown"
+                                        class="pl-2">不明</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flex-fill"></div>
-
-                    <div class="detail-btns">
-                        <label>
-                            <div class="detail-btn on sung clickable"></div>
-                        </label>
-                        <label>
-                            <img class="detail-btn on favorite clickable" src="./img/star.svg">
-                        </label>
-                        <label>
-                            <img class="detail-btn edit clickable" src="./img/edit.svg">
-                        </label>
-                        <label>
-                            <img class="detail-btn delete clickable" src="./img/delete.svg">
-                        </label>
+                    <div class="field-input-container">
+                        <div class="field-input-name">裏声音域</div>
+                        <div class="field-input">
+                            <input type="checkbox" id="input-head-exists"><label for="input-head-exists" class="pl-2">裏声なし</label>
+                            <div>
+                                <div class="field-input-name">裏声最低音</div>
+                                <div class="field-input">
+                                    <select name="input-head-min-octave" id="input-head-min-octave" class="mr-2">
+                                        <option value="0">low</option>
+                                        <option value="1">mid1</option>
+                                        <option value="2">mid2</option>
+                                        <option value="3" selected>hi</option>
+                                        <option value="4">hihi</option>
+                                        <option value="5">hihihi</option>
+                                    </select>
+                                    <select name="input-head-min-tone" id="input-head-min-tone">
+                                        <option value="0">A</option>
+                                        <option value="1">A#</option>
+                                        <option value="2">B</option>
+                                        <option value="3">C</option>
+                                        <option value="4">C#</option>
+                                        <option value="5">D</option>
+                                        <option value="6">D#</option>
+                                        <option value="7">E</option>
+                                        <option value="8">F</option>
+                                        <option value="9">F#</option>
+                                        <option value="10">G</option>
+                                        <option value="11">G#</option>
+                                    </select><br>
+                                    <input type="checkbox" id="input-head-min-unknown"><label for="input-head-min-unknown"
+                                        class="pl-2">不明</label>
+                                    </div>
+                                <div class="field-input-name">裏声最高音</div>
+                                <div class="field-input">
+                                    <select name="input-head-max-octave" id="input-head-max-octave" class="mr-2">
+                                        <option value="0">low</option>
+                                        <option value="1">mid1</option>
+                                        <option value="2">mid2</option>
+                                        <option value="3" selected>hi</option>
+                                        <option value="4">hihi</option>
+                                        <option value="5">hihihi</option>
+                                    </select>
+                                    <select name="input-head-max-tone" id="input-head-max-tone">
+                                            <option value="0">A</option>
+                                            <option value="1">A#</option>
+                                            <option value="2">B</option>
+                                            <option value="3">C</option>
+                                            <option value="4">C#</option>
+                                            <option value="5">D</option>
+                                            <option value="6">D#</option>
+                                            <option value="7">E</option>
+                                            <option value="8">F</option>
+                                            <option value="9">F#</option>
+                                            <option value="10">G</option>
+                                            <option value="11">G#</option>
+                                    </select><br>
+                                    <input type="checkbox" id="input-head-max-unknown"><label for="input-head-max-unknown"
+                                        class="pl-2">不明</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="deleted-mes">このデータは削除されました</div>
+                    <div class="field-input-container">
+                        <div class="field-input-name">最高音</div>
+                        <div class="field-input">
+                            <input type="checkbox" id="input-auto-fill" checked><label for="input-auto-fill"
+                                class="pl-2">最高音を自動で入力</label>
+                            <div>
+                                <select name="input-overall-max-octave" id="input-overall-max-octave" class="mr-2">
+                                    <option value="0">low</option>
+                                    <option value="1">mid1</option>
+                                    <option value="2">mid2</option>
+                                    <option value="3" selected>hi</option>
+                                    <option value="4">hihi</option>
+                                    <option value="5">hihihi</option>
+                                </select>
+                                <select name="input-overall-max-tone" id="input-overall-max-tone">
+                                    <option value="0">A</option>
+                                    <option value="1">A#</option>
+                                    <option value="2">B</option>
+                                    <option value="3">C</option>
+                                    <option value="4">C#</option>
+                                    <option value="5">D</option>
+                                    <option value="6">D#</option>
+                                    <option value="7">E</option>
+                                    <option value="8">F</option>
+                                    <option value="9">F#</option>
+                                    <option value="10">G</option>
+                                    <option value="11">G#</option>
+                                </select><br>
+                                <input type="checkbox" id="input-overall-max-unknown"><label
+                                    for="input-overall-max-unknown" class="pl-2">不明</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-fill"></div>
+                    <div class="btn-container">
+                        <button class="cancel-btn clickable">キャンセル</button>
+                        <input class="submit-btn clickable" type="submit" value="登録">
+                    </div>
+                </form> -->
+                <!-- 中身ここまで -->
             </div>
-        </div> -->
+        </div>
     </div>
+
     <div class="loading d-none"></div>
 
     <!-- jQuery読み込み -->

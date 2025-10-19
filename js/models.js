@@ -151,6 +151,10 @@ class History extends ApiClass {
     clone() {
         return new History(this.toDict());
     }
+
+    equals(other) {
+        return (this.song.uuid === other.song.uuid && this.key === other.key);
+    }
 }
 
 // 曲のクラス
@@ -315,6 +319,10 @@ class Song extends ApiClass {
 
     clone() {
         return new Song(this.toDict());
+    }
+
+    equals(other) {
+        return (this.title === other.title && this.artist === other.artist);
     }
 }
 
