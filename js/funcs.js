@@ -609,14 +609,14 @@ function openUpdateSongPage(uuid) {
     $form.find('[name="title"]').val(song.title);
     $form.find('[name="artist"]').val(song.artist);
     $form.find('[name="notChestExists"]').prop('checked', song.chestMinNote.status === 'notExist');
-    $form.find('[name="chestMinOctave"]').val(song.chestMinNote.value === null ? 3 : getOctave(song.chestMinNote.value));
+    $form.find('[name="chestMinOctave"]').val(song.chestMinNote.value === null ? 1 : getOctave(song.chestMinNote.value));
     $form.find('[name="chestMinTone"]').val(song.chestMinNote.value === null ? 0 : getTone(song.chestMinNote.value));
     $form.find('[name="chestMinUnknown"]').prop('checked', song.chestMinNote.status === 'unknown');
     $form.find('[name="chestMaxOctave"]').val(song.chestMaxNote.value === null ? 3 : getOctave(song.chestMaxNote.value));
     $form.find('[name="chestMaxTone"]').val(song.chestMaxNote.value === null ? 0 : getTone(song.chestMaxNote.value));
     $form.find('[name="chestMaxUnknown"]').prop('checked', song.chestMaxNote.status === 'unknown');
     $form.find('[name="notHeadExists"]').prop('checked', song.headMinNote.status === 'notExist');
-    $form.find('[name="headMinOctave"]').val(song.headMinNote.value === null ? 3 : getOctave(song.headMinNote.value));
+    $form.find('[name="headMinOctave"]').val(song.headMinNote.value === null ? 2 : getOctave(song.headMinNote.value));
     $form.find('[name="headMinTone"]').val(song.headMinNote.value === null ? 0 : getTone(song.headMinNote.value));
     $form.find('[name="headMinUnknown"]').prop('checked', song.headMinNote.status === 'unknown');
     $form.find('[name="headMaxOctave"]').val(song.headMaxNote.value === null ? 3 : getOctave(song.headMaxNote.value));
