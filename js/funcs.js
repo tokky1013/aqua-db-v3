@@ -817,9 +817,9 @@ function openAddSongPage() {
                         <div class="field-input">
                             <select name="chestMinOctave" id="input-chest-min-octave" class="mr-2">
                                 <option value="0">low</option>
-                                <option value="1">mid1</option>
+                                <option value="1" selected>mid1</option>
                                 <option value="2">mid2</option>
-                                <option value="3" selected>hi</option>
+                                <option value="3">hi</option>
                                 <option value="4">hihi</option>
                                 <option value="5">hihihi</option>
                             </select>
@@ -882,8 +882,8 @@ function openAddSongPage() {
                             <select name="headMinOctave" id="input-head-min-octave" class="mr-2">
                                 <option value="0">low</option>
                                 <option value="1">mid1</option>
-                                <option value="2">mid2</option>
-                                <option value="3" selected>hi</option>
+                                <option value="2" selected>mid2</option>
+                                <option value="3">hi</option>
                                 <option value="4">hihi</option>
                                 <option value="5">hihihi</option>
                             </select>
