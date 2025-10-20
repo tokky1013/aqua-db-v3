@@ -719,6 +719,7 @@ nav .inner ul li a:hover {
 .song-detail-button {
     color: #6f6fff;
     text-decoration: underline;
+    cursor: pointer;
     margin: 3px 0 5px 10px;
     display: flex;
     justify-content: space-between;
