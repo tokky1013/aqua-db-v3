@@ -924,28 +924,28 @@ img.detail-btn.delete {
 }
 
 /* 追加ページ */
-.song-register-form {
+.song-form {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
-.song-register-form .field-input-container {
+.song-form .field-input-container {
     margin: 10px 10px 0;
     padding: 5px 10px;
     border-radius: 3px;
     background-color: var(--main-background-color-2);
 }
-.song-register-form .field-input-name {
+.song-form .field-input-name {
     color: var(--main-color-0);
 }
 
-.song-register-form .field-input {
+.song-form .field-input {
     margin: 5px 15px;
 }
 
-.song-register-form .field-input input[type="text"],
-.song-register-form .field-input input[type="number"],
-.song-register-form .field-input select {
+.song-form .field-input input[type="text"],
+.song-form .field-input input[type="number"],
+.song-form .field-input select {
     border: 1px solid var(--main-color-1);
     height: 30px;
     border-radius: 3px;
@@ -953,7 +953,7 @@ img.detail-btn.delete {
     color: var(--main-color-0);
     background-color: var(--main-background-color-0);
 }
-.song-register-form .field-input select {
+.song-form .field-input select {
     text-align: center;
     width: 80px;
     margin-bottom: 5px;
@@ -964,19 +964,19 @@ img.detail-btn.delete {
     display: none;
 }
 
-.song-register-form input[type="checkbox"]:disabled + label {
+.song-form input[type="checkbox"]:disabled + label {
     color: var(--main-color-1);
 }
 
-.song-register-form .btn-container {
+.song-form .btn-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 20px 10px;
 }
 
-.song-register-form .btn-container .cancel-btn,
-.song-register-form .btn-container .submit-btn {
+.song-form .btn-container .cancel-btn,
+.song-form .btn-container .submit-btn {
     width: 130px;
     height: 35px;
     border-radius: 5px;
@@ -984,10 +984,10 @@ img.detail-btn.delete {
     font-weight: 100;
     color: var(--main-color-2);
 }
-.song-register-form .btn-container .cancel-btn {
+.song-form .btn-container .cancel-btn {
     background-color: var(--main-background-color-0);
 }
-.song-register-form .btn-container .submit-btn {
+.song-form .btn-container .submit-btn {
     background-color: var(--btn-color);
 }
 
