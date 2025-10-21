@@ -606,12 +606,17 @@ function openUpdateSongPage(uuid) {
             </div>
             <div class="flex-fill"></div>
             <div class="btn-container">
-                <button class="cancel-btn clickable">キャンセル</button>
+                <button type="button" class="cancel-btn clickable">キャンセル</button>
                 <input class="submit-btn clickable" type="submit" value="更新">
             </div>
         </form>
     `;
     openFullScreenModal('曲を更新', html, `update-song-${uuid}`);
+
+    // キャセルボタンを押すと閉じるように
+    $('#song-update-form .cancel-btn').on('click', function() {
+        closeFullScreenModal(fullScreenModalId, `update-song-${uuid}`);
+    });
 
     // 入力欄に値をセット
     const song = getSong(uuid);
@@ -982,12 +987,17 @@ function openAddSongPage() {
             </div>
             <div class="flex-fill"></div>
             <div class="btn-container">
-                <button class="cancel-btn clickable">キャンセル</button>
+                <button type="button" class="cancel-btn clickable">キャンセル</button>
                 <input class="submit-btn clickable" type="submit" value="登録">
             </div>
         </form>
     `;
     openFullScreenModal('曲を追加', html, 'add-song');
+
+    // キャセルボタンを押すと閉じるように
+    $('#song-register-form .cancel-btn').on('click', function() {
+        closeFullScreenModal(fullScreenModalId, 'add-song');
+    });
 
     // 音域が不明のときにselectタグを非活性化
     $('.input-unknown').change(function () {
