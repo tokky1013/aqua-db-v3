@@ -992,6 +992,53 @@ img.detail-btn.delete {
     background-color: var(--btn-color);
 }
 
+/* アーティスト候補 */
+.candidates {
+    position: relative;
+    z-index: 1000;
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+/* inputにフォーカスが当たっている時のみ表示 */
+input:focus + .candidates {
+    display: block;
+}
+
+.candidates:empty {
+    display: none;
+}
+
+.candidates > div {
+    width: 200px;
+    max-height: 300px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    filter: brightness(110%);
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.candidates > div::-webkit-scrollbar {
+    display: none;
+}
+
+.candidate {
+    padding: 5px 10px;
+    margin: 0;
+    display: block;
+    background-color: var(--main-background-color-0);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.candidate:hover {
+    filter: brightness(140%);
+}
+
 /* ローディングスピナー */
 .loading,
 .loading::before,

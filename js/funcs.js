@@ -1,6 +1,7 @@
 // ---------------------データ関連---------------------
 let songs = {};
 let histories = {};
+let artists = [];
 
 function getSong(uuid) {
     return songs[uuid];
@@ -38,9 +39,16 @@ function getSongs(funcFinally = null) {
         (resData) => {
             let song;
             songs = {};
+            artists = [];
             resData.forEach((elem) => {
                 song = new Song(elem);
                 songs[song.uuid] = song;
+                
+                // artistsに入ってなければアーティスト名を追加
+                const artist = song.artist;
+                if(!artists.includes(artist)) {
+                    artists.push(artist);
+                }
             });
             filterAndSortSongs({
                 'filteringConditionFuncs': [],
@@ -431,7 +439,10 @@ function openUpdateSongPage(uuid) {
             </div>
             <div class="field-input-container">
                 <div class="field-input-name">アーティスト名</div>
-                <div class="field-input"><input type="text" name="artist"></div>
+                <div class="field-input">
+                    <input type="text" name="artist">
+                    <div class="candidates"></div>
+                </div>
             </div>
             <div class="field-input-container">
                 <div class="field-input-name">地声音域</div>
@@ -804,7 +815,10 @@ function openAddSongPage() {
             </div>
             <div class="field-input-container">
                 <div class="field-input-name">アーティスト名</div>
-                <div class="field-input"><input type="text" name="artist"></div>
+                <div class="field-input">
+                    <input type="text" name="artist">
+                    <div class="candidates"></div>
+                </div>
             </div>
             <div class="field-input-container">
                 <div class="field-input-name">地声音域</div>

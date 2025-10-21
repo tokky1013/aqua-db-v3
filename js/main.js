@@ -292,24 +292,24 @@ $(function () {
         }
 
         // 歌ったことがある/ない曲
-        if(sung) {
+        if (sung) {
             filteringConditionFuncs.push((history) => {
                 return history.hasSung;
             });
         }
-        if(notSung) {
+        if (notSung) {
             filteringConditionFuncs.push((history) => {
                 return !history.hasSung;
             });
         }
 
         // お気に入り
-        if(favorite) {
+        if (favorite) {
             filteringConditionFuncs.push((history) => {
                 return history.isFavorite;
             });
         }
-        if(notFavorite) {
+        if (notFavorite) {
             filteringConditionFuncs.push((history) => {
                 return !history.isFavorite;
             });
@@ -466,8 +466,44 @@ $(function () {
     });
 
     // inputがフォーカスされた時にテキストを選択
-    $(document).on('focus', 'input[type="text"], input[type="number"]', function() {
+    $(document).on('focus', 'input[type="text"], input[type="number"]', function () {
         $(this).select();
+    });
+
+    // アーティストの入力補助
+    $(document).on('input', 'input[name="artist"]', function () {
+        const $artistInput = $(this);
+        const value = $artistInput.val().toLowerCase();
+        const $candidates = $artistInput.nextAll('.candidates').first();
+        $candidates.empty();
+
+        const $div = $('<div>');
+        if (value.trim().length > 0) {
+            let hasCandidate = false;
+            for (const artist of artists) {
+                if (artist.toLowerCase().includes(value)) {
+                    const $candidate = $('<lavel>');
+                    $candidate.addClass('candidate');
+                    $candidate.text(artist);
+
+                    $div.append($candidate);
+
+                    $candidate.on('mousedown', function () {
+                        $artistInput.val($(this).text());
+                        $candidates.empty();
+                    });
+                    hasCandidate = true;
+                }
+            }
+            if(hasCandidate) {
+                $candidates.append($div);
+            }
+        }
+    });
+
+    // フルスクリーンモーダルでエンターを押した時にsubmitしないようにする
+    $(document).on('keydown', '.full-screen-modal-main form', function (e) {
+        if (e.key === 'Enter') e.preventDefault();
     });
 
     // 音域データの検索
