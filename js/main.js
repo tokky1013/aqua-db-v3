@@ -469,6 +469,11 @@ $(function () {
     $(document).on('focus', 'input[type="text"], input[type="number"]', function () {
         $(this).select();
     });
+    
+    // 入力欄がfocusされた時に中央にスクロール
+    $(document).on('focus', 'input, textarea, select', function() {
+        this.scrollIntoView({behavior: 'smooth', block: 'center'});
+    });
 
     // アーティストの入力補助
     $(document).on('input', 'input[name="artist"]', function () {
