@@ -1,6 +1,6 @@
 :root {
     --header-height: 64px;
-    --slide-over-height: 500px;
+    --slide-over-height: calc(100dvh - 200px);
 
     --main-background-color-0: #606060;
     --main-background-color-1: #202020;
@@ -92,7 +92,6 @@ header h1 {
 
 /* ----main---- */
 main {
-    padding-top: var(--header-height);
     overflow-x: hidden;
 }
 
@@ -103,6 +102,16 @@ h4,
 h5,
 h6 {
     margin: 0;
+}
+
+.page {
+    padding-top: var(--header-height);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: scroll;
 }
 
 .main-content {

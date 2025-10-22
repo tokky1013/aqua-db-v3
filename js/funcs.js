@@ -50,6 +50,7 @@ function getSongs(funcFinally = null) {
                     artists.push(artist);
                 }
             });
+            artists.sort();
             filterAndSortSongs({
                 'filteringConditionFuncs': [],
                 'orderFunc': (historyA, historyB) => {
@@ -198,6 +199,7 @@ function filterAndSortSongs(conditions) {
     displayedSongs = sortArr(displayedSongs, orderFunc);
 
     showSongs(displayedSongs);
+    $('.page[data-page-num="0"]').scrollTop(0);
 }
 function filterAndSortHistories(conditions) {
     let filteringConditionFuncs = conditions.filteringConditionFuncs;
@@ -213,6 +215,7 @@ function filterAndSortHistories(conditions) {
     displayedHistories = sortArr(displayedHistories, orderFunc);
 
     showHistories(displayedHistories);
+    $('.page[data-page-num="1"]').scrollTop(0);
 }
 
 function resetFilterAndSortSongsForm() {
@@ -1177,11 +1180,8 @@ function openAddSongPage() {
         // 曲が重複していないかチェック
         for (const registeredSong of Object.values(songs)) {
             if(newSong.equals(registeredSong)) {
-                if(confirm('同じタイトルとアーティスト名の曲が登録されています。登録しますか？')) {
-                    break;
-                } else {
-                    return false;
-                }
+                alert('同じタイトルとアーティスト名の曲が登録されています。');
+                return false;
             }
         }
 

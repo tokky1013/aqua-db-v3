@@ -1,7 +1,7 @@
 const version = 'Ver. 1.0.0';
 
-const minVoiceRangeLimit = -10;
-const maxVoiceRangeLimit = 8;
+const minVoiceRangeLimit = -8;
+const maxVoiceRangeLimit = 10;
 const minKeyRangeLimit = -7;
 const maxKeyRangeLimit = 7;
 const tolerance = 0; // 端を判定する許容誤差
