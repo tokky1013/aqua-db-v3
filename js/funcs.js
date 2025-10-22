@@ -199,7 +199,7 @@ function filterAndSortSongs(conditions) {
 
     showSongs(displayedSongs);
     // 変更箇所
-    $('#song-list').scrollTop(0);
+    $('html').scrollTop(0);
 }
 function filterAndSortHistories(conditions) {
     let filteringConditionFuncs = conditions.filteringConditionFuncs;
@@ -216,7 +216,7 @@ function filterAndSortHistories(conditions) {
 
     showHistories(displayedHistories);
     // 変更箇所
-    $('#history-list').scrollTop(0);
+    $('html').scrollTop(0);
 }
 
 function resetFilterAndSortSongsForm() {
