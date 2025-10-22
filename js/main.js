@@ -473,7 +473,7 @@ $(function () {
     // 変更箇所
     // 入力欄がfocusされた時に中央にスクロール
     $(document).on('focus', 'input, textarea, select', function() {
-        this.scrollIntoView({behavior: 'smooth', block: 'center'});
+        // this.scrollIntoView({behavior: 'smooth', block: 'center'});
     });
 
     // アーティストの入力補助
