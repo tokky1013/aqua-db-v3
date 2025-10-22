@@ -198,6 +198,8 @@ function filterAndSortSongs(conditions) {
     displayedSongs = sortArr(displayedSongs, orderFunc);
 
     showSongs(displayedSongs);
+    // 変更箇所
+    $('#song-list').scrollTop(0);
 }
 function filterAndSortHistories(conditions) {
     let filteringConditionFuncs = conditions.filteringConditionFuncs;
@@ -213,6 +215,8 @@ function filterAndSortHistories(conditions) {
     displayedHistories = sortArr(displayedHistories, orderFunc);
 
     showHistories(displayedHistories);
+    // 変更箇所
+    $('#history-list').scrollTop(0);
 }
 
 function resetFilterAndSortSongsForm() {
