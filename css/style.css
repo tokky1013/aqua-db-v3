@@ -977,7 +977,8 @@ img.detail-btn.delete {
 }
 
 /* 追加ページ */
-.song-form {
+.song-form,
+.history-form {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -1026,6 +1027,7 @@ img.detail-btn.delete {
     }
 
     & .btn-container {
+
         & .cancel-btn,
         & .submit-btn {
             width: 130px;
@@ -1043,6 +1045,12 @@ img.detail-btn.delete {
         & .submit-btn {
             background-color: var(--btn-color);
         }
+    }
+}
+
+.history-form {
+    & h4 {
+        margin: 10px 10px 0;
     }
 }
 
