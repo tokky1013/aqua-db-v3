@@ -1009,9 +1009,13 @@ img.detail-btn.delete {
         }
 
         & select {
-            text-align: center;
             width: 80px;
             margin-bottom: 5px;
+        }
+
+        & #input-key,
+        & #input-machine-type {
+            width: 120px;
         }
     }
 
