@@ -1,6 +1,6 @@
 :root {
     --header-height: 64px;
-    --slide-over-height: calc(100dvh - 200px);
+    --slide-over-height: calc(100dvh - 150px);
 
     --main-background-color-0: #606060;
     --main-background-color-1: #202020;
@@ -792,6 +792,21 @@ nav .inner ul li a:hover {
 
 .field-content {
     color: var(--main-color-2);
+}
+
+.add-history-btn {
+    background-color: var(--main-background-color-0);
+    padding: 5px 16px;
+    height: 32px;
+    border-radius: 16px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    &::before {
+        content: "+";
+        font-size: 1.3rem;
+    }
 }
 
 .comment {

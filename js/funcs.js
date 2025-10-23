@@ -292,7 +292,10 @@ function displaySongDetail(uuid) {
                         <div class="field-content ${song.uuid}-song-artist">${song.getArtist()}</div>
                     </div>
                 </div>
-                <h5>音域データ</h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>音域データ</h5>
+                    <lavel class="add-history-btn clickable" onclick="openAddHistoryPage();">追加</lavel>
+                </div>
                 <div>${relatedHistoriesHtml}</div>
                 <div class="empty-mes">音域データが登録されていません</div>
                 <div class="flex-fill"></div>
