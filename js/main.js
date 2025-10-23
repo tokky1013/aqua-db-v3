@@ -470,10 +470,20 @@ $(function () {
         $(this).select();
     });
     
-    // 変更箇所
     // 入力欄がfocusされた時に中央にスクロール
-    $(document).on('focus', 'input, textarea, select', function() {
-        // this.scrollIntoView({behavior: 'smooth', block: 'center'});
+    // Slide Over
+    $(document).on('focus', '.slide-over-main input', function() {
+        const $scrollContainer = $(this).closest('.slide-over-main');
+        const $inputBox = $(this).closest('.input-box');
+
+        $scrollContainer.animate({scrollTop: $inputBox.offset().top - $scrollContainer.offset().top}, 200);
+    });
+    // フルスクリーンモーダル
+    $(document).on('focus', '.full-screen-modal-main input, .full-screen-modal-main textarea', function() {
+        const $scrollContainer = $(this).closest('.full-screen-modal-main');
+        const $inputBox = $(this).closest('.field-input-container');
+
+        $scrollContainer.animate({scrollTop: $inputBox.offset().top - $scrollContainer.offset().top}, 200);
     });
 
     // アーティストの入力補助
