@@ -33,9 +33,11 @@
 .mc-0 {
     color: var(--main-color-0);
 }
+
 .mc-1 {
     color: var(--main-color-1);
 }
+
 .mc-2 {
     color: var(--main-color-2);
 }
@@ -126,6 +128,7 @@ h6 {
     align-items: center;
     gap: 5px;
     color: var(--main-color-1);
+
     &::before {
         content: "";
         width: 1.1rem;
@@ -190,6 +193,7 @@ h6 {
     height: 33px;
     display: none;
 }
+
 .list label .title-container .is-favorite.favorite {
     display: inline;
 }
@@ -235,6 +239,7 @@ h6 {
     margin: 0;
     min-height: 0;
 }
+
 .list label .comment br {
     display: none;
 }
@@ -713,6 +718,7 @@ nav .inner ul li a:hover {
     height: calc(100% - var(--header-height));
     overflow-y: scroll;
 }
+
 /* --------詳細ページ-------- */
 .song-detail,
 .history-detail {
@@ -734,6 +740,7 @@ nav .inner ul li a:hover {
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
+
     &::after {
         content: "";
         width: 9px;
@@ -778,6 +785,7 @@ nav .inner ul li a:hover {
     background-color: var(--main-background-color-2);
     border-radius: 3px;
 }
+
 .field-name {
     width: 110px;
     min-width: 110px;
@@ -785,6 +793,7 @@ nav .inner ul li a:hover {
     justify-content: space-between;
     gap: 10px;
     color: var(--main-color-2);
+
     &::after {
         content: ":";
     }
@@ -813,6 +822,7 @@ nav .inner ul li a:hover {
     padding: 5px 0 0 10px;
     min-height: 30px;
 }
+
 .empty-mes {
     width: 100%;
     flex: 2;
@@ -821,7 +831,8 @@ nav .inner ul li a:hover {
     align-items: center;
     display: none;
 }
-div:empty + .empty-mes {
+
+div:empty+.empty-mes {
     display: flex;
 }
 
@@ -829,14 +840,17 @@ div:empty + .empty-mes {
 .song-detail h5 {
     margin: 10px 0;
 }
+
 .related-history {
     padding: 10px;
 }
+
 .related-history .key-container {
     display: flex;
     align-items: center;
     gap: 10px;
 }
+
 .related-history .key-container .has-sung.sung::after {
     content: '';
     display: inline-block;
@@ -846,22 +860,27 @@ div:empty + .empty-mes {
     border-bottom: 4px solid var(--check-color);
     transform: translateY(-4px) rotate(-45deg);
 }
+
 .related-history .key-container .is-favorite.favorite {
     filter: var(--favorite-filter);
     width: 30px;
     height: 30px;
 }
+
 .related-history .key-container .is-favorite:not(.favorite) {
     display: none;
 }
+
 .related-history:nth-child(odd) {
     background-color: var(--main-background-color-2);
 }
+
 .related-history .related-history-key,
 .related-history .related-history-comment {
     margin: 0;
     color: var(--main-color-1);
 }
+
 .related-history .related-history-comment {
     margin: 0 5px;
     font-size: 0.9rem;
@@ -869,6 +888,7 @@ div:empty + .empty-mes {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .related-history .related-history-comment br {
     display: none;
 }
@@ -885,6 +905,7 @@ div:empty + .empty-mes {
     color: var(--main-color-1);
     font-size: 1.2rem;
 }
+
 .detail-btns label {
     display: flex;
     align-items: center;
@@ -899,13 +920,16 @@ div:empty + .empty-mes {
     border-bottom: 4px solid var(--main-color-1);
     transform: translateY(-4px) rotate(-45deg);
 }
+
 .detail-btn.has-sung:hover {
     transform: translateY(-6px) rotate(-45deg) scale(1.1);
 }
+
 .song-detail img.detail-btn {
     width: 40px;
     height: 40px;
 }
+
 .history-detail img.detail-btn {
     width: 30px;
     height: 30px;
@@ -915,14 +939,17 @@ div:empty + .empty-mes {
     border-left: 4px solid var(--check-color);
     border-bottom: 4px solid var(--check-color);
 }
+
 img.detail-btn {
     --base-filter: var(--default-btn-filter);
     filter: var(--base-filter);
 }
+
 img.detail-btn.is-favorite.favorite {
     --base-filter: var(--favorite-filter);
     filter: var(--base-filter);
 }
+
 img.detail-btn.delete {
     --base-filter: var(--delete-filter);
     filter: var(--base-filter);
@@ -940,6 +967,7 @@ img.detail-btn.delete {
     align-items: center;
     color: var(--main-color-1);
 }
+
 .detail-page:empty {
     display: none;
 }
@@ -953,67 +981,74 @@ img.detail-btn.delete {
     display: flex;
     flex-direction: column;
     height: 100%;
-}
-.song-form .field-input-container {
-    margin: 10px 10px 0;
-    padding: 5px 10px;
-    border-radius: 3px;
-    background-color: var(--main-background-color-2);
-}
-.song-form .field-input-name {
-    color: var(--main-color-0);
+
+    & .field-input-container {
+        margin: 10px 10px 0;
+        padding: 5px 10px;
+        border-radius: 3px;
+        background-color: var(--main-background-color-2);
+    }
+
+    & .field-input-name {
+        color: var(--main-color-0);
+    }
+
+    & .field-input {
+        margin: 5px 15px;
+
+        & input[type="text"],
+        & input[type="number"],
+        & select {
+            border: 1px solid var(--main-color-1);
+            height: 30px;
+            border-radius: 3px;
+            background-color: transparent;
+            color: var(--main-color-0);
+            background-color: var(--main-background-color-0);
+        }
+
+        & select {
+            text-align: center;
+            width: 80px;
+            margin-bottom: 5px;
+        }
+    }
+
+    & input[type="checkbox"]:disabled+label {
+        color: var(--main-color-1);
+    }
+
+    & .btn-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 20px 10px;
+    }
+
+    & .btn-container {
+        & .cancel-btn,
+        & .submit-btn {
+            width: 130px;
+            height: 35px;
+            border-radius: 5px;
+            border: none;
+            font-weight: 100;
+            color: var(--main-color-2);
+        }
+
+        & .cancel-btn {
+            background-color: var(--main-background-color-0);
+        }
+
+        & .submit-btn {
+            background-color: var(--btn-color);
+        }
+    }
 }
 
-.song-form .field-input {
-    margin: 5px 15px;
-}
-
-.song-form .field-input input[type="text"],
-.song-form .field-input input[type="number"],
-.song-form .field-input select {
-    border: 1px solid var(--main-color-1);
-    height: 30px;
-    border-radius: 3px;
-    background-color: transparent;
-    color: var(--main-color-0);
-    background-color: var(--main-background-color-0);
-}
-.song-form .field-input select {
-    text-align: center;
-    width: 80px;
-    margin-bottom: 5px;
-}
-
-#input-chest-exists:checked + label + div,
-#input-head-exists:checked + label + div {
+#input-chest-exists:checked+label+div,
+#input-head-exists:checked+label+div {
     display: none;
-}
-
-.song-form input[type="checkbox"]:disabled + label {
-    color: var(--main-color-1);
-}
-
-.song-form .btn-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 20px 10px;
-}
-
-.song-form .btn-container .cancel-btn,
-.song-form .btn-container .submit-btn {
-    width: 130px;
-    height: 35px;
-    border-radius: 5px;
-    border: none;
-    font-weight: 100;
-    color: var(--main-color-2);
-}
-.song-form .btn-container .cancel-btn {
-    background-color: var(--main-background-color-0);
-}
-.song-form .btn-container .submit-btn {
-    background-color: var(--btn-color);
 }
 
 /* アーティスト候補 */
@@ -1026,7 +1061,7 @@ img.detail-btn.delete {
 }
 
 /* inputにフォーカスが当たっている時のみ表示 */
-input:focus + .candidates {
+input:focus+.candidates {
     display: block;
 }
 
@@ -1034,7 +1069,7 @@ input:focus + .candidates {
     display: none;
 }
 
-.candidates > div {
+.candidates>div {
     width: 200px;
     max-height: 300px;
     overflow-y: scroll;
@@ -1045,7 +1080,7 @@ input:focus + .candidates {
     scrollbar-width: none;
 }
 
-.candidates > div::-webkit-scrollbar {
+.candidates>div::-webkit-scrollbar {
     display: none;
 }
 
@@ -1059,6 +1094,7 @@ input:focus + .candidates {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .candidate:hover {
     filter: brightness(140%);
 }
