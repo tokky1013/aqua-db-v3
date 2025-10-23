@@ -1024,9 +1024,6 @@ img.detail-btn.delete {
         justify-content: space-around;
         align-items: center;
         padding: 20px 10px;
-    }
-
-    & .btn-container {
 
         & .cancel-btn,
         & .submit-btn {
