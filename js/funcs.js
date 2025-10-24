@@ -853,7 +853,7 @@ function openUpdateHistoryPage(uuid) {
                 <div class="field-input">
                     <div class="field-input-name">得点</div>
                     <div class="field-input">
-                        <input type="text" inputmode="numeric" name="score" id="input-score">
+                        <input type="text" name="score" id="input-score">
                         <p class="input-error-mes d-none" id="score-error-mes">正しい得点を入力してください。</p>
                     </div>
                     <div class="field-input-name">機種</div>
@@ -1411,7 +1411,7 @@ function openAddHistoryPage(songId) {
                 <div class="field-input">
                     <div class="field-input-name">得点</div>
                     <div class="field-input">
-                        <input type="text" inputmode="numeric" name="score" id="input-score">
+                        <input type="text" name="score" id="input-score">
                         <p class="input-error-mes d-none" id="score-error-mes">正しい得点を入力してください。</p>
                     </div>
                     <div class="field-input-name">機種</div>
