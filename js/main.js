@@ -472,14 +472,14 @@ $(function () {
     
     // 入力欄がfocusされた時に中央にスクロール
     // Slide Over
-    $(document).on('focus', '.slide-over-main input', function() {
+    $(document).on('focus', '.slide-over-main input[type="text"]', function() {
         const $scrollContainer = $(this).closest('.slide-over-main');
         const $inputBox = $(this).closest('.input-box');
 
         $scrollContainer.animate({scrollTop: $inputBox.offset().top - $scrollContainer.offset().top}, 200);
     });
     // フルスクリーンモーダル
-    $(document).on('focus', '.full-screen-modal-main input, .full-screen-modal-main textarea', function() {
+    $(document).on('focus', '.full-screen-modal-main input[type="text"], .full-screen-modal-main textarea', function() {
         const $scrollContainer = $(this).closest('.full-screen-modal-main');
         const $inputBox = $(this).closest('.field-input-container');
 
@@ -518,7 +518,7 @@ $(function () {
     });
 
     // フルスクリーンモーダルでエンターを押した時にsubmitしないようにする
-    $(document).on('keydown', '.full-screen-modal-main form', function (e) {
+    $(document).on('keydown', '.full-screen-modal-main input', function (e) {
         if (e.key === 'Enter') e.preventDefault();
     });
 

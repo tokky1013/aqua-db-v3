@@ -43,10 +43,10 @@ function getSongs(funcFinally = null) {
             resData.forEach((elem) => {
                 song = new Song(elem);
                 songs[song.uuid] = song;
-                
+
                 // artistsに入ってなければアーティスト名を追加
                 const artist = song.artist;
-                if(!artists.includes(artist)) {
+                if (!artists.includes(artist)) {
                     artists.push(artist);
                 }
             });
@@ -296,7 +296,7 @@ function displaySongDetail(uuid) {
                     <h5>音域データ</h5>
                     <lavel class="add-history-btn clickable" onclick="openAddHistoryPage('${song.uuid}');">追加</lavel>
                 </div>
-                <div>${relatedHistoriesHtml}</div>
+                <div class="history-list-${song.uuid}">${relatedHistoriesHtml}</div>
                 <div class="empty-mes">音域データが登録されていません</div>
                 <div class="flex-fill"></div>
 
@@ -620,7 +620,7 @@ function openUpdateSongPage(uuid) {
     openFullScreenModal('曲を更新', html, `update-song-${uuid}`);
 
     // キャセルボタンを押すと閉じるように
-    $('#song-update-form .cancel-btn').on('click', function() {
+    $('#song-update-form .cancel-btn').on('click', function () {
         closeFullScreenModal(fullScreenModalId, `update-song-${uuid}`);
     });
 
@@ -654,7 +654,7 @@ function openUpdateSongPage(uuid) {
         $(this).prevAll('select').prop('disabled', $(this).prop('checked'));
     });
 
-    $('#song-update-form select').change(function() {
+    $('#song-update-form select').change(function () {
         $(this).nextAll('.input-unknown').first().prop('checked', false)
     });
 
@@ -688,10 +688,10 @@ function openUpdateSongPage(uuid) {
             let headMaxTone = $('#input-head-max-tone').val() - 0;
 
             // 地声・裏声が存在しなければ、値を-1にする
-            if(notChestExists) {
+            if (notChestExists) {
                 chestMaxOctave = -1;
             }
-            if(notHeadExists) {
+            if (notHeadExists) {
                 headMaxOctave = -1;
             }
 
@@ -716,7 +716,7 @@ function openUpdateSongPage(uuid) {
     });
 
     // submit時の処理
-    $('#song-update-form').submit(function() {
+    $('#song-update-form').submit(function () {
         function getTone(octave, tone) {
             return (octave - 3) * 12 + tone;
         }
@@ -749,20 +749,20 @@ function openUpdateSongPage(uuid) {
         newSongDict.artist = artist;
 
         // 地声の音域をセット
-        if(notChestExists) {
+        if (notChestExists) {
             newSongDict.chestMinNoteValue = null;
             newSongDict.chestMinNoteStatus = 'notExist';
             newSongDict.chestMaxNoteValue = null;
             newSongDict.chestMaxNoteStatus = 'notExist';
         } else {
-            if(chestMinUnknown) {
+            if (chestMinUnknown) {
                 newSongDict.chestMinNoteValue = null;
                 newSongDict.chestMinNoteStatus = 'unknown';
             } else {
                 newSongDict.chestMinNoteValue = getTone(chestMinOctave, chestMinTone);
                 newSongDict.chestMinNoteStatus = 'known';
             }
-            if(chestMaxUnknown) {
+            if (chestMaxUnknown) {
                 newSongDict.chestMaxNoteValue = null;
                 newSongDict.chestMaxNoteStatus = 'unknown';
             } else {
@@ -771,20 +771,20 @@ function openUpdateSongPage(uuid) {
             }
         }
         // 裏声の音域をセット
-        if(notHeadExists) {
+        if (notHeadExists) {
             newSongDict.headMinNoteValue = null;
             newSongDict.headMinNoteStatus = 'notExist';
             newSongDict.headMaxNoteValue = null;
             newSongDict.headMaxNoteStatus = 'notExist';
         } else {
-            if(headMinUnknown) {
+            if (headMinUnknown) {
                 newSongDict.headMinNoteValue = null;
                 newSongDict.headMinNoteStatus = 'unknown';
             } else {
                 newSongDict.headMinNoteValue = getTone(headMinOctave, headMinTone);
                 newSongDict.headMinNoteStatus = 'known';
             }
-            if(headMaxUnknown) {
+            if (headMaxUnknown) {
                 newSongDict.headMaxNoteValue = null;
                 newSongDict.headMaxNoteStatus = 'unknown';
             } else {
@@ -792,7 +792,7 @@ function openUpdateSongPage(uuid) {
                 newSongDict.headMaxNoteStatus = 'known';
             }
         }
-        if(overallMaxUnknown) {
+        if (overallMaxUnknown) {
             newSongDict.overallMaxNoteValue = null;
             newSongDict.overallMaxNoteStatus = 'unknown';
         } else {
@@ -1001,7 +1001,7 @@ function openAddSongPage() {
     openFullScreenModal('曲を追加', html, 'add-song');
 
     // キャセルボタンを押すと閉じるように
-    $('#song-register-form .cancel-btn').on('click', function() {
+    $('#song-register-form .cancel-btn').on('click', function () {
         closeFullScreenModal(fullScreenModalId, 'add-song');
     });
 
@@ -1010,7 +1010,7 @@ function openAddSongPage() {
         $(this).prevAll('select').prop('disabled', $(this).prop('checked'));
     });
 
-    // 最高音を自動で設定する可動かを変えたときに、selectタグとcheckboxの活性/非活性を設定
+    // 最高音を自動で設定するかどうかを変えたときに、selectタグとcheckboxの活性/非活性を設定
     $('#input-auto-fill').change(function () {
         const $inputUnknown = $(this).nextAll('.input-unknown');
         $inputUnknown.prop('disabled', $(this).prop('checked'));
@@ -1040,10 +1040,10 @@ function openAddSongPage() {
             let headMaxTone = $('#input-head-max-tone').val() - 0;
 
             // 地声・裏声が存在しなければ、値を-1にする
-            if(notChestExists) {
+            if (notChestExists) {
                 chestMaxOctave = -1;
             }
-            if(notHeadExists) {
+            if (notHeadExists) {
                 headMaxOctave = -1;
             }
 
@@ -1068,7 +1068,7 @@ function openAddSongPage() {
     });
 
     // submit時の処理
-    $('#song-register-form').submit(function() {
+    $('#song-register-form').submit(function () {
         function getTone(octave, tone) {
             return (octave - 3) * 12 + tone;
         }
@@ -1101,7 +1101,7 @@ function openAddSongPage() {
         newSong.artist = artist;
 
         // 地声の音域をセット
-        if(notChestExists) {
+        if (notChestExists) {
             newSong.chestMinNote = {
                 value: null,
                 status: 'notExist'
@@ -1111,7 +1111,7 @@ function openAddSongPage() {
                 status: 'notExist'
             };
         } else {
-            if(chestMinUnknown) {
+            if (chestMinUnknown) {
                 newSong.chestMinNote = {
                     value: null,
                     status: 'unknown'
@@ -1122,7 +1122,7 @@ function openAddSongPage() {
                     status: 'known'
                 };
             }
-            if(chestMaxUnknown) {
+            if (chestMaxUnknown) {
                 newSong.chestMaxNote = {
                     value: null,
                     status: 'unknown'
@@ -1135,7 +1135,7 @@ function openAddSongPage() {
             }
         }
         // 裏声の音域をセット
-        if(notHeadExists) {
+        if (notHeadExists) {
             newSong.headMinNote = {
                 value: null,
                 status: 'notExist'
@@ -1145,7 +1145,7 @@ function openAddSongPage() {
                 status: 'notExist'
             };
         } else {
-            if(headMinUnknown) {
+            if (headMinUnknown) {
                 newSong.headMinNote = {
                     value: null,
                     status: 'unknown'
@@ -1156,7 +1156,7 @@ function openAddSongPage() {
                     status: 'known'
                 };
             }
-            if(headMaxUnknown) {
+            if (headMaxUnknown) {
                 newSong.headMaxNote = {
                     value: null,
                     status: 'unknown'
@@ -1168,7 +1168,7 @@ function openAddSongPage() {
                 };
             }
         }
-        if(overallMaxUnknown) {
+        if (overallMaxUnknown) {
             newSong.overallMaxNote = {
                 value: null,
                 status: 'unknown'
@@ -1182,7 +1182,7 @@ function openAddSongPage() {
 
         // 曲が重複していないかチェック
         for (const registeredSong of Object.values(songs)) {
-            if(newSong.equals(registeredSong)) {
+            if (newSong.equals(registeredSong)) {
                 alert('同じタイトルとアーティスト名の曲が登録されています。');
                 return false;
             }
@@ -1200,7 +1200,7 @@ function openAddSongPage() {
             closeFullScreenModal(fullScreenModalId, 'add-song');
 
             // 詳細ページを表示するか聞く
-            if(confirm('曲を追加しました。詳細ページに移動しますか？')) {
+            if (confirm('曲を追加しました。詳細ページに移動しますか？')) {
                 displaySongDetail(newSong.uuid);
             }
         });
@@ -1214,7 +1214,7 @@ function openAddHistoryPage(songId) {
         <form class="history-form" id="history-register-form">
             <h4 class="${song.uuid}-song-title">${song.getTitle()}</h4>
 
-            <input type="hidden" value="${songId}">
+            <input type="hidden" value="${songId}" name="songID">
             <div class="field-input-container">
                 <div class="field-input-name">キー</div>
                 <div class="field-input">
@@ -1238,182 +1238,39 @@ function openAddHistoryPage(songId) {
                 </div>
             </div>
             <div class="field-input-container">
+                <div class="field-input-name">コメント</div>
+                <div class="field-input">
+                    <textarea name="comment" id="input-comment"></textarea>
+                </div>
+            </div>
+            <div class="field-input-container">
                 <div class="field-input-name">最高得点</div>
                 <div class="field-input">
                     <div class="field-input-name">得点</div>
                     <div class="field-input">
-                        <input type="number" name="score">
+                        <input type="text" inputmode="numeric" name="score" id="input-score">
+                        <p class="input-error-mes d-none" id="score-error-mes">正しい得点を入力してください。</p>
                     </div>
                     <div class="field-input-name">機種</div>
                     <div class="field-input">
                         <select name="machineType" id="input-machine-type">
+                            <option value="" selected></option>
                             <option value="DAM">DAM</option>
                             <option value="JOYSOUND">JOYSOUND</option>
                             <option value="その他">その他</option>
                         </select>
+                        <p class="input-error-mes d-none" id="machine-type-error-mes">機種を選択してください。</p>
                     </div>
                 </div>
             </div>
 
-            // これ以降明日かく
             <div class="field-input-container">
-                <div class="field-input-name">地声音域</div>
+                <div class="field-input-name">その他</div>
                 <div class="field-input">
-                    <input type="checkbox" name="notChestExists" id="input-chest-exists">
-                    <label for="input-chest-exists" class="pl-2">地声なし</label>
-
-                    <div>
-                        <div class="field-input-name">地声最低音</div>
-                        <div class="field-input">
-                            <select name="chestMinOctave" id="input-chest-min-octave" class="mr-2">
-                                <option value="0">low</option>
-                                <option value="1" selected>mid1</option>
-                                <option value="2">mid2</option>
-                                <option value="3">hi</option>
-                                <option value="4">hihi</option>
-                                <option value="5">hihihi</option>
-                            </select>
-                            <select name="chestMinTone" id="input-chest-min-tone">
-                                <option value="0">A</option>
-                                <option value="1">A#</option>
-                                <option value="2">B</option>
-                                <option value="3">C</option>
-                                <option value="4">C#</option>
-                                <option value="5">D</option>
-                                <option value="6">D#</option>
-                                <option value="7">E</option>
-                                <option value="8">F</option>
-                                <option value="9">F#</option>
-                                <option value="10">G</option>
-                                <option value="11">G#</option>
-                            </select><br>
-                            <input type="checkbox" name="chestMinUnknown" id="input-chest-min-unknown" class="input-unknown">
-                            <label for="input-chest-min-unknown" class="pl-2">不明</label>
-                        </div>
-                        <div class="field-input-name">地声最高音</div>
-                        <div class="field-input">
-                            <select name="chestMaxOctave" id="input-chest-max-octave" class="mr-2">
-                                <option value="0">low</option>
-                                <option value="1">mid1</option>
-                                <option value="2">mid2</option>
-                                <option value="3" selected>hi</option>
-                                <option value="4">hihi</option>
-                                <option value="5">hihihi</option>
-                            </select>
-                            <select name="chestMaxTone" id="input-chest-max-tone">
-                                <option value="0">A</option>
-                                <option value="1">A#</option>
-                                <option value="2">B</option>
-                                <option value="3">C</option>
-                                <option value="4">C#</option>
-                                <option value="5">D</option>
-                                <option value="6">D#</option>
-                                <option value="7">E</option>
-                                <option value="8">F</option>
-                                <option value="9">F#</option>
-                                <option value="10">G</option>
-                                <option value="11">G#</option>
-                            </select><br>
-                            <input type="checkbox" name="chestMaxUnknown" id="input-chest-max-unknown" class="input-unknown">
-                            <label for="input-chest-max-unknown" class="pl-2">不明</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field-input-container">
-                <div class="field-input-name">裏声音域</div>
-                <div class="field-input">
-                    <input type="checkbox" name="notHeadExists" id="input-head-exists">
-                    <label for="input-head-exists" class="pl-2">裏声なし</label>
-
-                    <div>
-                        <div class="field-input-name">裏声最低音</div>
-                        <div class="field-input">
-                            <select name="headMinOctave" id="input-head-min-octave" class="mr-2">
-                                <option value="0">low</option>
-                                <option value="1">mid1</option>
-                                <option value="2" selected>mid2</option>
-                                <option value="3">hi</option>
-                                <option value="4">hihi</option>
-                                <option value="5">hihihi</option>
-                            </select>
-                            <select name="headMinTone" id="input-head-min-tone">
-                                <option value="0">A</option>
-                                <option value="1">A#</option>
-                                <option value="2">B</option>
-                                <option value="3">C</option>
-                                <option value="4">C#</option>
-                                <option value="5">D</option>
-                                <option value="6">D#</option>
-                                <option value="7">E</option>
-                                <option value="8">F</option>
-                                <option value="9">F#</option>
-                                <option value="10">G</option>
-                                <option value="11">G#</option>
-                            </select><br>
-                            <input type="checkbox" name="headMinUnknown" id="input-head-min-unknown" class="input-unknown">
-                            <label for="input-head-min-unknown" class="pl-2">不明</label>
-                        </div>
-                        <div class="field-input-name">裏声最高音</div>
-                        <div class="field-input">
-                            <select name="headMaxOctave" id="input-head-max-octave" class="mr-2">
-                                <option value="0">low</option>
-                                <option value="1">mid1</option>
-                                <option value="2">mid2</option>
-                                <option value="3" selected>hi</option>
-                                <option value="4">hihi</option>
-                                <option value="5">hihihi</option>
-                            </select>
-                            <select name="headMaxTone" id="input-head-max-tone">
-                                    <option value="0">A</option>
-                                    <option value="1">A#</option>
-                                    <option value="2">B</option>
-                                    <option value="3">C</option>
-                                    <option value="4">C#</option>
-                                    <option value="5">D</option>
-                                    <option value="6">D#</option>
-                                    <option value="7">E</option>
-                                    <option value="8">F</option>
-                                    <option value="9">F#</option>
-                                    <option value="10">G</option>
-                                    <option value="11">G#</option>
-                            </select><br>
-                            <input type="checkbox" name="headMaxUnknown" id="input-head-max-unknown" class="input-unknown">
-                            <label for="input-head-max-unknown" class="pl-2">不明</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field-input-container">
-                <div class="field-input-name">最高音</div>
-                <div class="field-input">
-                    <input type="checkbox" name="autoFill" id="input-auto-fill" checked>
-                    <label for="input-auto-fill" class="pl-2">最高音を自動で設定</label><br>
-
-                    <select name="overallMaxOctave" id="input-overall-max-octave" class="mr-2" disabled>
-                        <option value="0">low</option>
-                        <option value="1">mid1</option>
-                        <option value="2">mid2</option>
-                        <option value="3" selected>hi</option>
-                        <option value="4">hihi</option>
-                        <option value="5">hihihi</option>
-                    </select>
-                    <select name="overallMaxTone" id="input-overall-max-tone" disabled>
-                        <option value="0">A</option>
-                        <option value="1">A#</option>
-                        <option value="2">B</option>
-                        <option value="3">C</option>
-                        <option value="4">C#</option>
-                        <option value="5">D</option>
-                        <option value="6">D#</option>
-                        <option value="7">E</option>
-                        <option value="8">F</option>
-                        <option value="9">F#</option>
-                        <option value="10">G</option>
-                        <option value="11">G#</option>
-                    </select><br>
-                    <input type="checkbox" name="overallMaxUnknown" id="input-overall-max-unknown" class="input-unknown" disabled>
-                    <label for="input-overall-max-unknown" class="pl-2">不明</label>
+                    <input type="checkbox" name="hasSung" id="input-has-sung">
+                    <label for="input-has-sung" class="pl-2 mb-2">歌ったことがある</label><br>
+                    <input type="checkbox" name="isFavorite" id="input-is-favorite">
+                    <label for="input-is-favorite" class="pl-2">お気に入り</label>
                 </div>
             </div>
             <div class="flex-fill"></div>
@@ -1424,6 +1281,112 @@ function openAddHistoryPage(songId) {
         </form>
     `;
     openFullScreenModal('音域データを追加', html, 'add-history');
+
+    // キャセルボタンを押すと閉じるように
+    $('#history-register-form .cancel-btn').on('click', function () {
+        closeFullScreenModal(fullScreenModalId, 'add-history');
+    });
+
+    // 得点blur時に得点の入力欄をチェック
+    $('#input-score').on('blur', function() {
+        let score = $(this).val();
+
+        // 空白を削除
+        score = score.replace(/\s/g, '');
+        // 全角数値を半角に変換
+        score = score.replace(/[０-９]/g, function (s) {
+            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        });
+
+        if(/^(\d+\.\d+|\d+|)$/.test(score)) {
+            $('#score-error-mes').addClass('d-none');
+        } else {
+            $('#score-error-mes').removeClass('d-none');
+        }
+    });
+
+    // submit時の処理
+    $('#history-register-form').submit(function () {
+        const $form = $(this);
+
+        const songID = $form.find('[name="songID"]').val();
+        const key = $form.find('[name="key"]').val() - 0;
+        let comment = $form.find('[name="comment"]').val();
+        let score = $form.find('[name="score"]').val();
+        let machineType = $form.find('[name="machineType"]').val();
+        const hasSung = $form.find('[name="hasSung"]').prop('checked');
+        const isFavorite = $form.find('[name="isFavorite"]').prop('checked');
+
+        // commentの改行を変換
+        comment = comment.replace('\n', '\\n');
+
+        // 空白を削除
+        score = score.replace(/\s/g, '');
+        // 全角数値を半角に変換
+        score = score.replace(/[０-９]/g, function (s) {
+            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        });
+
+        // 得点をチェック
+        if(!/^(\d+\.\d+|\d+|)$/.test(score)) {
+            $('#score-error-mes').removeClass('d-none');
+            return false;
+        }
+
+        if(score) {
+            if(!machineType) {
+                $('#machine-type-error-mes').removeClass('d-none');
+                return false;
+            }
+        } else {
+            machineType = '';
+        }
+        $('#score-error-mes').addClass('d-none');
+        $('#machine-type-error-mes').addClass('d-none');
+
+        // 曲のデータをセット
+        let newHistory = new History();
+        
+        newHistory.song = getSong(songID);
+        newHistory.key = key;
+        newHistory.score = score;
+        newHistory.machineType = machineType;
+        newHistory.comment = comment;
+        newHistory.hasSung = hasSung;
+        newHistory.isFavorite = isFavorite;
+
+        // 曲が重複していないかチェック
+        for (const registeredHistory of Object.values(histories)) {
+            if (newHistory.equals(registeredHistory)) {
+                if(!confirm('同じキーのデータ登録されています。登録しますか？')) {
+                    return false;
+                }
+            }
+        }
+
+        // 曲を登録
+        newHistory.add(() => {
+            // 配列に追加
+            histories[newHistory.uuid] = newHistory;
+
+            // リストを再表示
+            filterAndSortHistories(prevHistoryConditions);
+            $(`.history-list-${songId}`).each(function() {
+                const $historyElem = $(getHistoryListHtml(newHistory));
+                $(this).append($historyElem);
+            });
+
+            // 追加ページを閉じる
+            closeFullScreenModal(fullScreenModalId, 'add-history');
+
+            // 詳細ページを表示するか聞く
+            if (confirm('データを追加しました。詳細ページに移動しますか？')) {
+                displayHistoryDetail(newHistory.uuid);
+            }
+        });
+
+        return false;
+    });
 }
 
 // ---------------------表示の更新---------------------
