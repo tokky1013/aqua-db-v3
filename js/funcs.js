@@ -349,7 +349,7 @@ function displayHistoryDetail(uuid) {
                     </div>
                     <div class="field-container">
                         <div class="field-name">キー</div>
-                        <div class="field-content ${history.uuid}-key">${history.getKey()}</div>
+                        <div class="field-content ${history.uuid}-key">${history.getKey().replace('キー ', '')}</div>
                     </div>
                     <div class="field-container">
                         <div class="field-name">最高得点</div>
@@ -802,7 +802,6 @@ function openUpdateSongPage(uuid) {
 
         // 曲を登録
         song.update(newSongDict, () => {
-            console.log(newSongDict)
             // 表示を更新
             updateDisplayedSong(uuid);
 
@@ -814,7 +813,171 @@ function openUpdateSongPage(uuid) {
     });
 }
 function openUpdateHistoryPage(uuid) {
-    openFullScreenModal('音域データを更新', '', `update-history-${uuid}`);
+    const history = getHistory(uuid);
+    const song = getSong(history.song.uuid);
+    const html = `
+        <form class="history-form" id="history-update-form">
+            <h4 class="${song.uuid}-song-title">${song.getTitle()}</h4>
+
+            <input type="hidden" value="${song.uuid}" name="songID">
+            <div class="field-input-container">
+                <div class="field-input-name">キー</div>
+                <div class="field-input">
+                    <select name="key" id="input-key">
+                        <option value="-7">-7</option>
+                        <option value="-6">-6</option>
+                        <option value="-5">-5</option>
+                        <option value="-4">-4</option>
+                        <option value="-3">-3</option>
+                        <option value="-2">-2</option>
+                        <option value="-1">-1</option>
+                        <option value="0" selected>原曲キー</option>
+                        <option value="1">+1</option>
+                        <option value="2">+2</option>
+                        <option value="3">+3</option>
+                        <option value="4">+4</option>
+                        <option value="5">+5</option>
+                        <option value="6">+6</option>
+                        <option value="7">+7</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field-input-container">
+                <div class="field-input-name">コメント</div>
+                <div class="field-input">
+                    <textarea name="comment" id="input-comment"></textarea>
+                </div>
+            </div>
+            <div class="field-input-container">
+                <div class="field-input-name">最高得点</div>
+                <div class="field-input">
+                    <div class="field-input-name">得点</div>
+                    <div class="field-input">
+                        <input type="text" inputmode="numeric" name="score" id="input-score">
+                        <p class="input-error-mes d-none" id="score-error-mes">正しい得点を入力してください。</p>
+                    </div>
+                    <div class="field-input-name">機種</div>
+                    <div class="field-input">
+                        <select name="machineType" id="input-machine-type">
+                            <option value="" selected></option>
+                            <option value="DAM">DAM</option>
+                            <option value="JOYSOUND">JOYSOUND</option>
+                            <option value="その他">その他</option>
+                        </select>
+                        <p class="input-error-mes d-none" id="machine-type-error-mes">機種を選択してください。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-input-container">
+                <div class="field-input-name">その他</div>
+                <div class="field-input">
+                    <input type="checkbox" name="hasSung" id="input-has-sung">
+                    <label for="input-has-sung" class="pl-2 mb-2">歌ったことがある</label><br>
+                    <input type="checkbox" name="isFavorite" id="input-is-favorite">
+                    <label for="input-is-favorite" class="pl-2">お気に入り</label>
+                </div>
+            </div>
+            <div class="flex-fill"></div>
+            <div class="btn-container">
+                <button type="button" class="cancel-btn clickable">キャンセル</button>
+                <input class="submit-btn clickable" type="submit" value="登録">
+            </div>
+        </form>
+    `;
+    openFullScreenModal('音域データを更新', html, `update-history-${uuid}`);
+
+    const $form = $('#history-update-form');
+    
+    $form.find('[name="key"]').val(history.key);
+    $form.find('[name="comment"]').val(history.comment.replace(/\\n/g, '\n'));
+    $form.find('[name="score"]').val(history.score);
+    $form.find('[name="machineType"]').val(history.machineType);
+    $form.find('[name="hasSung"]').prop('checked', history.hasSung);
+    $form.find('[name="isFavorite"]').prop('checked', history.isFavorite);
+
+    // キャセルボタンを押すと閉じるように
+    $('#history-update-form .cancel-btn').on('click', function () {
+        closeFullScreenModal(fullScreenModalId, `update-history-${uuid}`);
+    });
+
+    // 得点blur時に得点の入力欄をチェック
+    $('#input-score').on('blur', function() {
+        let score = $(this).val();
+
+        // 空白を削除
+        score = score.replace(/\s/g, '');
+        // 全角数値を半角に変換
+        score = score.replace(/[０-９]/g, function (s) {
+            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        });
+
+        if(/^(\d+\.\d+|\d+|)$/.test(score)) {
+            $('#score-error-mes').addClass('d-none');
+        } else {
+            $('#score-error-mes').removeClass('d-none');
+        }
+    });
+
+    // submit時の処理
+    $('#history-update-form').submit(function () {
+        const $form = $(this);
+
+        const songID = $form.find('[name="songID"]').val();
+        const key = $form.find('[name="key"]').val() - 0;
+        let comment = $form.find('[name="comment"]').val();
+        let score = $form.find('[name="score"]').val();
+        let machineType = $form.find('[name="machineType"]').val();
+        const hasSung = $form.find('[name="hasSung"]').prop('checked');
+        const isFavorite = $form.find('[name="isFavorite"]').prop('checked');
+
+        // commentの改行を変換
+        comment = comment.replace('\n', '\\n');
+
+        // 空白を削除
+        score = score.replace(/\s/g, '');
+        // 全角数値を半角に変換
+        score = score.replace(/[０-９]/g, function (s) {
+            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        });
+
+        // 得点をチェック
+        if(!/^(\d+\.\d+|\d+|)$/.test(score)) {
+            $('#score-error-mes').removeClass('d-none');
+            return false;
+        }
+
+        if(score) {
+            if(!machineType) {
+                $('#machine-type-error-mes').removeClass('d-none');
+                return false;
+            }
+        } else {
+            machineType = '';
+        }
+        $('#score-error-mes').addClass('d-none');
+        $('#machine-type-error-mes').addClass('d-none');
+
+        // 曲のデータをセット
+        let newHistoryDict = history.toDict();
+        
+        newHistoryDict.key = key;
+        newHistoryDict.score = score;
+        newHistoryDict.machineType = machineType;
+        newHistoryDict.comment = comment;
+        newHistoryDict.hasSung = hasSung;
+        newHistoryDict.isFavorite = isFavorite;
+
+        // 曲を登録
+        history.update(newHistoryDict, () => {
+            updateDisplayedHistory(uuid)
+
+            // 追加ページを閉じる
+            closeFullScreenModal(fullScreenModalId, `update-history-${uuid}`);
+        });
+
+        return false;
+    });
 }
 
 function openAddSongPage() {
