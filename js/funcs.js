@@ -881,7 +881,7 @@ function openUpdateHistoryPage(uuid) {
             <div class="flex-fill"></div>
             <div class="btn-container">
                 <button type="button" class="cancel-btn clickable">キャンセル</button>
-                <input class="submit-btn clickable" type="submit" value="登録">
+                <input class="submit-btn clickable" type="submit" value="更新">
             </div>
         </form>
     `;
