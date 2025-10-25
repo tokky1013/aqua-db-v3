@@ -1587,7 +1587,7 @@ function updateDisplayedHistory(uuid) {
     $(`.${history.uuid}-created-at`).text(history.getCreatedAt());
     $(`.${history.uuid}-key`).text(history.getKey());
     $(`.${history.uuid}-score`).text(history.getScore());
-    $(`.${history.uuid}-comment`).text(history.getComment());
+    $(`.${history.uuid}-comment`).html(history.getComment());
     if (history.hasSung) {
         $(`.${history.uuid}-has-sung`).addClass('sung');
     } else {
