@@ -1,4 +1,4 @@
-const version = 'Ver. 0.0.4';
+const version = 'Ver. 0.0.5';
 
 const minVoiceRangeLimit = -8;
 const maxVoiceRangeLimit = 10;
@@ -466,7 +466,7 @@ $(function () {
     });
 
     // inputがフォーカスされた時にテキストを選択
-    $(document).on('focus', '.full-screen-modal-main input[type="text"]', function () {
+    $(document).on('focus', '.slide-over-main input[type="text"]', function () {
         $(this).select();
     });
     
