@@ -1,4 +1,4 @@
-const version = 'Ver. 0.0.2';
+const version = 'Ver. 0.0.3';
 
 const minVoiceRangeLimit = -8;
 const maxVoiceRangeLimit = 10;
