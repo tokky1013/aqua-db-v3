@@ -932,7 +932,7 @@ function openUpdateHistoryPage(uuid) {
         const isFavorite = $form.find('[name="isFavorite"]').prop('checked');
 
         // commentの改行を変換
-        comment = comment.replace('\n', '\\n');
+        comment = comment.replace(/\n/g, '\\n');
 
         // 空白を削除
         score = score.replace(/\s/g, '');
@@ -1481,7 +1481,7 @@ function openAddHistoryPage(songId) {
         const isFavorite = $form.find('[name="isFavorite"]').prop('checked');
 
         // commentの改行を変換
-        comment = comment.replace('\n', '\\n');
+        comment = comment.replace(/\n/g, '\\n');
 
         // 空白を削除
         score = score.replace(/\s/g, '');
