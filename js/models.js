@@ -61,7 +61,7 @@ class History extends ApiClass {
     }
     getScore() {
         if (!this.score) return '';
-        return `${this.score}点(${this.machineType})`
+        return `${this.score} 点 (${this.machineType})`
     }
     getComment() {
         let comment = sanitaize(this.comment);
