@@ -1554,6 +1554,14 @@ function openAddHistoryPage(songId) {
     });
 }
 
+function openSetTokenPage() {
+    const html = `
+    `;
+    openFullScreenModal('トークンの設定', html, 'set-token');
+
+
+    // トークンをセットしたらリロード
+}
 // ---------------------表示の更新---------------------
 // 未テスト
 function updateDisplayedSong(uuid) {
