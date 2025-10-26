@@ -1523,6 +1523,8 @@ function openAddHistoryPage(songId) {
             if (newHistory.equals(registeredHistory)) {
                 if(!confirm('同じキーのデータ登録されています。登録しますか？')) {
                     return false;
+                } else {
+                    break;
                 }
             }
         }
