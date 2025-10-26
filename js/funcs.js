@@ -824,21 +824,21 @@ function openUpdateHistoryPage(uuid) {
                 <div class="field-input-name">キー</div>
                 <div class="field-input">
                     <select name="key" id="input-key">
-                        <option value="-7">-7</option>
-                        <option value="-6">-6</option>
-                        <option value="-5">-5</option>
-                        <option value="-4">-4</option>
-                        <option value="-3">-3</option>
-                        <option value="-2">-2</option>
-                        <option value="-1">-1</option>
-                        <option value="0" selected>原曲キー</option>
-                        <option value="1">+1</option>
-                        <option value="2">+2</option>
-                        <option value="3">+3</option>
-                        <option value="4">+4</option>
-                        <option value="5">+5</option>
-                        <option value="6">+6</option>
                         <option value="7">+7</option>
+                        <option value="6">+6</option>
+                        <option value="5">+5</option>
+                        <option value="4">+4</option>
+                        <option value="3">+3</option>
+                        <option value="2">+2</option>
+                        <option value="1">+1</option>
+                        <option value="0" selected>原曲キー</option>
+                        <option value="-1">-1</option>
+                        <option value="-2">-2</option>
+                        <option value="-3">-3</option>
+                        <option value="-4">-4</option>
+                        <option value="-5">-5</option>
+                        <option value="-6">-6</option>
+                        <option value="-7">-7</option>
                     </select>
                 </div>
             </div>
@@ -853,7 +853,7 @@ function openUpdateHistoryPage(uuid) {
                 <div class="field-input">
                     <div class="field-input-name">得点</div>
                     <div class="field-input">
-                        <input type="text" name="score" id="input-score">
+                        <input type="text" name="score" id="input-score">&emsp;点
                         <p class="input-error-mes d-none" id="score-error-mes">正しい得点を入力してください。</p>
                     </div>
                     <div class="field-input-name">機種</div>
@@ -932,7 +932,7 @@ function openUpdateHistoryPage(uuid) {
         const isFavorite = $form.find('[name="isFavorite"]').prop('checked');
 
         // commentの改行を変換
-        comment = comment.replace('\n', '\\n');
+        comment = comment.replace(/\n/g, '\\n');
 
         // 空白を削除
         score = score.replace(/\s/g, '');
@@ -1382,21 +1382,21 @@ function openAddHistoryPage(songId) {
                 <div class="field-input-name">キー</div>
                 <div class="field-input">
                     <select name="key" id="input-key">
-                        <option value="-7">-7</option>
-                        <option value="-6">-6</option>
-                        <option value="-5">-5</option>
-                        <option value="-4">-4</option>
-                        <option value="-3">-3</option>
-                        <option value="-2">-2</option>
-                        <option value="-1">-1</option>
-                        <option value="0" selected>原曲キー</option>
-                        <option value="1">+1</option>
-                        <option value="2">+2</option>
-                        <option value="3">+3</option>
-                        <option value="4">+4</option>
-                        <option value="5">+5</option>
-                        <option value="6">+6</option>
                         <option value="7">+7</option>
+                        <option value="6">+6</option>
+                        <option value="5">+5</option>
+                        <option value="4">+4</option>
+                        <option value="3">+3</option>
+                        <option value="2">+2</option>
+                        <option value="1">+1</option>
+                        <option value="0" selected>原曲キー</option>
+                        <option value="-1">-1</option>
+                        <option value="-2">-2</option>
+                        <option value="-3">-3</option>
+                        <option value="-4">-4</option>
+                        <option value="-5">-5</option>
+                        <option value="-6">-6</option>
+                        <option value="-7">-7</option>
                     </select>
                 </div>
             </div>
@@ -1411,7 +1411,7 @@ function openAddHistoryPage(songId) {
                 <div class="field-input">
                     <div class="field-input-name">得点</div>
                     <div class="field-input">
-                        <input type="text" name="score" id="input-score">
+                        <input type="text" name="score" id="input-score">&emsp;点
                         <p class="input-error-mes d-none" id="score-error-mes">正しい得点を入力してください。</p>
                     </div>
                     <div class="field-input-name">機種</div>
@@ -1481,7 +1481,7 @@ function openAddHistoryPage(songId) {
         const isFavorite = $form.find('[name="isFavorite"]').prop('checked');
 
         // commentの改行を変換
-        comment = comment.replace('\n', '\\n');
+        comment = comment.replace(/\n/g, '\\n');
 
         // 空白を削除
         score = score.replace(/\s/g, '');
@@ -1557,8 +1557,8 @@ function openAddHistoryPage(songId) {
 function updateDisplayedSong(uuid) {
     const song = getSong(uuid);
 
-    $(`.${song.uuid}-song-title`).text(song.getTitle());
-    $(`.${song.uuid}-song-artist`).text(song.getArtist());
+    $(`.${song.uuid}-song-title`).html(song.getTitle());
+    $(`.${song.uuid}-song-artist`).html(song.getArtist());
     $(`.${song.uuid}-chest-min-note`).text(song.getChestMinNote());
     $(`.${song.uuid}-chest-max-note`).text(song.getChestMaxNote());
     $(`.${song.uuid}-head-min-note`).text(song.getHeadMinNote());
@@ -1577,8 +1577,8 @@ function updateDisplayedSong(uuid) {
 function updateDisplayedHistory(uuid) {
     const history = getHistory(uuid);
 
-    $(`.${history.uuid}-song-title`).text(history.song.getTitle());
-    $(`.${history.uuid}-song-artist`).text(history.song.getArtist());
+    $(`.${history.uuid}-song-title`).html(history.song.getTitle());
+    $(`.${history.uuid}-song-artist`).html(history.song.getArtist());
     $(`.${history.uuid}-chest-min-note`).text(history.getChestMinNote());
     $(`.${history.uuid}-chest-max-note`).text(history.getChestMaxNote());
     $(`.${history.uuid}-head-min-note`).text(history.getHeadMinNote());
@@ -1587,7 +1587,7 @@ function updateDisplayedHistory(uuid) {
     $(`.${history.uuid}-created-at`).text(history.getCreatedAt());
     $(`.${history.uuid}-key`).text(history.getKey());
     $(`.${history.uuid}-score`).text(history.getScore());
-    $(`.${history.uuid}-comment`).text(history.getComment());
+    $(`.${history.uuid}-comment`).html(history.getComment());
     if (history.hasSung) {
         $(`.${history.uuid}-has-sung`).addClass('sung');
     } else {
