@@ -1156,7 +1156,7 @@ input:focus+.candidates {
         margin-left: -2.5em;
         border-radius: 50%;
         border: 0.25em solid #ccc;
-        border-top-color: #333;
+        border-top-color: transparent;
         animation: spinner 1.5s linear infinite;
     }
 }
