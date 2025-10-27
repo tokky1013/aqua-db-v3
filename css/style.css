@@ -135,7 +135,7 @@ h6 {
         height: 1.1rem;
         border-radius: 50%;
         border: 0.15em solid #ccc;
-        border-top-color: transparent;
+        border-top-color: #30303080;
         animation: spinner 1.5s linear infinite;
     }
 }
@@ -1156,7 +1156,7 @@ input:focus+.candidates {
         margin-left: -2.5em;
         border-radius: 50%;
         border: 0.25em solid #ccc;
-        border-top-color: transparent;
+        border-top-color: #30303080;
         animation: spinner 1.5s linear infinite;
     }
 }
