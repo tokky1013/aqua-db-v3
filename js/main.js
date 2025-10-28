@@ -11,13 +11,21 @@ $(function () {
     // バージョンの表示
     $('.version').text(version);
 
-    // 曲のデータを取得
-    getSongs(() => {
-        setTimeout(function () {
-            // 履歴のデータを取得
-            getHistories();
-        }, 100);
-    });
+    SECRET_TOKEN = localStorage.getItem('token');
+    if (SECRET_TOKEN === null) {
+        processTokenError(false, {
+            selector: '.list',
+            html: '<div class="error-mes">トークンが不正です</div>'
+        });
+    } else {
+        // 曲のデータを取得
+        getSongs(() => {
+            setTimeout(function () {
+                // 履歴のデータを取得
+                getHistories();
+            }, 100);
+        });
+    }
 
     // 絞り込みのスライダー
     // 音域
@@ -469,21 +477,21 @@ $(function () {
     $(document).on('focus', '.slide-over-main input[type="text"]', function () {
         $(this).select();
     });
-    
+
     // 入力欄がfocusされた時に中央にスクロール
     // Slide Over
-    $(document).on('focus', '.slide-over-main input[type="text"]', function() {
+    $(document).on('focus', '.slide-over-main input[type="text"]', function () {
         const $scrollContainer = $(this).closest('.slide-over-main');
         const $inputBox = $(this).closest('.input-box');
 
-        $scrollContainer.animate({scrollTop: $inputBox.offset().top - $scrollContainer.offset().top}, 200);
+        $scrollContainer.animate({ scrollTop: $inputBox.offset().top - $scrollContainer.offset().top }, 200);
     });
     // フルスクリーンモーダル
-    $(document).on('focus', '.full-screen-modal-main input[type="text"], .full-screen-modal-main textarea', function() {
+    $(document).on('focus', '.full-screen-modal-main input[type="text"], .full-screen-modal-main textarea', function () {
         const $scrollContainer = $(this).closest('.full-screen-modal-main');
         const $inputBox = $(this).closest('.field-input-container');
 
-        $scrollContainer.animate({scrollTop: $inputBox.offset().top - $scrollContainer.offset().top}, 200);
+        $scrollContainer.animate({ scrollTop: $inputBox.offset().top - $scrollContainer.offset().top }, 200);
     });
 
     // アーティストの入力補助
@@ -511,7 +519,7 @@ $(function () {
                     hasCandidate = true;
                 }
             }
-            if(hasCandidate) {
+            if (hasCandidate) {
                 $candidates.append($div);
             }
         }

@@ -2,6 +2,7 @@
 let songs = {};
 let histories = {};
 let artists = [];
+let tokenSettingFlg = false;
 
 function getSong(uuid) {
     return songs[uuid];
@@ -97,6 +98,23 @@ function deleteSong(songId) {
                 }
             }
         });
+    }
+}
+
+function processTokenError(repeat = true, errorMsgParams = null) {
+    // すでに設定ページを開くか尋ねてて、2回目以降開かない設定ならreturn
+    if (tokenSettingFlg && !repeat) return;
+
+    // errorMsgParamsが設定されていたらメッセージを表示する
+    if (errorMsgParams !== null) $(errorMsgParams.selector).html(errorMsgParams.html);
+
+    // すでに設定ページを開いていたらreturn
+    if ($(`#full-screen-modal-${fullScreenModalId}`).data('fsm-name') === 'set-token') return;
+
+    // トークンの設定ページを開く
+    tokenSettingFlg = true;
+    if (confirm('トークンが不正です。トークンの設定ページに移動しますか？')) {
+        openSetTokenPage();
     }
 }
 // ---------------------データの表示---------------------
@@ -888,7 +906,7 @@ function openUpdateHistoryPage(uuid) {
     openFullScreenModal('音域データを更新', html, `update-history-${uuid}`);
 
     const $form = $('#history-update-form');
-    
+
     $form.find('[name="key"]').val(history.key);
     $form.find('[name="comment"]').val(history.comment.replace(/\\n/g, '\n'));
     $form.find('[name="score"]').val(history.score);
@@ -902,7 +920,7 @@ function openUpdateHistoryPage(uuid) {
     });
 
     // 得点blur時に得点の入力欄をチェック
-    $('#input-score').on('blur', function() {
+    $('#input-score').on('blur', function () {
         let score = $(this).val();
 
         // 空白を削除
@@ -912,7 +930,7 @@ function openUpdateHistoryPage(uuid) {
             return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
         });
 
-        if(/^(\d+\.\d+|\d+|)$/.test(score)) {
+        if (/^(\d+\.\d+|\d+|)$/.test(score)) {
             $('#score-error-mes').addClass('d-none');
         } else {
             $('#score-error-mes').removeClass('d-none');
@@ -942,13 +960,13 @@ function openUpdateHistoryPage(uuid) {
         });
 
         // 得点をチェック
-        if(!/^(\d+\.\d+|\d+|)$/.test(score)) {
+        if (!/^(\d+\.\d+|\d+|)$/.test(score)) {
             $('#score-error-mes').removeClass('d-none');
             return false;
         }
 
-        if(score) {
-            if(!machineType) {
+        if (score) {
+            if (!machineType) {
                 $('#machine-type-error-mes').removeClass('d-none');
                 return false;
             }
@@ -960,7 +978,7 @@ function openUpdateHistoryPage(uuid) {
 
         // 曲のデータをセット
         let newHistoryDict = history.toDict();
-        
+
         newHistoryDict.key = key;
         newHistoryDict.score = score;
         newHistoryDict.machineType = machineType;
@@ -1451,7 +1469,7 @@ function openAddHistoryPage(songId) {
     });
 
     // 得点blur時に得点の入力欄をチェック
-    $('#input-score').on('blur', function() {
+    $('#input-score').on('blur', function () {
         let score = $(this).val();
 
         // 空白を削除
@@ -1461,7 +1479,7 @@ function openAddHistoryPage(songId) {
             return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
         });
 
-        if(/^(\d+\.\d+|\d+|)$/.test(score)) {
+        if (/^(\d+\.\d+|\d+|)$/.test(score)) {
             $('#score-error-mes').addClass('d-none');
         } else {
             $('#score-error-mes').removeClass('d-none');
@@ -1491,13 +1509,13 @@ function openAddHistoryPage(songId) {
         });
 
         // 得点をチェック
-        if(!/^(\d+\.\d+|\d+|)$/.test(score)) {
+        if (!/^(\d+\.\d+|\d+|)$/.test(score)) {
             $('#score-error-mes').removeClass('d-none');
             return false;
         }
 
-        if(score) {
-            if(!machineType) {
+        if (score) {
+            if (!machineType) {
                 $('#machine-type-error-mes').removeClass('d-none');
                 return false;
             }
@@ -1509,7 +1527,7 @@ function openAddHistoryPage(songId) {
 
         // 曲のデータをセット
         let newHistory = new History();
-        
+
         newHistory.song = getSong(songID);
         newHistory.key = key;
         newHistory.score = score;
@@ -1521,7 +1539,7 @@ function openAddHistoryPage(songId) {
         // 曲が重複していないかチェック
         for (const registeredHistory of Object.values(histories)) {
             if (newHistory.equals(registeredHistory)) {
-                if(!confirm('同じキーのデータ登録されています。登録しますか？')) {
+                if (!confirm('同じキーのデータ登録されています。登録しますか？')) {
                     return false;
                 } else {
                     break;
@@ -1536,7 +1554,7 @@ function openAddHistoryPage(songId) {
 
             // リストを再表示
             filterAndSortHistories(prevHistoryConditions);
-            $(`.history-list-${songId}`).each(function() {
+            $(`.history-list-${songId}`).each(function () {
                 const $historyElem = $(getHistoryListHtml(newHistory));
                 $(this).append($historyElem);
             });
@@ -1556,11 +1574,36 @@ function openAddHistoryPage(songId) {
 
 function openSetTokenPage() {
     const html = `
+        <form class="token-form py-3" id="token-setting-form">
+            <div class="field-input-container">
+                <div class="field-input-name">トークン</div>
+                <div class="field-input">
+                    <input type="text" name="token" id="input-token">
+                </div>
+            </div>
+            <div class="btn-container mt-5">
+                <input class="submit-btn clickable" type="submit" value="適用">
+            </div>
+            <div class="flex-fill"></div>
+            <hr>
+            <div class="btn-container">
+                <button class="submit-btn del-btn clickable" type="button" onclick="if(confirm('トークンを削除しますか？')) localStorage.clear();">トークンを削除</button>
+            </div>
+        </form>
     `;
     openFullScreenModal('トークンの設定', html, 'set-token');
 
+    $('#token-setting-form').submit(function () {
+        const $form = $(this);
 
-    // トークンをセットしたらリロード
+        const token = $form.find('[name="token"]').val();
+
+        if(token) {
+            localStorage.setItem('token', token);
+            window.location.reload();
+        }
+        return false;
+    });
 }
 // ---------------------表示の更新---------------------
 // 未テスト
