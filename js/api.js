@@ -1,4 +1,4 @@
-const url = 'https://script.google.com/macros/s/AKfycbz0UOCIg7jYUBBMyyYjjR0IqE6RBbCyPX76iwBpr2DDpABnRg--JOwmr71-pASpjmd6/exec';
+const url = 'https://script.google.com/macros/s/AKfycbzV7-VqgLcytz_L94DxSDLL8Mp6tOooplgwRBRZPTL7P3lDpcBLd-iZGZtDnvOt0isy/exec';
 let SECRET_TOKEN = null;
 
 // 最初にしか実行しない設計なので、ローディングスピナーを表示する処理は書かない
