@@ -113,7 +113,7 @@ function processTokenError(repeat = true, errorMsgParams = null) {
 
     // トークンの設定ページを開く
     tokenSettingFlg = true;
-    if (confirm('トークンが不正です。トークンの設定ページに移動しますか？')) {
+    if (confirm('正しいトークンが設定されていません。トークンの設定ページに移動しますか？')) {
         openSetTokenPage();
     }
 }
