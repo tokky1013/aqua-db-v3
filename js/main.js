@@ -529,6 +529,4 @@ $(function () {
     $(document).on('keydown', '.full-screen-modal-main input', function (e) {
         if (e.key === 'Enter') e.preventDefault();
     });
-
-    // 音域データの検索
 });

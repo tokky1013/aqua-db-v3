@@ -1,3 +1,4 @@
+const closeThreshold = 150;
 // ---------------------ページ関連---------------------
 function showPage(n) {
     $(`.page[data-page-num="${n}"]`).css('display', 'block');
@@ -72,7 +73,8 @@ function closeFullScreenModal(fsmId, fsmName = null) {
     }
     if(fullScreenModalId === fsmId) fullScreenModalId--;
 
-    $fsm.removeClass('open');
+    // $fsm.removeClass('open');
+    $fsm.css('left', '100dvw');
     setTimeout(() => {
         $fsm.remove();
     }, 200);
@@ -80,7 +82,8 @@ function closeFullScreenModal(fsmId, fsmName = null) {
 
 function closeAllFullScreenModal() {
     const $fullScreenModal = $('.full-screen-modal');
-    $fullScreenModal.removeClass('open');
+    // $fullScreenModal.removeClass('open');
+    $fullScreenModal.css('left', '100dvw');
     fullScreenModalId = -1;
     setTimeout(() => {
         $fullScreenModal.remove();
@@ -111,6 +114,39 @@ $(function () {
         closeMenu();
     });
 
+    // Full-Screen Modal
+    // 左にスライドで閉じるように
+    let fsmTouchStartPos;
+    $(document).on('touchstart', '.full-screen-modal.open', function(e) {
+        fsmTouchStartPos = e.changedTouches[0].pageX;
+        $(this).css('transition', '0');
+
+        e.stopPropagation();
+    });
+
+    $(document).on('touchmove', '.full-screen-modal.open', function(e) {
+        const touchPos = e.changedTouches[0].pageX;
+
+        if(touchPos - fsmTouchStartPos > 0) {
+            $(this).css('left', (touchPos - fsmTouchStartPos) + 'px');
+        }
+
+        e.stopPropagation();
+    });
+
+    $(document).on('touchend', '.full-screen-modal.open', function(e) {
+        const touchPos = e.changedTouches[0].pageX;
+        $(this).css('transition', '0.2s');
+
+        if(touchPos - fsmTouchStartPos > closeThreshold) {
+            closeFullScreenModal(fullScreenModalId);
+        } else {
+            $(this).css('left', '0');
+        }
+
+        e.stopPropagation();
+    });
+
     // メニューを開いた時にスクロールしないようにする
     document.getElementById('mask').addEventListener('wheel', (e) => {
         e.preventDefault();
@@ -126,41 +162,6 @@ $(function () {
     }, { passive: false });
 
     // ヘッダーの表示・非表示の切り替え
-    // $(window).on('scroll', () => {
-    //     const selectElement = document.querySelector('header');
-    //     const selectStyle = getComputedStyle(selectElement);
-    //     const styleValue = String(selectStyle.getPropertyValue('--header-height')).trim();
-    //     const headerHeight = styleValue.replace('px', '') - 0;
-
-    //     const scrollHeight = $(this).scrollTop();
-    //     if (scrollHeight > headerHeight) {
-    //         $('header').addClass('hidden');
-    //         $('.toggle-btn').addClass('hidden');
-    //     } else {
-    //         $('header').removeClass('hidden');
-    //         $('.toggle-btn').removeClass('hidden');
-    //     }
-    // });
-
-    // let lastScrollY = $(window).scrollTop();
-    // const threshold = 50;
-
-    // $(window).on('scroll', function () {
-    //     const currentScrollY = $(this).scrollTop();
-    //     const diff = currentScrollY - lastScrollY;
-
-    //     if (Math.abs(diff) > threshold) {
-    //         if (diff > 0) {
-    //             $('header').addClass('hidden');
-    //             $('.toggle-btn').addClass('hidden');
-    //         } else {
-    //             $('header').removeClass('hidden');
-    //             $('.toggle-btn').removeClass('hidden');
-    //         }
-    //         lastScrollY = currentScrollY;
-    //     }
-    // });
-
     let lastScrollY = [
         $('.page[data-page-num="0"]').scrollTop(),
         $('.page[data-page-num="1"]').scrollTop(),
