@@ -124,11 +124,16 @@ $(function () {
         e.stopPropagation();
     });
 
+    let fsmMoving = false;
     $(document).on('touchmove', '.full-screen-modal.open', function(e) {
         const touchPos = e.changedTouches[0].pageX;
-
-        if(touchPos - fsmTouchStartPos > 0) {
+        const threshold = 30;
+        
+        if(touchPos - fsmTouchStartPos > threshold || (fsmMoving && touchPos - fsmTouchStartPos > 0)) {
             $(this).css('left', (touchPos - fsmTouchStartPos) + 'px');
+            fsmMoving = true;
+        }else {
+            fsmMoving = false;
         }
 
         e.stopPropagation();
